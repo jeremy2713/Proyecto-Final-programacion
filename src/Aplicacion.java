@@ -25,25 +25,65 @@ public class Aplicacion {
 		return clientes;
 	}
 
-	public void setClientes(ArrayList<Cliente> clientes) {
-		this.clientes = clientes;
+	public void agregarComponente(Componente componente) {
+		componentes.add(componente);
 	}
 
 	public ArrayList<Factura> getFacturas() {
 		return facturas;
 	}
 
-	public void setFacturas(ArrayList<Factura> facturas) {
-		this.facturas = facturas;
+	public void agregarFactura(Factura factura) {
+		facturas.add(factura);
 	}
 
 	public ArrayList<Componente> getComponentes() {
 		return componentes;
 	}
 
-	public void setComponentes(ArrayList<Componente> componentes) {
-		this.componentes = componentes;
+	public void agregarCliente(Cliente cliente) {
+		clientes.add(cliente);
 	}
+	public Cliente buscarClientePorCodigo(String codigo) {
+		Cliente client = null;
+		int i = 0;
+		while(i < clientes.size()) {
+			if(clientes.get(i).getCodigo().equalsIgnoreCase(codigo)) {
+				client = clientes.get(i);
+				break;
+			}
+			i++;
+		}
+		return client;
+			
+	}
+	public Factura buscarFacturaPorCodigo(String codigo) {
+		Factura factura = null;
+		int i = 0;
+		while(i < facturas.size()) {
+			if(facturas.get(i).getCodigo().equalsIgnoreCase(codigo)) {
+				factura = facturas.get(i);
+				break;
+			}
+			i++;
+		}
+		return factura;
+			
+	}
+	public Componente buscarComponentePorCodigo(String codigo) {
+		Componente component = null;
+		int i = 0;
+		while(i < componentes.size()) {
+			if(componentes.get(i).getBarcode().equalsIgnoreCase(codigo)) {
+				component = componentes.get(i);
+				break;
+			}
+			i++;
+		}
+		return component;
+			
+	}
+	
 	
 	
 	

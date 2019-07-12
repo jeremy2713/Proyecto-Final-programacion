@@ -1,11 +1,12 @@
 
 public class Cliente {
-	String nombre;
-	String codigo;
-	Float credito;
-	String direccion;
 	
-	public Cliente(String nombre, String codigo, Float credito, String direccion) {
+	private String nombre;
+	private String codigo;
+	private float credito;
+	private String direccion;
+	
+	public Cliente(String nombre, String codigo, float credito, String direccion) {
 		super();
 		this.nombre = nombre;
 		this.codigo = codigo;
@@ -29,7 +30,7 @@ public class Cliente {
 		this.codigo = codigo;
 	}
 
-	public Float getCredito() {
+	public float getCredito() {
 		return credito;
 	}
 
