@@ -6,13 +6,16 @@ public class Factura {
 	private float preciototal;
 	private ArrayList<Componente> miscomponentes;
 	private Cliente elcliente;
+	private Float creditorestente;//cuando el cliente compre algo en esta variable sale el credito que le queda
 	
-	public Factura(String codigo, float preciototal, ArrayList<Componente> miscomponentes, Cliente elcliente) {
+	public Factura(String codigo, float preciototal, ArrayList<Componente> miscomponentes, Cliente elcliente,
+			Float creditorestente) {
 		super();
 		this.codigo = codigo;
 		this.preciototal = preciototal;
 		this.miscomponentes = miscomponentes;
 		this.elcliente = elcliente;
+		this.creditorestente = creditorestente;
 	}
 
 	public String getCodigo() {
@@ -46,6 +49,17 @@ public class Factura {
 	public void setElcliente(Cliente elcliente) {
 		this.elcliente = elcliente;
 	}
+
+	public Float getCreditorestente() {
+		return creditorestente;
+	}
+
+	public void setCreditorestente(Float creditorestente) {
+		this.creditorestente = creditorestente;
+	}
+	
+
+	
 	
 	
 	

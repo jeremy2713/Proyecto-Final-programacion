@@ -1,6 +1,8 @@
 package Logico;
 import java.util.ArrayList;
 
+
+
 public class Aplicacion {
 	private static Aplicacion aplicacion=null;
 	private ArrayList<Cliente> clientes;
@@ -45,7 +47,8 @@ public class Aplicacion {
 	public void agregarCliente(Cliente cliente) {
 		clientes.add(cliente);
 	}
-	public Cliente buscarClientePorCodigo(String codigo) {
+	
+	public Cliente BuscarClientePorCodigo(String codigo) {
 		Cliente client = null;
 		int i = 0;
 		while(i < clientes.size()) {
@@ -58,7 +61,7 @@ public class Aplicacion {
 		return client;
 			
 	}
-	public Factura buscarFacturaPorCodigo(String codigo) {
+	public Factura BuscarFacturaPorCodigo(String codigo) {
 		Factura factura = null;
 		int i = 0;
 		while(i < facturas.size()) {
@@ -71,7 +74,18 @@ public class Aplicacion {
 		return factura;
 			
 	}
-	public Componente buscarComponentePorCodigo(String codigo) {
+	
+	public ArrayList<Factura> BuscarFacturaByCliente(String codigo) {
+    	ArrayList<Factura> lasFacturas= new ArrayList();
+    	for (Factura aux : facturas) {
+			if (aux.getElcliente().getCodigo().equalsIgnoreCase(codigo)){
+				lasFacturas.add(aux);
+			}
+		}
+    	return lasFacturas;
+    }
+	
+	public Componente BuscarComponentePorCodigo(String codigo) {
 		Componente component = null;
 		int i = 0;
 		while(i < componentes.size()) {
