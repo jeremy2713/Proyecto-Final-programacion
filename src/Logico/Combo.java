@@ -1,18 +1,23 @@
 package Logico;
 
 public class Combo{
+	private String codigoCombo;
 	private Memoriaram memoriaRAM;
 	private Discoduro discoDuro;
 	private Microprocesadores cpu;
 	private Tarjetamadre motherBoard;
 	private float precioTotal;
 
-	public Combo(Memoriaram memoriaRAM, Discoduro discoDuro, Microprocesadores cpu, Tarjetamadre motherBoard) {
+	public Combo(String codigoCombo,Memoriaram memoriaRAM, Discoduro discoDuro, Microprocesadores cpu, Tarjetamadre motherBoard) {
+		this.codigoCombo = codigoCombo;
 		this.memoriaRAM = memoriaRAM;
 		this.discoDuro = discoDuro;
 		this.cpu = cpu;
 		this.motherBoard = motherBoard;
 		precioTotal = (float) ((memoriaRAM.getPrecio() + discoDuro.getPrecio() + cpu.getPrecio() + motherBoard.getPrecio()) * 0.80);
+	}
+	public String getCodigoCombo() {
+		return codigoCombo;
 	}
 	public Memoriaram getMemoriaRAM() {
 		return memoriaRAM;

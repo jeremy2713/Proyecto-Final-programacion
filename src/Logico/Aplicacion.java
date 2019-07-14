@@ -8,18 +8,32 @@ public class Aplicacion {
 	private ArrayList<Cliente> clientes;
 	private ArrayList<Factura> facturas;
 	private ArrayList<Componente> componentes;
-	
-	public Aplicacion(ArrayList<Cliente> clientes, ArrayList<Factura> facturas, ArrayList<Componente> componentes) {
+	private ArrayList<Combo> combos;
+	private static Aplicacion miAplicacion;
+	private Aplicacion() {
 		super();
 		this.clientes = new ArrayList<>();
 		this.facturas = new ArrayList<>();
 		this.componentes = new ArrayList<>();
+		this.combos = new ArrayList<>();
 	}
-
+	public static Aplicacion getInstance() {
+		if(miAplicacion == null) {
+			miAplicacion = new Aplicacion();
+		}
+		
+		return miAplicacion;
+	}
+	public static void setInstance(Aplicacion aplicacion) {
+		if(miAplicacion == null) {
+			miAplicacion = aplicacion;
+		}
+	}
+	
 	public static Aplicacion getAplicacion() {
 		return aplicacion;
 	}
-
+	
 	public static void setAplicacion(Aplicacion aplicacion) {
 		Aplicacion.aplicacion = aplicacion;
 	}
@@ -27,7 +41,9 @@ public class Aplicacion {
 	public ArrayList<Cliente> getClientes() {
 		return clientes;
 	}
-
+	public void agregarCombo(Combo combo) {
+		combos.add(combo);
+	}
 	public void agregarComponente(Componente componente) {
 		componentes.add(componente);
 	}
@@ -75,14 +91,15 @@ public class Aplicacion {
 			
 	}
 	
-	public ArrayList<Factura> buscarFacturaByCliente(String codigo) {
-    	ArrayList<Factura> lasFacturas= new ArrayList();
-    	for (Factura aux : facturas) {
-			if (aux.getElcliente().getCodigo().equalsIgnoreCase(codigo)){
-				lasFacturas.add(aux);
-			}
-		}
-    	return lasFacturas;
+	public ArrayList<Factura> buscarFacturasByCliente(String codigo) {
+    	ArrayList<Factura> facturas= null;
+    	for(Cliente aux : clientes) {
+    		if(aux.getCodigo().equalsIgnoreCase(codigo)) {
+    			facturas = aux.getFacturas();
+    			break;
+    		}
+    	}
+    	return facturas;
     }
 	
 	public Componente buscarComponentePorCodigo(String codigo) {
@@ -97,6 +114,19 @@ public class Aplicacion {
 		}
 		return component;
 			
+	}
+	public Combo buscarComboPorCodigo(String codigo) {
+		Combo combo = null;
+		int i = 0;
+		while(i < combos.size()) {
+			if(combos.get(i).getCodigoCombo().equalsIgnoreCase(codigo)) {
+				combo = combos.get(i);
+				break;
+			}
+			i++;
+		}
+		
+		return combo;
 	}
 	
 	

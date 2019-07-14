@@ -1,11 +1,14 @@
 package Logico;
 
+import java.util.ArrayList;
+
 public class Cliente {
 	
 	private String nombre;
 	private String codigo;
 	private float credito;
 	private String direccion;
+	private ArrayList<Factura> facturas;
 	
 	public Cliente(String nombre, String codigo, float credito, String direccion) {
 		super();
@@ -13,7 +16,9 @@ public class Cliente {
 		this.codigo = codigo;
 		this.credito = credito;
 		this.direccion = direccion;
+		this.facturas = new ArrayList<>();
 	}
+	
 
 	public String getNombre() {
 		return nombre;
@@ -45,6 +50,12 @@ public class Cliente {
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
+	}
+	public void agregarFactura(Factura factura) {
+		facturas.add(factura);
+	}
+	public ArrayList<Factura> getFacturas() {
+		return facturas;
 	}
 	
 	
