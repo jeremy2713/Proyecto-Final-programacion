@@ -3,8 +3,7 @@ package Logico;
 public class Componente {
 	protected float precio;
 	protected int cantidad_disponible;
-	//"barcode" es el que dice numero de serie
-	protected String barcode;
+	protected String barcode; //"barcode" es el que dice numero de serie
 	protected String marca;
 	protected String modelo;
 	

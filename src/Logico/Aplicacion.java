@@ -48,7 +48,7 @@ public class Aplicacion {
 		clientes.add(cliente);
 	}
 	
-	public Cliente BuscarClientePorCodigo(String codigo) {
+	public Cliente buscarClientePorCodigo(String codigo) {
 		Cliente client = null;
 		int i = 0;
 		while(i < clientes.size()) {
@@ -61,7 +61,7 @@ public class Aplicacion {
 		return client;
 			
 	}
-	public Factura BuscarFacturaPorCodigo(String codigo) {
+	public Factura buscarFacturaPorCodigo(String codigo) {
 		Factura factura = null;
 		int i = 0;
 		while(i < facturas.size()) {
@@ -75,7 +75,7 @@ public class Aplicacion {
 			
 	}
 	
-	public ArrayList<Factura> BuscarFacturaByCliente(String codigo) {
+	public ArrayList<Factura> buscarFacturaByCliente(String codigo) {
     	ArrayList<Factura> lasFacturas= new ArrayList();
     	for (Factura aux : facturas) {
 			if (aux.getElcliente().getCodigo().equalsIgnoreCase(codigo)){
@@ -85,7 +85,7 @@ public class Aplicacion {
     	return lasFacturas;
     }
 	
-	public Componente BuscarComponentePorCodigo(String codigo) {
+	public Componente buscarComponentePorCodigo(String codigo) {
 		Componente component = null;
 		int i = 0;
 		while(i < componentes.size()) {
