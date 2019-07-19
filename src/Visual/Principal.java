@@ -1,4 +1,4 @@
-package Visual;
+  package Visual;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -10,6 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Logico.Aplicacion;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class Principal extends JDialog {
 
@@ -55,6 +58,30 @@ public class Principal extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
+			}
+		}
+		{
+			JMenuBar menuBar = new JMenuBar();
+			setJMenuBar(menuBar);
+			{
+				JMenu mnClientes = new JMenu("Clientes");
+				menuBar.add(mnClientes);
+			}
+			{
+				JMenu mnComponente = new JMenu("Componente");
+				menuBar.add(mnComponente);
+				{
+					JMenuItem mntmRegistrarComponente = new JMenuItem("Registrar Componente");
+					mnComponente.add(mntmRegistrarComponente);
+				}
+				{
+					JMenuItem mntmListarComponentes = new JMenuItem("Listar Componentes");
+					mnComponente.add(mntmListarComponentes);
+				}
+			}
+			{
+				JMenu mnFacturas = new JMenu("Facturas");
+				menuBar.add(mnFacturas);
 			}
 		}
 	}
