@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class Cliente {
 	
-	private String nombre;
-	private String codigo;
-	private float credito;
-	private String direccion;
-	private ArrayList<Factura> facturas;
+	protected String nombre;
+	protected String codigo;
+	protected float credito;
+	protected String direccion;
+	protected ArrayList<Factura> facturas;
 	
 	public Cliente(String nombre, String codigo, float credito, String direccion) {
 		super();
