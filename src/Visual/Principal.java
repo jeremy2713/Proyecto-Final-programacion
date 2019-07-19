@@ -1,89 +1,78 @@
-  package Visual;
+package Visual;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.EventQueue;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Logico.Aplicacion;
+import img.ImagenFondoPrincipal;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-public class Principal extends JDialog {
+public class Principal extends JFrame {
 
-	private final JPanel contentPanel = new JPanel();
+	private JPanel contentPane;
 	private Dimension dim;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try {
-			Principal dialog = new Principal();
-			Aplicacion aplicacion = Aplicacion.getAplicacion();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ImagenFondoPrincipal p = new ImagenFondoPrincipal("/img/Fondo.jpeg");
+					Principal frame = new Principal();
+					frame.setVisible(true);
+					frame.getContentPane().add(p);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
+
 	/**
-	 * Create the dialog.
+	 * Create the frame.
 	 */
 	public Principal() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setLayout(new FlowLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setBounds(100, 100, 450, 300);
 		dim = super.getToolkit().getScreenSize();
 		super.setSize(dim.width,(dim.height - 50));
 		setLocationRelativeTo(null);
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
-		}
-		{
-			JMenuBar menuBar = new JMenuBar();
-			setJMenuBar(menuBar);
-			{
-				JMenu mnClientes = new JMenu("Clientes");
-				menuBar.add(mnClientes);
-			}
-			{
-				JMenu mnComponente = new JMenu("Componente");
-				menuBar.add(mnComponente);
-				{
-					JMenuItem mntmRegistrarComponente = new JMenuItem("Registrar Componente");
-					mnComponente.add(mntmRegistrarComponente);
-				}
-				{
-					JMenuItem mntmListarComponentes = new JMenuItem("Listar Componentes");
-					mnComponente.add(mntmListarComponentes);
-				}
-			}
-			{
-				JMenu mnFacturas = new JMenu("Facturas");
-				menuBar.add(mnFacturas);
-			}
-		}
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnClientes = new JMenu("Clientes");
+		menuBar.add(mnClientes);
+		
+		JMenu mnComponentes = new JMenu("Componentes");
+		menuBar.add(mnComponentes);
+		
+		JMenuItem mntmRegistrarComponente = new JMenuItem("Registrar Componente");
+		mnComponentes.add(mntmRegistrarComponente);
+		
+		JMenuItem mntmListarComponente = new JMenuItem("Listar Componente");
+		mnComponentes.add(mntmListarComponente);
+		
+		JMenuItem mntmCrearCombo = new JMenuItem("Crear Combo");
+		mnComponentes.add(mntmCrearCombo);
+		
+		JMenu mnFacturas = new JMenu("Facturas");
+		menuBar.add(mnFacturas);
+		
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
 	}
 
 }
