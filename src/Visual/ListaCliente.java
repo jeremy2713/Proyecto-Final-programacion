@@ -32,7 +32,7 @@ public class ListaCliente extends JDialog {
 	private static Object[] fila;
 	private JButton btnEliminar;
 	private String nombreCliente = "";
-	private static Aplicacion miApp;
+
 
 	/**
 	 * Launch the application.
@@ -50,8 +50,8 @@ public class ListaCliente extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ListaCliente(Aplicacion app) {
-		this.miApp = app;
+	public ListaCliente() {
+		
 		setResizable(false);
 		setTitle("Listado de clientes");
 		setBounds(100, 100, 450, 300);
@@ -98,7 +98,7 @@ public class ListaCliente extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					int fila = table.getSelectedRow();
 					String codigo= (String)table.getValueAt(fila, 0);
-					Cliente C1=Aplicacion.getInstance().buscarClientePorCodigo(codigo);
+					Cliente C1= Aplicacion.getInstance().buscarClientePorCodigo(codigo);
 					Aplicacion.getInstance().getClientes().remove(C1);
 					loadClientes();
 				}

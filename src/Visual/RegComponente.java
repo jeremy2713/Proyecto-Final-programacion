@@ -47,24 +47,7 @@ public class RegComponente extends JDialog {
 	private JTextField textField_precio;
 	private JTextField textField_cantidad;
 	
-	
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			RegComponente dialog = new RegComponente();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
 	public RegComponente() {
 		setResizable(false);
 		setTitle("Registrar Componente");

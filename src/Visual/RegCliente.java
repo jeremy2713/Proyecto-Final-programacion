@@ -43,7 +43,7 @@ public class RegCliente extends JDialog {
 	 * @param nombreCliente 
 	 * @param app 
 	 */
-	public RegCliente(Aplicacion app, String nombreCliente) {
+	public RegCliente(String nombreCliente) {
 		setResizable(false);
 		setTitle("Registrar Cliente");
 		setBounds(100, 100, 450, 275);

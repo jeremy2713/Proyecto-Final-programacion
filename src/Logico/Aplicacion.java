@@ -10,6 +10,7 @@ public class Aplicacion {
 	private ArrayList<Componente> componentes;
 	private ArrayList<Combo> combos;
 	private static Aplicacion miAplicacion;
+	
 	private Aplicacion() {
 		super();
 		this.clientes = new ArrayList<>();
@@ -21,7 +22,6 @@ public class Aplicacion {
 		if(miAplicacion == null) {
 			miAplicacion = new Aplicacion();
 		}
-		
 		return miAplicacion;
 	}
 	public static void setInstance(Aplicacion aplicacion) {
