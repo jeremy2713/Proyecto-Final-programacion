@@ -8,16 +8,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Logico.Aplicacion;
 import img.ImagenFondoPrincipal;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
 	private Dimension dim;
+	private Aplicacion app;
 
 	/**
 	 * Launch the application.
@@ -54,6 +58,28 @@ public class Principal extends JFrame {
 		JMenu mnClientes = new JMenu("Clientes");
 		menuBar.add(mnClientes);
 		
+		JMenuItem mntmRegistrarCliente = new JMenuItem("Registrar Cliente");
+		mntmRegistrarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegCliente Regc = new RegCliente(app,"");
+				Regc.setModal(true);
+				Regc.setLocationRelativeTo(null);
+				Regc.setVisible(true);
+			}
+		});
+		mnClientes.add(mntmRegistrarCliente);
+		
+		JMenuItem mntmListaDeCliente = new JMenuItem("Lista De Cliente");
+		mntmListaDeCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListaCliente Listc = new ListaCliente(app);
+				Listc.setModal(true);
+				Listc.setLocationRelativeTo(null);
+				Listc.setVisible(true);
+			}
+		});
+		mnClientes.add(mntmListaDeCliente);
+		
 		JMenu mnComponentes = new JMenu("Componentes");
 		menuBar.add(mnComponentes);
 		
@@ -68,6 +94,9 @@ public class Principal extends JFrame {
 		
 		JMenu mnFacturas = new JMenu("Facturas");
 		menuBar.add(mnFacturas);
+		
+		JMenu mnPedido = new JMenu("Pedido");
+		menuBar.add(mnPedido);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
