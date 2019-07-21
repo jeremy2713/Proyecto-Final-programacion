@@ -29,15 +29,6 @@ public class Aplicacion {
 			miAplicacion = aplicacion;
 		}
 	}
-	
-	public static Aplicacion getAplicacion() {
-		return aplicacion;
-	}
-	
-	public static void setAplicacion(Aplicacion aplicacion) {
-		Aplicacion.aplicacion = aplicacion;
-	}
-
 	public ArrayList<Cliente> getClientes() {
 		return clientes;
 	}
