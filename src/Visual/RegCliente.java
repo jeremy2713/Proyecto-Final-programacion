@@ -118,7 +118,7 @@ public class RegCliente extends JDialog {
 						float credito = Float.parseFloat(spnCredito.getValue().toString());
 						i = new Cliente(codigo, nombre, cedula, credito, direccion);
 						Aplicacion.getInstance().agregarCliente(i);
-						JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Información", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Informaciï¿½n", JOptionPane.INFORMATION_MESSAGE);
 						Clean();
 					}
 				});
