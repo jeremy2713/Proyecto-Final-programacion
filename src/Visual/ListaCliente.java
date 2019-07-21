@@ -76,6 +76,14 @@ public class ListaCliente extends JDialog {
 					}
 				});
 				{
+					btnModificar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							Cliente client = Aplicacion.getInstance().buscarClientePorCodigo(selecte);
+							RegCliente regcliente = new RegCliente(client);
+							regcliente.setModal(true);
+							regcliente.setVisible(true);
+						}
+					});
 					
 					btnModificar.setEnabled(false);
 					buttonPane.add(btnModificar);
