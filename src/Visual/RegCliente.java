@@ -10,92 +10,98 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import Logico.Aplicacion;
+import Logico.Cliente;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 public class RegCliente extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField_nombre;
-	private JTextField textField_codigo;
-	private JTextField textField_direccion;
-	private JTextField textField_credito;
+	private JTextField txtNombre = new JTextField();
+	private JTextField txtCodigo = new JTextField();
+	private JTextField txtDireccion = new JTextField();
+	private JTextField txtCedula = new JTextField();
+	private JSpinner spnCredito = new JSpinner();
 
-	/**
-	 * Launch the application.
-	 *//*
-	public static void main(String[] args) {
-		try {
-			RegCliente dialog = new RegCliente();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
+	public RegCliente(Cliente cliente) {
+		if(cliente != null) {
+			txtCodigo.setText(cliente.getCodigo());
+			txtNombre.setText(cliente.getNombre());
+			txtCedula.setText(cliente.getCedula());
+			txtDireccion.setText(cliente.getDireccion());
+			spnCredito.setValue(cliente.getCredito());
+			setTitle("Modificar Cliente");
 		}
-	}
-*/
-	/**
-	 * Create the dialog.
-	 * @param nombreCliente 
-	 * @param app 
-	 */
-	public RegCliente(Aplicacion app, String nombreCliente) {
+		else {
+			txtCodigo.setText("C-1");
+			setTitle("Registrar Cliente");
+		}
 		setResizable(false);
-		setTitle("Registrar Cliente");
-		setBounds(100, 100, 450, 275);
+		
+		setBounds(100, 100, 447, 232);
 		getContentPane().setLayout(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
+		contentPanel.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel_informacion_del_cliente = new JPanel();
-		panel_informacion_del_cliente.setBorder(new TitledBorder(null, "Informacion del cliente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_informacion_del_cliente.setBounds(10, 11, 414, 206);
-		contentPanel.add(panel_informacion_del_cliente);
-		panel_informacion_del_cliente.setLayout(null);
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBorder(new TitledBorder(null, "Informacion del cliente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPanel.add(panel, BorderLayout.CENTER);
 		
-		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(10, 29, 109, 24);
-		panel_informacion_del_cliente.add(lblNombre);
+		JLabel label = new JLabel("Nombre");
+		label.setBounds(10, 64, 58, 24);
+		panel.add(label);
 		
-		textField_nombre = new JTextField();
-		textField_nombre.setBounds(169, 31, 141, 20);
-		panel_informacion_del_cliente.add(textField_nombre);
-		textField_nombre.setColumns(10);
 		
-		JLabel lblCodigo = new JLabel("Codigo");
-		lblCodigo.setBounds(10, 64, 109, 24);
-		panel_informacion_del_cliente.add(lblCodigo);
-	
-		textField_codigo = new JTextField();
-		textField_codigo.setEditable(false);
-		textField_codigo.setText("C-"+(Aplicacion.getInstance().getClientes().size()+1));
-		textField_codigo.setBounds(169, 66, 141, 20);
-		panel_informacion_del_cliente.add(textField_codigo);
-		textField_codigo.setColumns(10);
+		txtNombre.setColumns(10);
+		txtNombre.setBounds(78, 66, 232, 20);
+		panel.add(txtNombre);
 		
-		JLabel lblDireccion = new JLabel("Direccion");
-		lblDireccion.setBounds(10, 99, 109, 24);
-		panel_informacion_del_cliente.add(lblDireccion);
+		JLabel label_1 = new JLabel("Codigo");
+		label_1.setBounds(10, 29, 58, 24);
+		panel.add(label_1);
 		
-		JLabel lblCredito = new JLabel("Credito");
-		lblCredito.setBounds(10, 134, 109, 24);
-		panel_informacion_del_cliente.add(lblCredito);
 		
-		textField_direccion = new JTextField();
-		textField_direccion.setBounds(169, 101, 141, 20);
-		panel_informacion_del_cliente.add(textField_direccion);
-		textField_direccion.setColumns(10);
 		
-		textField_credito = new JTextField();
-		textField_credito.setBounds(169, 136, 141, 20);
-		panel_informacion_del_cliente.add(textField_credito);
-		textField_credito.setColumns(10);
+		txtCodigo.setEditable(false);
+		txtCodigo.setColumns(10);
+		txtCodigo.setBounds(78, 31, 58, 20);
+		panel.add(txtCodigo);
+		
+		JLabel label_2 = new JLabel("Direccion");
+		label_2.setBounds(10, 124, 58, 24);
+		panel.add(label_2);
+		
+		JLabel label_3 = new JLabel("Credito");
+		label_3.setBounds(259, 94, 51, 24);
+		panel.add(label_3);
+		
+		
+		txtDireccion.setColumns(10);
+		txtDireccion.setBounds(78, 126, 305, 20);
+		panel.add(txtDireccion);
+		
+		JLabel lblCedula = new JLabel("Cedula");
+		lblCedula.setBounds(10, 99, 46, 14);
+		panel.add(lblCedula);
+		
+		
+		txtCedula.setBounds(78, 97, 171, 20);
+		panel.add(txtCedula);
+		txtCedula.setColumns(10);
+		
+		
+		spnCredito.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
+		spnCredito.setBounds(327, 96, 79, 20);
+		panel.add(spnCredito);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -104,14 +110,15 @@ public class RegCliente extends JDialog {
 				JButton okButton = new JButton("Registrar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Logico.Cliente i = null;
-						String nombre = textField_nombre.getText();
-						String direccion = textField_direccion.getText();
-						String codigo = textField_codigo.getText();
-						float credito = Float.parseFloat(textField_credito.getText());
-						i = new Logico.Cliente(nombre, codigo, credito, direccion);
+						Cliente i = null;
+						String nombre = txtNombre.getText();
+						String direccion = txtDireccion.getText();
+						String cedula = txtCedula.getText();
+						String codigo = txtCodigo.getText();
+						float credito = Float.parseFloat(spnCredito.getValue().toString());
+						i = new Cliente(codigo, nombre, cedula, credito, direccion);
 						Aplicacion.getInstance().agregarCliente(i);
-						JOptionPane.showMessageDialog(null, "Cliente Registrado", "Información", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Información", JOptionPane.INFORMATION_MESSAGE);
 						Clean();
 					}
 				});
@@ -132,10 +139,11 @@ public class RegCliente extends JDialog {
 		}
 	}
 	private void Clean() {
-		textField_credito.setText("");
-		textField_direccion.setText("");
-		textField_nombre.setText("");
-		textField_codigo.setText("C-"+(Aplicacion.getInstance().getClientes().size()+1));	
+		txtNombre.setText("");
+		txtDireccion.setText("");
+		txtCedula.setText("");
+		spnCredito.setValue(0);
+		txtCodigo.setText("C-"+(Aplicacion.getInstance().getClientes().size()+1));	
 		
 	}
 }

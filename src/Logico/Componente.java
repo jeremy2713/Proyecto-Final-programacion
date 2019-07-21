@@ -36,10 +36,6 @@ public class Componente {
 		return barcode;
 	}
 
-	public void setBarcode(String barcode) {
-		this.barcode = barcode;
-	}
-
 	public String getMarca() {
 		return marca;
 	}

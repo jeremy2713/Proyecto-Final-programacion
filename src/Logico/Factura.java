@@ -6,40 +6,31 @@ public class Factura {
 	private float preciototal;
 	private ArrayList<Componente> miscomponentes;
 	private Cliente elcliente;
-	private Float creditorestente;//cuando el cliente compre algo en esta variable sale el credito que le queda
 	
-	public Factura(String codigo, float preciototal, ArrayList<Componente> miscomponentes, Cliente elcliente,
-			Float creditorestente) {
+	public Factura(String codigo, float preciototal, ArrayList<Componente> miscomponentes, Cliente elcliente) {
 		super();
 		this.codigo = codigo;
 		this.preciototal = preciototal;
 		this.miscomponentes = miscomponentes;
 		this.elcliente = elcliente;
-		this.creditorestente = creditorestente;
 	}
 
 	public String getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
 
 	public float getPreciototal() {
 		return preciototal;
 	}
 
-	public void setPreciototal(float preciototal) {
-		this.preciototal = preciototal;
-	}
 
 	public ArrayList<Componente> getMiscomponentes() {
 		return miscomponentes;
 	}
 
-	public void setMiscomponentes(ArrayList<Componente> miscomponentes) {
-		this.miscomponentes = miscomponentes;
+	public void agregarComponente(Componente componente) {
+		miscomponentes.add(componente);
 	}
 
 	public Cliente getElcliente() {
@@ -50,18 +41,5 @@ public class Factura {
 		this.elcliente = elcliente;
 	}
 
-	public Float getCreditorestente() {
-		return creditorestente;
-	}
-
-	public void setCreditorestente(Float creditorestente) {
-		this.creditorestente = creditorestente;
-	}
-	
-
-	
-	
-	
-	
 	
 }

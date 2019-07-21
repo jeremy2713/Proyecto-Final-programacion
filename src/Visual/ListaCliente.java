@@ -2,7 +2,9 @@ package Visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.ScrollPane;
+import java.awt.SystemColor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -15,13 +17,7 @@ import Logico.Cliente;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.Scrollable;
-
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 public class ListaCliente extends JDialog {
@@ -30,104 +26,98 @@ public class ListaCliente extends JDialog {
 	private JTable table;
 	private static DefaultTableModel model;
 	private static Object[] fila;
-	private JButton btnEliminar;
-	private String nombreCliente = "";
-	private static Aplicacion miApp;
+	public String selecte;
+	private JButton btnModificar = new JButton("Modificar");
+	private JButton btnVerFacturas = new JButton("Ver Facturas");
 
-	/**
-	 * Launch the application.
-	 *//*
-	public static void main(String[] args) {
-		try {
-			ListaCliente dialog = new ListaCliente();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-*/
-	/**
-	 * Create the dialog.
-	 */
-	public ListaCliente(Aplicacion app) {
-		this.miApp = app;
-		setResizable(false);
-		setTitle("Listado de clientes");
+	public ListaCliente() {
+		setTitle("Listar Clientes");
 		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
-		
-			JPanel panel = new JPanel();
-			panel.setBounds(10, 11, 424, 216);
-			contentPanel.add(panel);
-			panel.setLayout(null);
-			
-				JScrollPane scrollPane = new JScrollPane();
-				scrollPane.addMouseListener(new MouseAdapter() {
+		contentPanel.setLayout(new BorderLayout(0, 0));
+		{
+			JScrollPane scrollPane = new JScrollPane();
+			contentPanel.add(scrollPane, BorderLayout.CENTER);
+			{	
+				table = new JTable();
+				table.setBackground(SystemColor.info);
+				table.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						if(table.getSelectedRow()>=0){
-							int index = table.getSelectedRow();
-							btnEliminar.setEnabled(true);
-							nombreCliente = (String) table.getValueAt(index, 0);
+						int index = table.getSelectedRow();
+						if(index >= 0) {
+							btnVerFacturas.setEnabled(true);
+							btnModificar.setEnabled(true);
+							selecte = table.getValueAt(index, 0).toString();
 						}
 					}
 				});
-				scrollPane.setBounds(10, 11, 404, 194);
-				panel.add(scrollPane);
-			
-			String[] columns = {"Codigo","Nombre","Direccion","Credito"};
-			table = new JTable();
-			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			model = new DefaultTableModel();
-			model.setColumnIdentifiers(columns);
-			table.setModel(model);
-			scrollPane.setViewportView(table);
-			loadClientes();	
-		
-		
+				model = new DefaultTableModel();
+				String[] columnNames = {"Codigo","Nombre","Cedula", "Direccion","Limite de credito"};
+				model.setColumnIdentifiers(columnNames);
+				table.setModel(model);
+				scrollPane.setViewportView(table);
+				loadClientes();			
+			}}
+		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			
-			btnEliminar = new JButton("Eliminar");
-			btnEliminar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					int fila = table.getSelectedRow();
-					String codigo= (String)table.getValueAt(fila, 0);
-					Cliente C1=Aplicacion.getInstance().buscarClientePorCodigo(codigo);
-					Aplicacion.getInstance().getClientes().remove(C1);
-					loadClientes();
-				}
-			});
-			buttonPane.add(btnEliminar);
 			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.addActionListener(new ActionListener() {
+				btnVerFacturas.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Cliente client = Aplicacion.getInstance().buscarClientePorCodigo(selecte);
+						ListaFactura listFact = new ListaFactura(client);
+						listFact.setModal(true);
+						listFact.setVisible(true);
+					}
+				});
+				{
+					btnModificar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							Cliente client = Aplicacion.getInstance().buscarClientePorCodigo(selecte);
+							RegCliente regcliente = new RegCliente(client);
+							regcliente.setModal(true);
+							regcliente.setVisible(true);
+						}
+					});
+					
+					btnModificar.setEnabled(false);
+					buttonPane.add(btnModificar);
+				}
+				
+				btnVerFacturas.setEnabled(false);
+				btnVerFacturas.setActionCommand("OK");
+				buttonPane.add(btnVerFacturas);
+				getRootPane().setDefaultButton(btnVerFacturas);
+			}
+			{
+				JButton btnCerrar = new JButton("Cerrar");
+				btnCerrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				btnCerrar.setActionCommand("Cancel");
+				buttonPane.add(btnCerrar);
 			}
-		
+		}
 	}
-	
 	public static void loadClientes(){
 		model.setRowCount(0);
 		fila = new Object[model.getColumnCount()];
-		for (int i = 0; i <Aplicacion.getInstance().getClientes().size(); i++) {
-			fila[0] = Aplicacion.getInstance().getClientes().get(i).getCodigo();
-			fila[1] = Aplicacion.getInstance().getClientes().get(i).getNombre();
-			fila[2] = Aplicacion.getInstance().getClientes().get(i).getDireccion();
-			fila[3] = Aplicacion.getInstance().getClientes().get(i).getCredito();
+		for (Cliente cliente : Aplicacion.getInstance().getClientes()) {
+			fila[0] = cliente.getCodigo();
+			fila[1] = cliente.getNombre();
+			fila[2] = cliente.getCedula();
+			fila[3] = cliente.getDireccion();
+			fila[4] = cliente.getCredito();
 			model.addRow(fila);
+			
 		}
-		
-		
 	}
+
 }

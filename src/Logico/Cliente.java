@@ -4,14 +4,23 @@ import java.util.ArrayList;
 
 public class Cliente {
 	
-	protected String nombre;
+//<<<<<<< HEAD
+/*	protected String nombre;
 	protected String codigo;
 	protected float credito;
 	protected String direccion;
-	protected ArrayList<Factura> facturas;
+	protected ArrayList<Factura> facturas;*/
+
+	private String nombre;
+private String codigo;
+	private String cedula;
+private float credito;
+	private String direccion;
+	ArrayList<Factura> facturas;
 	
-	public Cliente(String nombre, String codigo, float credito, String direccion) {
+	public Cliente(String codigo, String nombre, String cedula,float credito, String direccion) {
 		super();
+		this.cedula = cedula;
 		this.nombre = nombre;
 		this.codigo = codigo;
 		this.credito = credito;
@@ -56,6 +65,11 @@ public class Cliente {
 	}
 	public ArrayList<Factura> getFacturas() {
 		return facturas;
+	}
+
+
+	public String getCedula() {
+		return cedula;
 	}
 	
 	
