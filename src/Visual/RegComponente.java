@@ -9,8 +9,17 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import Logico.Aplicacion;
+import Logico.Componente;
+import Logico.Discoduro;
+import Logico.Memoriaram;
+import Logico.Microprocesadores;
+import Logico.Tarjetamadre;
+
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -260,6 +269,8 @@ public class RegComponente extends JDialog {
 		panel_1.add(lblCantidad);
 		
 		textField_barcode = new JTextField();
+		textField_barcode.setEditable(false);
+		textField_barcode.setText("COM-"+(Aplicacion.getInstance().getComponentes().size()+1));		
 		textField_barcode.setBounds(83, 25, 86, 20);
 		panel_1.add(textField_barcode);
 		textField_barcode.setColumns(10);
@@ -289,6 +300,47 @@ public class RegComponente extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Registrar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Componente aux = null;
+						float precio = Float.parseFloat(textField_precio.getText());
+						int cantidad = Integer.parseInt(textField_cantidad.getText());
+						String modelo = textField_modelo.getText();
+						String marca = textField_marca.getText();
+						String barcode = textField_barcode.getText();
+						
+						if (rdbtnTarjetaMadre.isSelected()) {
+							String tipoderam = textField_tipoderam.getText();
+							String conectoralmicro = textField_conectoralmicro.getText();
+							String conectordiscoduro = textField_conectordiscoduro.getText();
+							aux = new Tarjetamadre(precio, cantidad, barcode, marca, modelo, conectoralmicro, tipoderam, conectordiscoduro);
+						
+						}
+						if (rdbtnMemoriaram.isSelected()) {
+							String tipodememoria = textField_tipodememoria.getText();
+							int cantidadmemoria = Integer.parseInt(textField_cantidaddememoria.getText());
+							aux = new Memoriaram(precio, cantidad, barcode, marca, modelo, cantidadmemoria, tipodememoria);
+							
+						}
+						if (rdbtnDiscoDuro.isSelected()) {
+							String tipodeconector = textField_tipodeconector.getText();
+							float almacenamiento = Float.parseFloat(textField_almacenamiento.getText());
+							aux = new Discoduro(precio, cantidad, barcode, marca, modelo, almacenamiento, tipodeconector);
+							
+						}
+						if (rdbtnMicroprocesador.isSelected()) {
+							String tipodeconexion = textField_tipodeconexion.getText();
+							float velocidad = Float.parseFloat(textField_velocidad.getText());
+							aux = new Microprocesadores(precio, cantidad, barcode, marca, modelo, tipodeconexion, velocidad);
+							
+						} 
+						Aplicacion.getInstance().agregarComponente(aux);
+						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
+						clean();
+				
+						
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -304,5 +356,21 @@ public class RegComponente extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+	private void clean() {
+		textField_almacenamiento.setText("");
+		textField_barcode.setText("COM-"+(Aplicacion.getInstance().getComponentes().size()+1));
+		textField_cantidad.setText("");
+		textField_cantidaddememoria.setText("");
+		textField_conectoralmicro.setText("");
+		textField_conectordiscoduro.setText("");
+		textField_marca.setText("");
+		textField_modelo.setText("");
+		textField_precio.setText("");
+		textField_tipodeconector.setText("");
+		textField_tipodeconexion.setText("");
+		textField_tipodememoria.setText("");
+		textField_tipoderam.setText("");
+		textField_velocidad.setText("");		
 	}
 }
