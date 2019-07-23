@@ -27,12 +27,10 @@ public class Login extends JFrame {
 	private JPanel border;
 	private JTextField txtusuario;
 	private JPasswordField txtpass;
-
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -45,9 +43,7 @@ public class Login extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public Login() {
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,7 +73,7 @@ public class Login extends JFrame {
 		btnAcceder.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-		Registrarusuario registro=null;
+				Registrarusuario registro=null;
 				String username  = txtusuario.getText();
 				String contrasena = txtpass.getText();
 				registro = new Registrarusuario(contrasena, username);
@@ -95,16 +91,9 @@ public class Login extends JFrame {
 
 
             }else {
-      
-                     	
             	JOptionPane.showMessageDialog(null, "Acceso denegado", "Informaci�n", JOptionPane.INFORMATION_MESSAGE);
             }
-				
-				
-				
-				
-			
-			}
+		}
 		});
 		btnAcceder.setBounds(235, 187, 115, 29);
 		border.add(btnAcceder);

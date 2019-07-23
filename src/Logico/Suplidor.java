@@ -1,14 +1,17 @@
 package Logico;
 
-public class Suplidor {
+import java.io.Serializable;
 
+public class Suplidor implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nombre;
 	private String apellido;
 	private String pais;
-	public Suplidor() {
-		
-		
-	}
+	
 	public Suplidor(String nombre, String apellido, String pais) {
 		super();
 		this.nombre = nombre;

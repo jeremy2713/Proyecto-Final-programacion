@@ -1,8 +1,9 @@
 package Logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Cliente {
+public class Cliente implements Serializable {
 	
 //<<<<<<< HEAD
 /*	protected String nombre;
@@ -11,13 +12,16 @@ public class Cliente {
 	protected String direccion;
 	protected ArrayList<Factura> facturas;*/
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nombre;
-private String codigo;
+	private String codigo;
 	private String cedula;
-private float credito;
+	private float credito;
 	private String direccion;
 	ArrayList<Factura> facturas;
-	
 	public Cliente(String codigo, String nombre, String cedula,float credito, String direccion) {
 		super();
 		this.cedula = cedula;
