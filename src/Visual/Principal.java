@@ -149,6 +149,17 @@ public class Principal extends JFrame {
 		JMenu mnPedido = new JMenu("Pedido");
 		menuBar.add(mnPedido);
 		
+		JMenuItem mntmHacerPedido = new JMenuItem("Hacer Pedido");
+		mntmHacerPedido.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Pedido Pedido = new Pedido();
+				Pedido.setModal(true);
+				Pedido.setLocationRelativeTo(null);
+				Pedido.setVisible(true);
+			}
+		});
+		mnPedido.add(mntmHacerPedido);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
