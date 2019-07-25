@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Logico.Aplicacion;
+import Logico.Cliente;
 import img.ImagenFondoPrincipal;
 
 

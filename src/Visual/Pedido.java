@@ -10,10 +10,15 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import org.omg.CORBA.portable.ApplicationException;
+
 import Logico.Aplicacion;
+import Logico.Cliente;
 import Logico.Componente;
+import Logico.Factura;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -42,6 +47,7 @@ public class Pedido extends JDialog {
 	private static ArrayList<Componente> Componentespedidos = new ArrayList<>();
 	private JButton btnMover;
 	private JButton btnRemover;
+	private JComboBox comboBox_clientecodigo;
 
 	/**
 	 * Launch the application.
@@ -83,18 +89,18 @@ public class Pedido extends JDialog {
 		lblCliente.setBounds(10, 29, 67, 21);
 		panel_1.add(lblCliente);
 		
-		JComboBox comboBox_clientecodigo = new JComboBox();
+		 comboBox_clientecodigo = new JComboBox();
 		comboBox_clientecodigo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				for(int i =0;i<Aplicacion.getInstance().getComponentes().size();i++) {
-					if(Aplicacion.getInstance().getComponentes().get(i).getBarcode().equals(comboBox_clientecodigo.getSelectedItem())) {
+				for(int i =0;i<Aplicacion.getInstance().getClientes().size();i++) {
+					if(Aplicacion.getInstance().getClientes().get(i).getCodigo().equals(comboBox_clientecodigo.getSelectedItem())) {
 					textField_credito.setText(Float.toString(Aplicacion.getInstance().getClientes().get(i).getCredito()));
 					textField_nombre.setText(Aplicacion.getInstance().getClientes().get(i).getNombre());
 					}
 				}
 			}
 		});
-		comboBox_clientecodigo.setBounds(101, 29, 82, 20);
+		comboBox_clientecodigo.setBounds(101, 29, 138, 20);
 		panel_1.add(comboBox_clientecodigo);
 		
 		JLabel lblNombre = new JLabel("Nombre");
@@ -200,6 +206,7 @@ public class Pedido extends JDialog {
 				String codigo = (String) table_1.getValueAt(fila, 0);
 				Componente C1 = componentePedidosPorCodigo(codigo);
 				Aplicacion.getInstance().getComponentes().add(C1);
+				Componentespedidos.remove(C1);
 				loadTable();
 				loadTablePedidosRemover();
 			}
@@ -237,6 +244,30 @@ public class Pedido extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Factura aux = null;
+						int pos = comboBox_clientecodigo.getSelectedIndex();
+						String codigoFactura;
+						codigoFactura= "F"+Integer.toString(Aplicacion.getInstance().getFacturas().size()+1);
+						String codigo = (String) comboBox_clientecodigo.getItemAt(pos);
+						Cliente elCliente = Aplicacion.getInstance().buscarClientePorCodigo(codigo);
+						ArrayList<Componente> losComponentes = new ArrayList<>();
+						losComponentes.addAll(Componentespedidos);
+						Componentespedidos.removeAll(Componentespedidos);
+						float total = Float.parseFloat(textField_total.getText());
+						float devuelta = Float.parseFloat(textField_devuelta.getText());
+						for(int i =0;i<Aplicacion.getInstance().getClientes().size();i++) {
+							if(Aplicacion.getInstance().getClientes().get(i)==elCliente) 
+								Aplicacion.getInstance().getClientes().get(i).setCredito(devuelta);
+							
+						}
+						aux = new Factura(codigoFactura, total, losComponentes, elCliente);
+						Aplicacion.getInstance().agregarFactura(aux);
+						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
+						dispose();
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -254,6 +285,8 @@ public class Pedido extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		loadClientes();
+		loadTable();
 	}
 	public static void loadTable() {
 		model.setRowCount(0);
@@ -303,5 +336,13 @@ public class Pedido extends JDialog {
 		float devuelta=0;
 		devuelta =Float.parseFloat(textField_credito.getText())-precioTotalComponentePedido();
 		return devuelta;
+	}
+	private void loadClientes() {
+		comboBox_clientecodigo.removeAllItems();
+		for(int i =0;i<Aplicacion.getInstance().getClientes().size();i++) {
+			comboBox_clientecodigo.addItem(new String(Aplicacion.getInstance().getClientes().get(i).getCodigo()));
+		}
+		comboBox_clientecodigo.insertItemAt(new String("<Seleccione>"), 0);
+		comboBox_clientecodigo.setSelectedIndex(0);
 	}
 }

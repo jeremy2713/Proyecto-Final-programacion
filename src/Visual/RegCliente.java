@@ -39,7 +39,7 @@ public class RegCliente extends JDialog {
 			setTitle("Modificar Cliente");
 		}
 		else {
-			txtCodigo.setText("C-1");
+			txtCodigo.setText("C-"+(Aplicacion.getInstance().getClientes().size()+1));	
 			setTitle("Registrar Cliente");
 		}
 		setResizable(false);
