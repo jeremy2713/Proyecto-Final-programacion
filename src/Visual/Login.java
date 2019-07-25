@@ -12,7 +12,6 @@ import Logico.Cliente;
 import Logico.User;
 import img.ImagenFondoPrincipal;
 
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -116,8 +115,20 @@ public class Login extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 				
 					
+					if(Aplicacion.getInstance().confirmLogin(txtusuario.getText(),txtpass.getText())){
+						Principal frame = new Principal();
+						dispose();
+						frame.setVisible(true);
+					}
 					
-					
+					else {
+						
+						JOptionPane.showMessageDialog(null, "Acceso denegado:\n"
+			                    + "Por favor ingrese un usuario y/o contraseña correctos", "Acceso denegado",
+			                    JOptionPane.ERROR_MESSAGE);
+						
+						
+					}
 				}
 			});
 		
