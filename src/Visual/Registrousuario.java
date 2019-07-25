@@ -13,13 +13,14 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class Registrousuario extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JPasswordField passwordField;
+	private JPasswordField passwordField_1;
 
 	public Registrousuario() {
 		setTitle("Registro usuario");
@@ -35,11 +36,6 @@ public class Registrousuario extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(272, 102, 146, 26);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
-		
 		JLabel lblNewUsername = new JLabel("New Username");
 		lblNewUsername.setBounds(25, 48, 107, 20);
 		contentPane.add(lblNewUsername);
@@ -51,11 +47,6 @@ public class Registrousuario extends JFrame {
 		JLabel lblConfirmarPassword = new JLabel("Confirmar Password");
 		lblConfirmarPassword.setBounds(272, 145, 146, 20);
 		contentPane.add(lblConfirmarPassword);
-		
-		textField_2 = new JTextField();
-		textField_2.setBounds(272, 181, 146, 26);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
 		
 		JLabel lblTipoDeUsuario = new JLabel("Tipo de usuario:");
 		lblTipoDeUsuario.setBounds(35, 145, 123, 20);
@@ -89,6 +80,13 @@ public class Registrousuario extends JFrame {
 		});
 		btnCancelar.setBounds(303, 251, 115, 29);
 		contentPane.add(btnCancelar);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(267, 102, 146, 26);
+		contentPane.add(passwordField);
+		
+		passwordField_1 = new JPasswordField();
+		passwordField_1.setBounds(272, 181, 145, 26);
+		contentPane.add(passwordField_1);
 	}
-
 }

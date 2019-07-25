@@ -55,7 +55,7 @@ public class Login extends JFrame {
 					try {
 						tienda2 = new  FileOutputStream("tienda.dat");
 						tiendaEscritura = new ObjectOutputStream(tienda2);
-						User aux = new User("Administrador", "Admin", "Admin");
+						User aux = new User("Administrador", "admin", "admin");
 						Aplicacion.getInstance().regUser(aux);
 						tiendaEscritura.writeObject(Aplicacion.getInstance());
 						tienda2.close();
@@ -107,11 +107,15 @@ public class Login extends JFrame {
 		border.add(txtusuario);
 		txtusuario.setColumns(10);
 		
+		txtpass = new JPasswordField();
+		txtpass.setBounds(138, 109, 146, 26);
+		border.add(txtpass);
 		
 		
 		
 		JButton btnAcceder = new JButton("Acceder");
 		btnAcceder.addActionListener(new ActionListener() {
+				@SuppressWarnings("deprecation")
 				public void actionPerformed(ActionEvent e) {
 				
 					
@@ -146,9 +150,7 @@ public class Login extends JFrame {
 		btnSalir.setBounds(229, 180, 115, 29);
 		border.add(btnSalir);
 		
-		txtpass = new JPasswordField();
-		txtpass.setBounds(138, 109, 146, 26);
-		border.add(txtpass);
+		
 			
 	}
 }
