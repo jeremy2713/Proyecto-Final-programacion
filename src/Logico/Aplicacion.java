@@ -10,13 +10,19 @@ public class Aplicacion {
 	private ArrayList<Componente> componentes;
 	private ArrayList<Combo> combos;
 	private static Aplicacion miAplicacion;
-	
+//////////////////////////////////////////////////////////////////
+/////Aqui empiezan las variables para el login//////
+	private ArrayList<User> misUsers;
+	private static User loginUser;
+	private static boolean firstTime;
+///////////////////////////////////////////////////////////////////	
 	private Aplicacion() {
 		super();
 		this.clientes = new ArrayList<>();
 		this.facturas = new ArrayList<>();
 		this.componentes = new ArrayList<>();
 		this.combos = new ArrayList<>();
+		this.misUsers= new ArrayList<User>();
 	}
 	public static Aplicacion getInstance() {
 		if(miAplicacion == null) {
@@ -119,7 +125,40 @@ public class Aplicacion {
 		
 		return combo;
 	}
+	//////////////////////////////////////////////////////////////////////////
+	//aqui empieza las funciones para el login del usuario ///
+	public ArrayList<User> getMisUsers() {
+		return misUsers;
+	}
+
+	public void setMisUsers(ArrayList<User> misUsers) {
+		this.misUsers = misUsers;
+	}
+
+	public static User getLoginUser() {
+		return loginUser;
+	}
+
+	public static void setLoginUser(User loginUser) {
+		Aplicacion.loginUser = loginUser;
+	}
+
+	public void regUser(User user) {/////metodo para anadir usuario
+		misUsers.add(user);
+		
+	}
+
 	
+	public boolean confirmLogin(String text, String text2) {
+		boolean login = false;
+		for (User user : misUsers) {
+			if(user.getUserName().equals(text)){
+				loginUser = user;
+				login = true;
+			}
+		}
+		return login;
+	}
 	
 	
 	

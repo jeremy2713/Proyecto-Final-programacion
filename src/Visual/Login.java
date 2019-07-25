@@ -9,16 +9,24 @@ import javax.swing.border.EmptyBorder;
 
 import Logico.Aplicacion;
 import Logico.Cliente;
-import Logico.Registrarusuario;
+import Logico.User;
 import img.ImagenFondoPrincipal;
+
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.security.auth.callback.ConfirmationCallback;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
@@ -35,6 +43,40 @@ public class Login extends JFrame {
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				FileInputStream tienda;
+				FileOutputStream tienda2;
+				ObjectInputStream tiendaLectura;
+				ObjectOutputStream tiendaEscritura;
+				try {
+					tienda= new FileInputStream ("tienda.dat");
+					tiendaLectura = new ObjectInputStream(tienda);
+					Aplicacion temp = (Aplicacion)tiendaLectura.readObject();
+					Aplicacion.setInstance(temp);
+					tienda.close();
+					tiendaLectura.close();
+				} catch (FileNotFoundException e) {
+					try {
+						tienda2 = new  FileOutputStream("tienda.dat");
+						tiendaEscritura = new ObjectOutputStream(tienda2);
+						User aux = new User("Administrador", "Admin", "Admin");
+						Aplicacion.getInstance().regUser(aux);
+						tiendaEscritura.writeObject(Aplicacion.getInstance());
+						tienda2.close();
+						tiendaEscritura.close();
+					} catch (FileNotFoundException e1) {
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+					}
+				} catch (IOException e) {
+					
+					
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				
 				try {
 					Login frame = new Login();
 					frame.setVisible(true);
@@ -73,56 +115,41 @@ public class Login extends JFrame {
 		
 		
 		
-		JButton btnAcceder = new JButton("acceder");
+		JButton btnAcceder = new JButton("Acceder");
 		btnAcceder.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-		Registrarusuario registro=null;
-				String username  = txtusuario.getText();
-				String contrasena = txtpass.getText();
-				registro = new Registrarusuario(contrasena, username);
+				if(Aplicacion.getInstance().confirmLogin(txtusuario.getText(),txtpass.getText())){
+					Principal frame = new Principal();
+					dispose();
+					frame.setVisible(true);
+				}else{
+					
+					JOptionPane.showMessageDialog(null, "Acceso denegado", "Informaci�n", JOptionPane.INFORMATION_MESSAGE);
+				};
 				
-		
-				if (txtusuario.getText().equalsIgnoreCase("jeremy") && txtpass.getText().equalsIgnoreCase("admin")){
-                    JOptionPane.showMessageDialog(null, "Bienvenido\n"
-                    + "Has ingresado satisfactoriamente al sistema",   "Mensaje de bienvenida",
-                    JOptionPane.INFORMATION_MESSAGE);
-
-
-                    Principal principal1 = new Principal();
-
-                    principal1.setVisible(true);
-
-
-            }else {
-      
-                     	
-            	JOptionPane.showMessageDialog(null, "Acceso denegado", "Informaci�n", JOptionPane.INFORMATION_MESSAGE);
-            }
+	
 				
 				
-				
-				
-			
 			}
 		});
-		btnAcceder.setBounds(235, 187, 115, 29);
+		
+		
+		
+		btnAcceder.setBounds(87, 180, 115, 29);
 		border.add(btnAcceder);
 		
-		JButton btnRegistrarse = new JButton("Registrarse");
-		btnRegistrarse.addActionListener(new ActionListener() {
+		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Registrousuario registrousuario = new Registrousuario();
-				registrousuario.setLocationRelativeTo(null);
-				registrousuario.setVisible(true);
+				dispose();
 				
 				
 				
 			}
 		});
-		btnRegistrarse.setBounds(83, 187, 115, 29);
-		border.add(btnRegistrarse);
+		btnSalir.setBounds(229, 180, 115, 29);
+		border.add(btnSalir);
 		
 		txtpass = new JPasswordField();
 		txtpass.setBounds(138, 109, 146, 26);

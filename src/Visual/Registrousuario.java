@@ -85,10 +85,15 @@ public class Registrousuario extends JFrame {
 		comboBox.setBounds(25, 181, 146, 26);
 		contentPane.add(comboBox);
 		
+		
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
+				
+				
+				
+				
 			}
 		});
 		btnRegistrar.setBounds(173, 251, 115, 29);

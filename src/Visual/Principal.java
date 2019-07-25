@@ -11,10 +11,17 @@ import javax.swing.border.EmptyBorder;
 import Logico.Aplicacion;
 import img.ImagenFondoPrincipal;
 
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 
 public class Principal extends JFrame {
@@ -26,7 +33,7 @@ public class Principal extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -45,6 +52,26 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				FileOutputStream tienda2;
+				ObjectOutputStream tiendaEscritura;
+				try {
+					tienda2 = new  FileOutputStream("tienda.dat");
+					tiendaEscritura = new ObjectOutputStream(tienda2);
+					tiendaEscritura.writeObject(Aplicacion.getInstance());
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setBounds(100, 100, 450, 300);
@@ -105,6 +132,22 @@ public class Principal extends JFrame {
 		
 		JMenu mnPedido = new JMenu("Pedido");
 		menuBar.add(mnPedido);
+		
+		JMenu mnUsuario = new JMenu("Usuario");
+		menuBar.add(mnUsuario);
+		
+		JMenuItem mntmRegistrar = new JMenuItem("Registrar");
+		mntmRegistrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Registrousuario registrousuario = new Registrousuario();
+			  //  registrousuario.setModal(true);
+				registrousuario.setLocationRelativeTo(null);
+				registrousuario.setVisible(true);
+				
+			}
+		});
+		mnUsuario.add(mntmRegistrar);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
