@@ -35,12 +35,10 @@ public class Login extends JFrame {
 	private JPanel border;
 	private JTextField txtusuario;
 	private JPasswordField txtpass;
-
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				FileInputStream tienda;
@@ -87,9 +85,7 @@ public class Login extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public Login() {
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -117,23 +113,13 @@ public class Login extends JFrame {
 		
 		JButton btnAcceder = new JButton("Acceder");
 		btnAcceder.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(Aplicacion.getInstance().confirmLogin(txtusuario.getText(),txtpass.getText())){
-					Principal frame = new Principal();
-					dispose();
-					frame.setVisible(true);
-				}else{
+				public void actionPerformed(ActionEvent e) {
+				
 					
-					JOptionPane.showMessageDialog(null, "Acceso denegado", "Informaci�n", JOptionPane.INFORMATION_MESSAGE);
-				};
-				
-	
-				
-				
-			}
-		});
-		
-		
+					
+					
+				}
+			});
 		
 		btnAcceder.setBounds(87, 180, 115, 29);
 		border.add(btnAcceder);
@@ -144,8 +130,6 @@ public class Login extends JFrame {
 				
 				dispose();
 				
-				
-				
 			}
 		});
 		btnSalir.setBounds(229, 180, 115, 29);
@@ -154,5 +138,8 @@ public class Login extends JFrame {
 		txtpass = new JPasswordField();
 		txtpass.setBounds(138, 109, 146, 26);
 		border.add(txtpass);
+			
 	}
 }
+	
+

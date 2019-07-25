@@ -1,10 +1,16 @@
 package Logico;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 
-public class Aplicacion {
-	private static Aplicacion aplicacion=null;
+public class Aplicacion implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+
 	private ArrayList<Cliente> clientes;
 	private ArrayList<Factura> facturas;
 	private ArrayList<Componente> componentes;

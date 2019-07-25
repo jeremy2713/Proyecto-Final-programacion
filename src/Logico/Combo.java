@@ -1,6 +1,12 @@
 package Logico;
 
-public class Combo{
+import java.io.Serializable;
+
+public class Combo implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String codigoCombo;
 	private Memoriaram memoriaRAM;
 	private Discoduro discoDuro;

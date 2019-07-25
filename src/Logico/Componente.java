@@ -1,6 +1,12 @@
 package Logico;
 
-public class Componente {
+import java.io.Serializable;
+
+public class Componente implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected float precio;
 	protected int cantidad_disponible;
 	protected String barcode; //"barcode" es el que dice numero de serie

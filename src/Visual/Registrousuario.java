@@ -21,25 +21,6 @@ public class Registrousuario extends JFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Registrousuario frame = new Registrousuario();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public Registrousuario() {
 		setTitle("Registro usuario");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
