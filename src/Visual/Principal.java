@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import Logico.Aplicacion;
 import Logico.Cliente;
+import Logico.Factura;
 import img.ImagenFondoPrincipal;
 
 
@@ -38,6 +39,7 @@ public class Principal extends JFrame {
 	private JPanel contentPane;
 	private Dimension dim;
 	private Aplicacion app;
+	private Factura factura;
 
 	/**
 	 * Launch the application.
@@ -167,6 +169,10 @@ public class Principal extends JFrame {
 		mnComponentes.add(mntmRegistrarComponente);
 		
 		JMenuItem mntmListarComponente = new JMenuItem("Listar Componente");
+		mntmListarComponente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		mnComponentes.add(mntmListarComponente);
 		
 		JMenuItem mntmCrearCombo = new JMenuItem("Crear Combo");

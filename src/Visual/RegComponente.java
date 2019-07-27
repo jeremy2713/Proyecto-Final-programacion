@@ -307,8 +307,11 @@ public class RegComponente extends JDialog {
 						int cantidad = Integer.parseInt(textField_cantidad.getText());
 						String modelo = textField_modelo.getText();
 						String marca = textField_marca.getText();
-						String barcode = textField_barcode.getText();
+						//String barcode = textField_barcode.getText();
 						
+						for(int i=0;i<cantidad;i++) {
+							String barcode = "COM-"+(Aplicacion.getInstance().getComponentes().size()+1);	
+							
 						if (rdbtnTarjetaMadre.isSelected()) {
 							String tipoderam = textField_tipoderam.getText();
 							String conectoralmicro = textField_conectoralmicro.getText();
@@ -333,8 +336,9 @@ public class RegComponente extends JDialog {
 							float velocidad = Float.parseFloat(textField_velocidad.getText());
 							aux = new Microprocesadores(precio, cantidad, barcode, marca, modelo, tipodeconexion, velocidad);
 							
-						} 
+						}
 						Aplicacion.getInstance().agregarComponente(aux);
+						}
 						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
 						clean();
 				
