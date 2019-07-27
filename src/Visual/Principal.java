@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
+import javax.swing.JCheckBoxMenuItem;
 
 public class Principal extends JFrame {
 
@@ -175,9 +176,6 @@ public class Principal extends JFrame {
 		});
 		mnComponentes.add(mntmListarComponente);
 		
-		JMenuItem mntmCrearCombo = new JMenuItem("Crear Combo");
-		mnComponentes.add(mntmCrearCombo);
-		
 		JMenu mnFacturas = new JMenu("Facturas");
 		menuBar.add(mnFacturas);
 		
@@ -210,6 +208,9 @@ public class Principal extends JFrame {
 			}
 		});
 		mnPedido.add(mntmHacerPedido);
+		
+		JMenuItem mntmComprarCombo = new JMenuItem("Comprar Combo");
+		mnPedido.add(mntmComprarCombo);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -20,7 +20,7 @@ public class Combo implements Serializable{
 		this.discoDuro = discoDuro;
 		this.cpu = cpu;
 		this.motherBoard = motherBoard;
-		precioTotal = (float) ((memoriaRAM.getPrecio() + discoDuro.getPrecio() + cpu.getPrecio() + motherBoard.getPrecio()) * 0.80);
+		precioTotal = (float) ((memoriaRAM.getPrecio() + discoDuro.getPrecio() + cpu.getPrecio() + motherBoard.getPrecio()) * 0.30);
 	}
 	public String getCodigoCombo() {
 		return codigoCombo;
