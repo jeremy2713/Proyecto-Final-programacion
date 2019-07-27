@@ -49,8 +49,6 @@ public class Login extends JFrame {
 					tiendaLectura = new ObjectInputStream(tienda);
 					Aplicacion temp = (Aplicacion)tiendaLectura.readObject();
 					Aplicacion.setInstance(temp);
-					tienda.close();
-					tiendaLectura.close();
 				} catch (FileNotFoundException e) {
 					try {
 						tienda2 = new  FileOutputStream("tienda.dat");
@@ -58,8 +56,6 @@ public class Login extends JFrame {
 						User aux = new User("Administrador", "admin", "admin");
 						Aplicacion.getInstance().regUser(aux);
 						tiendaEscritura.writeObject(Aplicacion.getInstance());
-						tienda2.close();
-						tiendaEscritura.close();
 					} catch (FileNotFoundException e1) {
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -110,6 +106,7 @@ public class Login extends JFrame {
 		txtpass = new JPasswordField();
 		txtpass.setBounds(138, 109, 146, 26);
 		border.add(txtpass);
+		txtpass.setColumns(10);
 		
 		
 		
