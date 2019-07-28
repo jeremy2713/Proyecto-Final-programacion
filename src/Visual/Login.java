@@ -38,24 +38,27 @@ public class Login extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+		
+	EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				FileInputStream tienda;
 				FileOutputStream tienda2;
 				ObjectInputStream tiendaLectura;
 				ObjectOutputStream tiendaEscritura;
 				try {
-					tienda= new FileInputStream ("tienda.dat");
+					tienda= new FileInputStream ("Electronica.dat");
 					tiendaLectura = new ObjectInputStream(tienda);
 					Aplicacion temp = (Aplicacion)tiendaLectura.readObject();
 					Aplicacion.setInstance(temp);
+					tienda.close();
 				} catch (FileNotFoundException e) {
 					try {
-						tienda2 = new  FileOutputStream("tienda.dat");
+						tienda2 = new  FileOutputStream("Electronica.dat");
 						tiendaEscritura = new ObjectOutputStream(tienda2);
 						User aux = new User("Administrador", "admin", "admin");
 						Aplicacion.getInstance().regUser(aux);
 						tiendaEscritura.writeObject(Aplicacion.getInstance());
+						tienda2.close();
 					} catch (FileNotFoundException e1) {
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -79,6 +82,7 @@ public class Login extends JFrame {
 			}
 		});
 	}
+	
 
 
 	public Login() {

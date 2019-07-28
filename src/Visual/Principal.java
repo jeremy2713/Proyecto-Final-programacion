@@ -216,13 +216,7 @@ public class Principal extends JFrame {
 				Combo combo = new Combo();
 			//	combo.setModal(true);
 				combo.setLocationRelativeTo(null);
-				combo.setVisible(true);
-				
-				
-				
-				
-				
-				
+				combo.setVisible(true);	
 			}
 		});
 		mnPedido.add(mntmComprarCombo);

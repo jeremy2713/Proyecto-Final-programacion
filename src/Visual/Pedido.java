@@ -190,6 +190,8 @@ public class Pedido extends JDialog {
 				String codigo= (String)table.getValueAt(fila, 0);
 				Componente C1 = Aplicacion.getInstance().buscarComponentePorCodigo(codigo);
 				Componentespedidos.add(C1);
+				textField_total.setText(Float.toString(precioTotalComponentePedido()));
+				textField_devuelta.setText(Float.toString(devuelta()));
 				Aplicacion.getInstance().getComponentes().remove(C1);
 				loadTable();
 				loadTablePedidosRemover();
@@ -209,6 +211,9 @@ public class Pedido extends JDialog {
 				Componentespedidos.remove(C1);
 				loadTable();
 				loadTablePedidosRemover();
+				
+				textField_total.setText(Float.toString(precioTotalComponentePedido()));
+				textField_devuelta.setText(Float.toString(devuelta()));
 			}
 		});
 		btnRemover.setBounds(289, 257, 89, 23);
@@ -217,8 +222,19 @@ public class Pedido extends JDialog {
 		JButton btnTotal = new JButton("Total");
 		btnTotal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+			float devolver=0;
 				textField_total.setText(Float.toString(precioTotalComponentePedido()));
-				textField_devuelta.setText(Float.toString(devuelta()));
+				devolver=devuelta();
+				textField_devuelta.setText(Float.toString(devolver));
+
+				if(devolver<0)
+				{
+						JOptionPane.showMessageDialog(null, "Advertencia\n"
+				                + "credito insuficiente", "",
+				                JOptionPane.INFORMATION_MESSAGE);
+				}
+	
 			}
 		});
 		btnTotal.setBounds(10, 409, 89, 23);
@@ -246,6 +262,20 @@ public class Pedido extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						float devolver=0;
+						devolver=devuelta();
+						
+						if(devolver<0)
+						{
+							
+							JOptionPane.showMessageDialog(null, "Advertencia\n"
+					                + "no posee credito suficiente para la compra", "",
+					                JOptionPane.ERROR_MESSAGE);
+
+						     	
+						}
+						
+						else {
 						Factura aux = null;
 						int pos = comboBox_clientecodigo.getSelectedIndex();
 						String codigoFactura;
@@ -260,12 +290,13 @@ public class Pedido extends JDialog {
 						for(int i =0;i<Aplicacion.getInstance().getClientes().size();i++) {
 							if(Aplicacion.getInstance().getClientes().get(i)==elCliente) 
 								Aplicacion.getInstance().getClientes().get(i).setCredito(devuelta);
-							
+						
 						}
 						aux = new Factura(codigoFactura, total, losComponentes, elCliente);
 						Aplicacion.getInstance().agregarFactura(aux);
-						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Operaciï¿½n exitosa", "Informaciï¿½n", JOptionPane.INFORMATION_MESSAGE);
 						dispose();
+						}
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -326,9 +357,9 @@ public class Pedido extends JDialog {
 	}
 	public float precioTotalComponentePedido() {
 		float total=0;
-		for(int i =0;i<Componentespedidos.size();i++) 
+		for(int i =0;i<Componentespedidos.size();i++) {
 			total+= Componentespedidos.get(i).getPrecio();
-		
+		}
 		return total;
 		
 	}
