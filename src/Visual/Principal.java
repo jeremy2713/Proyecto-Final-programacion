@@ -182,6 +182,9 @@ public class Principal extends JFrame {
 		JMenu mnFacturas = new JMenu("Facturas");
 		menuBar.add(mnFacturas);
 		
+		JMenuItem mntmRealizarFacturas = new JMenuItem("Realizar Facturas");
+		mnFacturas.add(mntmRealizarFacturas);
+		
 		JMenu mnPedido = new JMenu("Pedido");
 		menuBar.add(mnPedido);
 		
