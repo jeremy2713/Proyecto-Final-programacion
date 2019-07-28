@@ -64,6 +64,7 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		setTitle("Tienda de Componentes");
 
 		
 		addWindowListener(new WindowAdapter() {
@@ -172,12 +173,18 @@ public class Principal extends JFrame {
 		JMenuItem mntmListarComponente = new JMenuItem("Listar Componente");
 		mntmListarComponente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ListComponent listcompo = new ListComponent(Aplicacion.getInstance().getComponentes());
+				listcompo.setModal(true);
+				listcompo.setVisible(true);
 			}
 		});
 		mnComponentes.add(mntmListarComponente);
 		
 		JMenu mnFacturas = new JMenu("Facturas");
 		menuBar.add(mnFacturas);
+		
+		JMenuItem mntmRealizarFacturas = new JMenuItem("Realizar Facturas");
+		mnFacturas.add(mntmRealizarFacturas);
 		
 		JMenu mnPedido = new JMenu("Pedido");
 		menuBar.add(mnPedido);
@@ -213,10 +220,7 @@ public class Principal extends JFrame {
 		mntmComprarCombo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Combo combo = new Combo();
-			//	combo.setModal(true);
-				combo.setLocationRelativeTo(null);
-				combo.setVisible(true);	
+
 			}
 		});
 		mnPedido.add(mntmComprarCombo);
