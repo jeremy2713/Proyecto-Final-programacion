@@ -19,21 +19,24 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
+import javax.swing.JComboBox;
+import javax.swing.JScrollPane;
 
 public class RealizarCombo extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtBuscar;
-	private JTextField txtCodigo;
 	private JTextField txtNombre;
 	private JTextField txtCedula;
 	private JTextField txtCredito;
 	private JTextField txtDireccion;
+	private JComboBox comboBoxcliente;
+	private JTextField textField;
+
 
 	public RealizarCombo() {
 		setTitle("Comprar Combo");
 		setLocationRelativeTo(null);
-		setBounds(100, 100, 550, 498);
+		setBounds(100, 100, 644, 567);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -41,57 +44,47 @@ public class RealizarCombo extends JDialog {
 		
 		JPanel panelInformacionGeneral = new JPanel();
 		panelInformacionGeneral.setBorder(new TitledBorder(null, "Informacion General", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelInformacionGeneral.setBounds(10, 65, 514, 142);
+		panelInformacionGeneral.setBounds(10, 65, 524, 142);
 		contentPanel.add(panelInformacionGeneral);
 		panelInformacionGeneral.setLayout(null);
 		
-		JLabel lblCodigo = new JLabel("Codigo:");
-		lblCodigo.setBounds(12, 22, 46, 14);
-		panelInformacionGeneral.add(lblCodigo);
-		
 		JLabel lblNombre = new JLabel("Nombre: ");
-		lblNombre.setBounds(12, 48, 46, 14);
+		lblNombre.setBounds(12, 31, 68, 14);
 		panelInformacionGeneral.add(lblNombre);
 		
 		JLabel lblCedula = new JLabel("Cedula:");
-		lblCedula.setBounds(12, 74, 46, 14);
+		lblCedula.setBounds(12, 61, 68, 21);
 		panelInformacionGeneral.add(lblCedula);
 		
-		JLabel lblCredito = new JLabel("Credito:");
-		lblCredito.setBounds(184, 22, 46, 14);
-		panelInformacionGeneral.add(lblCredito);
+		JLabel txtcredito = new JLabel("Credito:");
+		txtcredito.setBounds(305, 65, 78, 14);
+		panelInformacionGeneral.add(txtcredito);
 		
 		JLabel lblDireccion = new JLabel("Direccion: ");
-		lblDireccion.setBounds(12, 102, 68, 14);
+		lblDireccion.setBounds(12, 98, 86, 14);
 		panelInformacionGeneral.add(lblDireccion);
-		
-		txtCodigo = new JTextField();
-		txtCodigo.setEditable(false);
-		txtCodigo.setBounds(72, 19, 86, 20);
-		panelInformacionGeneral.add(txtCodigo);
-		txtCodigo.setColumns(10);
 		
 		txtNombre = new JTextField();
 		txtNombre.setEditable(false);
-		txtNombre.setBounds(72, 45, 244, 20);
+		txtNombre.setBounds(84, 26, 190, 20);
 		panelInformacionGeneral.add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		txtCedula = new JTextField();
 		txtCedula.setEditable(false);
-		txtCedula.setBounds(72, 71, 190, 20);
+		txtCedula.setBounds(84, 62, 190, 20);
 		panelInformacionGeneral.add(txtCedula);
 		txtCedula.setColumns(10);
 		
 		txtCredito = new JTextField();
 		txtCredito.setEditable(false);
-		txtCredito.setBounds(240, 19, 86, 20);
+		txtCredito.setBounds(363, 61, 86, 20);
 		panelInformacionGeneral.add(txtCredito);
 		txtCredito.setColumns(10);
 		
 		txtDireccion = new JTextField();
 		txtDireccion.setEditable(false);
-		txtDireccion.setBounds(72, 99, 318, 20);
+		txtDireccion.setBounds(84, 95, 190, 20);
 		panelInformacionGeneral.add(txtDireccion);
 		txtDireccion.setColumns(10);
 		{
@@ -100,56 +93,80 @@ public class RealizarCombo extends JDialog {
 			contentPanel.add(panelBuscar);
 			panelBuscar.setLayout(null);
 			
-			JLabel lblBuscar = new JLabel("Buscar Por Codigo: ");
-			lblBuscar.setBounds(10, 17, 94, 14);
-			panelBuscar.add(lblBuscar);
+			JLabel lblCliente = new JLabel("Cliente");
+			lblCliente.setBounds(15, 13, 69, 20);
+			panelBuscar.add(lblCliente);
 			
-			txtBuscar = new JTextField();
-			txtBuscar.setBounds(114, 14, 296, 20);
-			panelBuscar.add(txtBuscar);
-			txtBuscar.setColumns(10);
-			
-			JButton btnBuscar = new JButton("");
-			btnBuscar.addActionListener(new ActionListener() {
+		    comboBoxcliente = new JComboBox();
+			comboBoxcliente.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					Cliente client = Aplicacion.getInstance().buscarClientePorCodigo(txtBuscar.getText());
-					if(client == null) {
-						JOptionPane.showMessageDialog(null, "El cliente no se encuentra, digite nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
-					}
-					else {
-						loadCliente(client);
-					}
 					
-				}
-			});
-			btnBuscar.setIcon(new ImageIcon(RealizarCombo.class.getResource("/img/magnifier(1).png")));
-			btnBuscar.setBounds(420, 13, 47, 23);
-			panelBuscar.add(btnBuscar);
+					
+            for(int i =0;i<Aplicacion.getInstance().getClientes().size();i++) {
+	        if(Aplicacion.getInstance().getClientes().get(i).getCodigo().equals(comboBoxcliente.getSelectedItem())) {
+	        txtCredito.setText(Float.toString(Aplicacion.getInstance().getClientes().get(i).getCredito()));
+			txtNombre.setText(Aplicacion.getInstance().getClientes().get(i).getNombre());
+			txtDireccion.setText(Aplicacion.getInstance().getClientes().get(i).getDireccion());
+			txtCedula.setText(Aplicacion.getInstance().getClientes().get(i).getCedula());
+			txtCredito.setText(Float.toString(Aplicacion.getInstance().getClientes().get(i).getCredito()));
+	        }
+			else {
+				  txtCredito.setText("");
+					txtNombre.setText("");
+					txtDireccion.setText("");
+					txtCedula.setText("");
+					txtCredito.setText("");
+				
+			}
+			
+									
+								}
+							}
+						});
+	
+					
+	
+		
+			comboBoxcliente.setBounds(70, 10, 124, 23);
+			panelBuscar.add(comboBoxcliente);
 		}
 		
 		JPanel panelCombos = new JPanel();
 		panelCombos.setBorder(new TitledBorder(null, "Combos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelCombos.setBounds(10, 218, 514, 67);
+		panelCombos.setBounds(10, 218, 545, 67);
 		contentPanel.add(panelCombos);
 		panelCombos.setLayout(null);
 		
 		JRadioButton rdbtnComboGamer = new JRadioButton("Combo Gamer");
-		rdbtnComboGamer.setBounds(6, 27, 109, 23);
+		rdbtnComboGamer.setBounds(6, 27, 130, 23);
 		panelCombos.add(rdbtnComboGamer);
 		
 		JRadioButton rdbtnComboEstudiante = new JRadioButton("Combo Estudiante");
-		rdbtnComboEstudiante.setBounds(160, 27, 130, 23);
+		rdbtnComboEstudiante.setBounds(179, 27, 130, 23);
 		panelCombos.add(rdbtnComboEstudiante);
 		
 		JRadioButton rdbtnComboBasico = new JRadioButton("Combo Basico");
-		rdbtnComboBasico.setBounds(333, 27, 109, 23);
+		rdbtnComboBasico.setBounds(373, 27, 109, 23);
 		panelCombos.add(rdbtnComboBasico);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 301, 516, 133);
+		contentPanel.add(scrollPane);
+		
+		JButton btnTotal = new JButton("Total ");
+		btnTotal.setBounds(10, 450, 115, 29);
+		contentPanel.add(btnTotal);
+		
+		textField = new JTextField();
+		textField.setBounds(140, 450, 91, 26);
+		contentPanel.add(textField);
+		textField.setColumns(10);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = new JButton("Comprar combo\r\n");
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -165,13 +182,34 @@ public class RealizarCombo extends JDialog {
 				buttonPane.add(btnCancelar);
 			}
 		}
+		
+	loadClientes();
 	}
-	private void loadCliente(Cliente cliente) {
-		txtCodigo.setText(cliente.getCodigo());
-		txtNombre.setText(cliente.getNombre());
-		txtCedula.setText(cliente.getCedula());
-		txtDireccion.setText(cliente.getDireccion());
-		txtCredito.setText(Float.toString(cliente.getCredito()));
+
+
+
+	
+	
+	
+	
+	
+	private void loadClientes() {
+		comboBoxcliente.removeAllItems();
+		for(int i =0;i<Aplicacion.getInstance().getClientes().size();i++) {
+			comboBoxcliente.addItem(new String(Aplicacion.getInstance().getClientes().get(i).getCodigo()));
+		}
+		comboBoxcliente.insertItemAt(new String("<Seleccione>"), 0);
+		
+		comboBoxcliente.setSelectedIndex(0);
+		
 		
 	}
 }
+	
+	
+	
+	
+	
+	
+	
+

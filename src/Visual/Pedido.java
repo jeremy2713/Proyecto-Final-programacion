@@ -97,8 +97,14 @@ public class Pedido extends JDialog {
 					textField_credito.setText(Float.toString(Aplicacion.getInstance().getClientes().get(i).getCredito()));
 					textField_nombre.setText(Aplicacion.getInstance().getClientes().get(i).getNombre());
 					}
+					
+					else {
+						textField_credito.setText("");
+						textField_nombre.setText("");
+					}
 				}
 			}
+			
 		});
 		comboBox_clientecodigo.setBounds(101, 29, 138, 20);
 		panel_1.add(comboBox_clientecodigo);
@@ -268,7 +274,7 @@ public class Pedido extends JDialog {
 						if(devolver<0)
 						{
 							
-							JOptionPane.showMessageDialog(null, "Advertencia\n"
+							JOptionPane.showMessageDialog(null, "No se ha podido realizar su compra\n"
 					                + "no posee credito suficiente para la compra", "",
 					                JOptionPane.ERROR_MESSAGE);
 

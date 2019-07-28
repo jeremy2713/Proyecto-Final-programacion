@@ -220,6 +220,13 @@ public class Principal extends JFrame {
 		mntmComprarCombo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				
+				RealizarCombo realizarcombo = new RealizarCombo();
+				  realizarcombo.setModal(true);
+						realizarcombo.setLocationRelativeTo(null);
+					realizarcombo.setVisible(true);
+				
+				
 
 			}
 		});
