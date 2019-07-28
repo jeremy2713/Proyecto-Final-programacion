@@ -210,6 +210,21 @@ public class Principal extends JFrame {
 		mnPedido.add(mntmHacerPedido);
 		
 		JMenuItem mntmComprarCombo = new JMenuItem("Comprar Combo");
+		mntmComprarCombo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Combo combo = new Combo();
+			//	combo.setModal(true);
+				combo.setLocationRelativeTo(null);
+				combo.setVisible(true);
+				
+				
+				
+				
+				
+				
+			}
+		});
 		mnPedido.add(mntmComprarCombo);
 		
 		contentPane = new JPanel();
