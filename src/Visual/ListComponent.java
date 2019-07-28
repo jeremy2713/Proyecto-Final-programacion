@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Logico.Aplicacion;
 import Logico.Componente;
 import Logico.Factura;
 import javax.swing.JScrollPane;
@@ -29,8 +30,9 @@ public class ListComponent extends JDialog {
 	private static ArrayList<Componente> misComponentes;
 
 	public ListComponent(ArrayList<Componente> componentes) {
+		setTitle("Lista de Componentes");
 		misComponentes = componentes;
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 575, 313);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -48,7 +50,7 @@ public class ListComponent extends JDialog {
 					}
 				});
 				model = new DefaultTableModel();
-				String[] columnNames = {"Codigo","Tipo De Componente", "Cantidad Pedida", "Marca", "Modelo"};
+				String[] columnNames = {"Codigo","Tipo De Componente", "Marca", "Modelo"};
 				model.setColumnIdentifiers(columnNames);
 				table.setModel(model);
 				scrollPane.setViewportView(table);
@@ -66,6 +68,19 @@ public class ListComponent extends JDialog {
 						dispose();
 					}
 				});
+				{
+					JButton btnEliminar = new JButton("Eliminar");
+					btnEliminar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							int fila = table.getSelectedRow();
+							String codigo= (String)table.getValueAt(fila, 0);
+							Componente C1 = Aplicacion.getInstance().buscarComponentePorCodigo(codigo);
+							Aplicacion.getInstance().getComponentes().remove(C1);
+							loadComponente();
+						}
+					});
+					buttonPane.add(btnEliminar);
+				}
 				btnCerrar.setActionCommand("Cancel");
 				buttonPane.add(btnCerrar);
 			}
@@ -77,9 +92,9 @@ public class ListComponent extends JDialog {
 		for (Componente componente : misComponentes) {
 			fila[0] = componente.getBarcode();
 			fila[1] = componente.getClass().getSimpleName();
-			fila[2] = componente.getCantidad_disponible();
-			fila[3] = componente.getMarca();
-			fila[4] = componente.getModelo();
+		//	fila[2] = componente.getCantidad_disponible();
+			fila[2] = componente.getMarca();
+			fila[3] = componente.getModelo();
 					
 			model.addRow(fila);
 		}

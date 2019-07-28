@@ -55,6 +55,7 @@ public class RegComponente extends JDialog {
 	private JTextField textField_modelo;
 	private JTextField textField_precio;
 	private JTextField textField_cantidad;
+	private JButton btnReinventar;
 	
 
 	public RegComponente() {
@@ -307,7 +308,6 @@ public class RegComponente extends JDialog {
 						int cantidad = Integer.parseInt(textField_cantidad.getText());
 						String modelo = textField_modelo.getText();
 						String marca = textField_marca.getText();
-						//String barcode = textField_barcode.getText();
 						
 						for(int i=0;i<cantidad;i++) {
 							String barcode = "COM-"+(Aplicacion.getInstance().getComponentes().size()+1);	
@@ -345,6 +345,46 @@ public class RegComponente extends JDialog {
 						
 					}
 				});
+				
+				btnReinventar = new JButton("Re-inventar");
+				btnReinventar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int cont=0;
+						Componente aux = null;
+						
+						while(cont==0 || cont==1) {
+							String barcode = "COM-"+(Aplicacion.getInstance().getComponentes().size()+1);
+							aux = new Tarjetamadre(1000, 1, barcode, "Dell", "Model33", "micro-usb", "DDR-3", "SATA-2");
+							Aplicacion.getInstance().agregarComponente(aux);
+							cont++;
+						}
+						while(cont==2 || cont==3) {
+							String barcode = "COM-"+(Aplicacion.getInstance().getComponentes().size()+1);
+							aux = new Memoriaram(1000, 1, barcode, "MLLSE", "PC3L-128", 16, "DDR-3");
+							Aplicacion.getInstance().agregarComponente(aux);
+							cont++;
+							
+						}
+						while(cont==4 || cont==5) {
+							String barcode = "COM-"+(Aplicacion.getInstance().getComponentes().size()+1);
+							aux = new Discoduro(1000, 1, barcode, "TEYADI", "Model3786", 500, "USB");
+							Aplicacion.getInstance().agregarComponente(aux);
+							cont++;
+							
+						}
+						while(cont==6 || cont==7) {
+							String barcode = "COM-"+(Aplicacion.getInstance().getComponentes().size()+1);
+							aux= new Microprocesadores(1000, 1, barcode, "OEM", "Model471", "micro-usb", 2660);
+							Aplicacion.getInstance().agregarComponente(aux);
+							cont++;
+							
+						}
+							
+						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
+						clean();
+					}
+				});
+				buttonPane.add(btnReinventar);
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
