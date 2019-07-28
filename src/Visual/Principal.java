@@ -172,6 +172,9 @@ public class Principal extends JFrame {
 		JMenuItem mntmListarComponente = new JMenuItem("Listar Componente");
 		mntmListarComponente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ListComponent listcompo = new ListComponent(Aplicacion.getInstance().getComponentes());
+				listcompo.setModal(true);
+				listcompo.setVisible(true);
 			}
 		});
 		mnComponentes.add(mntmListarComponente);
@@ -213,16 +216,11 @@ public class Principal extends JFrame {
 		mntmComprarCombo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Combo combo = new Combo();
-			//	combo.setModal(true);
-				combo.setLocationRelativeTo(null);
+				RealizarCombo combo = new RealizarCombo();
+				combo.setModal(true);
 				combo.setVisible(true);
-				
-				
-				
-				
-				
-				
+			
+
 			}
 		});
 		mnPedido.add(mntmComprarCombo);
