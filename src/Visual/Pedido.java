@@ -68,20 +68,20 @@ public class Pedido extends JDialog {
 	public Pedido() {
 		setResizable(false);
 		setTitle("Realizar Pedidos");
-		setBounds(100, 100, 708, 505);
+		setBounds(100, 100, 766, 598);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 682, 364);
+		panel.setBounds(10, 11, 740, 480);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "Informacion General", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(10, 11, 662, 97);
+		panel_1.setBounds(10, 11, 720, 97);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -132,12 +132,12 @@ public class Pedido extends JDialog {
 		model_1.setColumnIdentifiers(header1);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(10, 119, 269, 234);
+		panel_2.setBounds(10, 119, 317, 350);
 		panel.add(panel_2);
 		panel_2.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 249, 212);
+		scrollPane.setBounds(10, 11, 297, 328);
 		panel_2.add(scrollPane);
 		
 		table = new JTable();
@@ -157,12 +157,12 @@ public class Pedido extends JDialog {
 		scrollPane.setViewportView(table);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(403, 119, 269, 234);
+		panel_3.setBounds(413, 119, 317, 350);
 		panel.add(panel_3);
 		panel_3.setLayout(null);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(10, 11, 249, 212);
+		scrollPane_1.setBounds(10, 11, 297, 328);
 		panel_3.add(scrollPane_1);
 		
 		table_1 = new JTable();
@@ -196,7 +196,7 @@ public class Pedido extends JDialog {
 				 
 			}
 		});
-		btnMover.setBounds(289, 150, 89, 23);
+		btnMover.setBounds(349, 150, 41, 23);
 		panel.add(btnMover);
 		
 		 btnRemover = new JButton("<");
@@ -211,7 +211,7 @@ public class Pedido extends JDialog {
 				loadTablePedidosRemover();
 			}
 		});
-		btnRemover.setBounds(289, 257, 89, 23);
+		btnRemover.setBounds(349, 257, 41, 23);
 		panel.add(btnRemover);
 		
 		JButton btnTotal = new JButton("Total");
@@ -221,21 +221,21 @@ public class Pedido extends JDialog {
 				textField_devuelta.setText(Float.toString(devuelta()));
 			}
 		});
-		btnTotal.setBounds(10, 409, 89, 23);
+		btnTotal.setBounds(10, 502, 89, 23);
 		contentPanel.add(btnTotal);
 		
 		textField_total = new JTextField();
 		textField_total.setEditable(false);
-		textField_total.setBounds(109, 410, 86, 20);
+		textField_total.setBounds(111, 503, 86, 20);
 		contentPanel.add(textField_total);
 		textField_total.setColumns(10);
 		
 		JLabel lblDevuelta = new JLabel("Devuelta");
-		lblDevuelta.setBounds(260, 413, 86, 19);
+		lblDevuelta.setBounds(264, 504, 64, 19);
 		contentPanel.add(lblDevuelta);
 		
 		textField_devuelta = new JTextField();
-		textField_devuelta.setBounds(356, 410, 86, 20);
+		textField_devuelta.setBounds(338, 503, 86, 20);
 		contentPanel.add(textField_devuelta);
 		textField_devuelta.setColumns(10);
 		{

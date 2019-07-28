@@ -64,6 +64,7 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		setTitle("Tienda de Componentes");
 
 		
 		addWindowListener(new WindowAdapter() {

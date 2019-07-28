@@ -28,6 +28,7 @@ public class ListComponent extends JDialog {
 	private static DefaultTableModel model;
 	private static Object[] fila;
 	private static ArrayList<Componente> misComponentes;
+	private JButton btnEliminar;
 
 	public ListComponent(ArrayList<Componente> componentes) {
 		setTitle("Lista de Componentes");
@@ -46,7 +47,11 @@ public class ListComponent extends JDialog {
 				table.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						int index = table.getSelectedRow();
+					//	int index = table.getSelectedRow();
+						if(table.getSelectedRow()>=0){
+							btnEliminar.setEnabled(true);
+			
+						}
 					}
 				});
 				model = new DefaultTableModel();
@@ -69,7 +74,7 @@ public class ListComponent extends JDialog {
 					}
 				});
 				{
-					JButton btnEliminar = new JButton("Eliminar");
+					 btnEliminar = new JButton("Eliminar");
 					btnEliminar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							int fila = table.getSelectedRow();
@@ -77,8 +82,10 @@ public class ListComponent extends JDialog {
 							Componente C1 = Aplicacion.getInstance().buscarComponentePorCodigo(codigo);
 							Aplicacion.getInstance().getComponentes().remove(C1);
 							loadComponente();
+							btnEliminar.setEnabled(false);
 						}
 					});
+					btnEliminar.setEnabled(false);
 					buttonPane.add(btnEliminar);
 				}
 				btnCerrar.setActionCommand("Cancel");
