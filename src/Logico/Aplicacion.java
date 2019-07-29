@@ -16,6 +16,10 @@ public class Aplicacion implements Serializable {
 	private ArrayList<Componente> componentes;
 	private ArrayList<Combo> combos;
 	private static Aplicacion miAplicacion;
+	private ArrayList<Combocomponente>combos1;
+
+	
+	
 //////////////////////////////////////////////////////////////////
 /////Aqui empiezan las variables para el login//////
 	private ArrayList<User> misUsers;
@@ -29,6 +33,7 @@ public class Aplicacion implements Serializable {
 		this.componentes = new ArrayList<>();
 		this.combos = new ArrayList<>();
 		this.misUsers= new ArrayList<User>();
+		this.combos1= new ArrayList<Combocomponente>();
 	}
 	public static Aplicacion getInstance() {
 		if(miAplicacion == null) {
@@ -65,7 +70,15 @@ public class Aplicacion implements Serializable {
 
 	public void agregarCliente(Cliente cliente) {
 		clientes.add(cliente);
+		
 	}
+		public void agregarCombo1 (Combocomponente combo1) {
+			combos1.add(combo1);
+			
+			
+			
+		}
+	
 	
 	public Cliente buscarClientePorCodigo(String codigo) {
 		Cliente client = null;
@@ -165,8 +178,23 @@ public class Aplicacion implements Serializable {
 		}
 		return login;
 	}
+	public ArrayList<Combo> getCombos() {
+		return combos;
+	}
+	public void setCombos(ArrayList<Combo> combos) {
+		this.combos = combos;
+	}
+	public Aplicacion(ArrayList<Combocomponente> combos1) {
+		super();
+		this.combos1 = combos1;
+	}
+	public ArrayList<Combocomponente> getCombos1() {
+		return combos1;
+	}
+		
+
 	
-	
+
 	
 
 }

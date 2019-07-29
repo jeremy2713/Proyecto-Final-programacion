@@ -8,19 +8,32 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
+import com.sun.org.apache.xml.internal.security.encryption.AgreementMethod;
 
 import Logico.Aplicacion;
 import Logico.Cliente;
+import Logico.Combo;
+import Logico.Combocomponente;
+import Logico.Componente;
+import Logico.Discoduro;
+import Logico.Memoriaram;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class RealizarCombo extends JDialog {
 
@@ -31,6 +44,12 @@ public class RealizarCombo extends JDialog {
 	private JTextField txtDireccion;
 	private JComboBox comboBoxcliente;
 	private JTextField textField;
+	public static Object[] fila;
+	public static Object[] fila1;
+	private static DefaultTableModel model1;
+	private JTable table;
+
+
 
 
 	public RealizarCombo() {
@@ -137,21 +156,102 @@ public class RealizarCombo extends JDialog {
 		contentPanel.add(panelCombos);
 		panelCombos.setLayout(null);
 		
-		JRadioButton rdbtnComboGamer = new JRadioButton("Combo Gamer");
-		rdbtnComboGamer.setBounds(6, 27, 130, 23);
-		panelCombos.add(rdbtnComboGamer);
+		Combocomponente aux=null;/////////////////llenar los combos/////////////
+		Componente auxcom=null;
+	//	auxcom=new Componente(Aplicacion.getInstance().getComponentes().get(1));
+		//Se quiere crear un combo1 numero1, copiando la primera fila del arraylist de componentes. Esta copia no es correcta.
+		aux= new Combocomponente(1,auxcom);
+		//Aplicacion.getInstance().agregarCombo1(aux);
+	/*	aux= new Combocomponente(1,Aplicacion.getInstance().getComponentes().get(2));
+		Aplicacion.getInstance().agregarCombo1(aux);
+		aux= new Combocomponente(1,Aplicacion.getInstance().getComponentes().get(3));
+		Aplicacion.getInstance().agregarCombo1(aux);*/
 		
-		JRadioButton rdbtnComboEstudiante = new JRadioButton("Combo Estudiante");
-		rdbtnComboEstudiante.setBounds(179, 27, 130, 23);
-		panelCombos.add(rdbtnComboEstudiante);
 		
-		JRadioButton rdbtnComboBasico = new JRadioButton("Combo Basico");
-		rdbtnComboBasico.setBounds(373, 27, 109, 23);
-		panelCombos.add(rdbtnComboBasico);
+		
+		
+		
+		
+		
+		
+		
+		JRadioButton radiogamer = new JRadioButton("Combo Gamer");
+		radiogamer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				model1.setRowCount(0);
+
+				for(int i =0;i<Aplicacion.getInstance().getCombos1().size();i++) {
+					if(Aplicacion.getInstance().getCombos1().get(i).getCodigoCombo()==1) {
+					
+						fila[0] = Aplicacion.getInstance().getCombos1().get(i).getComponente().getBarcode();
+						fila[1] = Aplicacion.getInstance().getCombos1().get(i).getComponente().getClass().getSimpleName();
+						fila[2] = Aplicacion.getInstance().getCombos1().get(i).getComponente().getPrecio();
+						model1.addRow(fila);
+				}
+					
+				
+			}
+			
+			
+			}
+		});
+		radiogamer.setBounds(6, 27, 130, 23);
+		panelCombos.add(radiogamer);
+		
+		JRadioButton radioestudiante = new JRadioButton("Combo Estudiante");
+		radioestudiante.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(Aplicacion.getInstance().getCombos().equals( radioestudiante)) {	
+					
+					model1.setRowCount(0);
+					fila = new Object[model1.getColumnCount()];
+					fila[0] = Aplicacion.getInstance().getCombos().get(2).getDiscoDuro();
+					fila[1] = Aplicacion.getInstance().getCombos().get(2).getMemoriaRAM();
+					fila[2] = Aplicacion.getInstance().getCombos().get(2).getCpu();	
+				}	
+			}
+			
+		});
+		
+		
+		radioestudiante.setBounds(179, 27, 130, 23);
+		panelCombos.add(radioestudiante);
+		
+		JRadioButton radiobasico = new JRadioButton("Combo Basico");
+		radiobasico.setBounds(373, 27, 109, 23);
+		panelCombos.add(radiobasico);
+		
+		String[] header = {"Codigo","Nombre","Precio"};
+		model1 = new DefaultTableModel();
+		model1.setColumnIdentifiers(header);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 301, 516, 133);
 		contentPanel.add(scrollPane);
+		
+		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//if(table.getSelectedRow()>=0){
+					
+					
+				
+			}
+		});
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setModel(model1);	
+		scrollPane.setViewportView(table);
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		JButton btnTotal = new JButton("Total ");
 		btnTotal.setBounds(10, 450, 115, 29);
@@ -184,6 +284,7 @@ public class RealizarCombo extends JDialog {
 		}
 		
 	loadClientes();
+	//loadTable();
 	}
 
 
@@ -204,7 +305,31 @@ public class RealizarCombo extends JDialog {
 		
 		
 	}
-}
+	
+	
+	
+	/*public static void loadTable() {
+		model1.setRowCount(0);
+		fila = new Object[model1.getColumnCount()];
+			fila[0] = Aplicacion.getInstance().getCombos().;
+			fila[1] = Aplicacion.getInstance().getComponentes().get(i).getClass().getSimpleName();
+			fila[2] = Aplicacion.getInstance().getComponentes().get(i).getPrecio();
+			model1.addRow(fila);
+			
+		}*/
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
 	
 	
 	

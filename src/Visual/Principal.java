@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import Logico.Aplicacion;
 import Logico.Cliente;
+import Logico.Combo;
 import Logico.Factura;
 import img.ImagenFondoPrincipal;
 
@@ -197,7 +198,7 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				Registrousuario registrousuario = new Registrousuario();
-			  //  registrousuario.setModal(true);
+			//   registrousuario.setModal(true);
 				registrousuario.setLocationRelativeTo(null);
 				registrousuario.setVisible(true);
 				
@@ -237,5 +238,9 @@ public class Principal extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 	}
+
+	
+
+	
 
 }
