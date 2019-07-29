@@ -14,6 +14,7 @@ import org.omg.CORBA.portable.ApplicationException;
 
 import Logico.Aplicacion;
 import Logico.Cliente;
+import Logico.Combo;
 import Logico.Componente;
 import Logico.Factura;
 
@@ -48,6 +49,7 @@ public class Pedido extends JDialog {
 	private JButton btnMover;
 	private JButton btnRemover;
 	private JComboBox comboBox_clientecodigo;
+
 
 	/**
 	 * Launch the application.
@@ -305,6 +307,21 @@ public class Pedido extends JDialog {
 						}
 					}
 				});
+				
+				JButton btnComprarCombo = new JButton("Comprar combo");
+				btnComprarCombo.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						Combo miscombo = null;
+                        String codigo="C"+(Aplicacion.getInstance().getCombos().size()+1);
+						//for (Componente componentepedidos :) {
+							
+							
+							
+						
+					}
+				});
+				buttonPane.add(btnComprarCombo);
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
