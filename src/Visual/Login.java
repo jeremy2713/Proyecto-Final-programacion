@@ -11,6 +11,7 @@ import Logico.Aplicacion;
 import Logico.Cliente;
 import Logico.User;
 import img.ImagenFondoPrincipal;
+import sun.security.jca.GetInstance;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,6 +29,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class Login extends JFrame {
 
@@ -51,6 +54,7 @@ public class Login extends JFrame {
 					Aplicacion temp = (Aplicacion)tiendaLectura.readObject();
 					Aplicacion.setInstance(temp);
 					tienda.close();
+					
 				} catch (FileNotFoundException e) {
 					try {
 						tienda2 = new  FileOutputStream("Electronica.dat");
@@ -59,6 +63,7 @@ public class Login extends JFrame {
 						Aplicacion.getInstance().regUser(aux);
 						tiendaEscritura.writeObject(Aplicacion.getInstance());
 						tienda2.close();
+						System.out.println("FUnciona");
 					} catch (FileNotFoundException e1) {
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -88,27 +93,29 @@ public class Login extends JFrame {
 	public Login() {
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 441, 314);
+		setBounds(100, 100, 370, 282);
 		border = new JPanel();
+		border.setForeground(new Color(255, 255, 255));
 		border.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(border);
 		border.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JLabel lblUsuario = new JLabel("Username");
-		lblUsuario.setBounds(38, 57, 74, 20);
+		lblUsuario.setBounds(27, 57, 74, 20);
 		border.add(lblUsuario);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(43, 112, 69, 20);
+		lblPassword.setBounds(27, 112, 69, 20);
 		border.add(lblPassword);
 		
 		txtusuario = new JTextField();
-		txtusuario.setBounds(138, 54, 146, 26);
+		txtusuario.setBounds(111, 54, 199, 26);
 		border.add(txtusuario);
 		txtusuario.setColumns(10);
 		
 		txtpass = new JPasswordField();
-		txtpass.setBounds(138, 109, 146, 26);
+		txtpass.setBounds(111, 109, 199, 26);
 		border.add(txtpass);
 		txtpass.setColumns(10);
 		
@@ -118,12 +125,14 @@ public class Login extends JFrame {
 		btnAcceder.addActionListener(new ActionListener() {
 				@SuppressWarnings("deprecation")
 				public void actionPerformed(ActionEvent e) {
-				
+					
 					
 					if(Aplicacion.getInstance().confirmLogin(txtusuario.getText(),txtpass.getText())){
+						ImagenFondoPrincipal p = new ImagenFondoPrincipal("/img/Fondo.jpeg");// Ruta de la imagen de fondo
 						Principal frame = new Principal();
 						dispose();
 						frame.setVisible(true);
+						frame.getContentPane().add(p);
 					}
 					
 					else {
@@ -137,7 +146,7 @@ public class Login extends JFrame {
 				}
 			});
 		
-		btnAcceder.setBounds(87, 180, 115, 29);
+		btnAcceder.setBounds(38, 180, 115, 29);
 		border.add(btnAcceder);
 		
 		JButton btnSalir = new JButton("Salir");
@@ -148,7 +157,7 @@ public class Login extends JFrame {
 				
 			}
 		});
-		btnSalir.setBounds(229, 180, 115, 29);
+		btnSalir.setBounds(192, 180, 115, 29);
 		border.add(btnSalir);
 		
 		

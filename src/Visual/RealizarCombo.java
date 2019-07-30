@@ -43,18 +43,22 @@ public class RealizarCombo extends JDialog {
 	private JTextField txtDireccion;
 	private JComboBox comboBoxcliente;
 	private JTextField textField;
-	public static Object[] fila;
-	public static Object[] fila1;
-	private static DefaultTableModel model1;
 	private JTable table;
-
+	private JTable table_1;
+	public static Object[] fila;
+	public static Object[] fila_1;
+	private static DefaultTableModel model;
+	private static DefaultTableModel model_1;
+	private static ArrayList<Componente> Componentespedidos = new ArrayList<>();
+	private JButton btnMover;
+	private JButton btnRemover;
 
 
 
 	public RealizarCombo() {
 		setTitle("Comprar Combo");
 		setLocationRelativeTo(null);
-		setBounds(100, 100, 644, 567);
+		setBounds(100, 100, 762, 692);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -62,7 +66,7 @@ public class RealizarCombo extends JDialog {
 		
 		JPanel panelInformacionGeneral = new JPanel();
 		panelInformacionGeneral.setBorder(new TitledBorder(null, "Informacion General", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelInformacionGeneral.setBounds(10, 65, 524, 142);
+		panelInformacionGeneral.setBounds(10, 65, 701, 142);
 		contentPanel.add(panelInformacionGeneral);
 		panelInformacionGeneral.setLayout(null);
 		
@@ -105,6 +109,16 @@ public class RealizarCombo extends JDialog {
 		txtDireccion.setBounds(84, 95, 190, 20);
 		panelInformacionGeneral.add(txtDireccion);
 		txtDireccion.setColumns(10);
+		
+		textField = new JTextField();
+		textField.setBounds(524, 58, 91, 26);
+		panelInformacionGeneral.add(textField);
+		textField.setColumns(10);
+		
+		
+		JButton btnTotal = new JButton("Total ");
+		btnTotal.setBounds(485, 91, 115, 29);
+		panelInformacionGeneral.add(btnTotal);
 		{
 			JPanel panelBuscar = new JPanel();
 			panelBuscar.setBounds(10, 11, 514, 42);
@@ -151,44 +165,93 @@ public class RealizarCombo extends JDialog {
 		
 
 		String[] header = {"Codigo","Nombre","Precio"};
-		model1 = new DefaultTableModel();
-		model1.setColumnIdentifiers(header);
+		model = new DefaultTableModel();
+		model.setColumnIdentifiers(header);
+		
+		String[] header1 = {"Codigo","Nombre","Precio"};
+		model_1 = new DefaultTableModel();
+		model_1.setColumnIdentifiers(header1);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(6, 223, 317, 350);
+		contentPanel.add(panel_2);
+		panel_2.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 301, 516, 133);
-		contentPanel.add(scrollPane);
+		scrollPane.setBounds(10, 11, 297, 328);
+		panel_2.add(scrollPane);
 		
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//if(table.getSelectedRow()>=0){
+				if(table.getSelectedRow()>=0){
 					
+					btnMover.setEnabled(true);
 					
-				
+	
+				}
 			}
 		});
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setModel(model1);	
+		table.setModel(model);	
 		scrollPane.setViewportView(table);
 		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(394, 223, 317, 350);
+		contentPanel.add(panel_3);
+		panel_3.setLayout(null);
 		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 11, 297, 328);
+		panel_3.add(scrollPane_1);
 		
+		table_1 = new JTable();
+		table_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (table_1.getSelectedRow()>=0) {
+					
+					btnRemover.setEnabled(true);
+					
+				}
+				
+				
+			}
+		});
+		table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		//table.edi
+		table_1.setModel(model_1);
+		scrollPane_1.setViewportView(table_1);
 		
+		 btnMover = new JButton(">");
+		btnMover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int fila = table.getSelectedRow();
+				String codigo= (String)table.getValueAt(fila, 0);
+				Componente C1 = Aplicacion.getInstance().buscarComponentePorCodigo(codigo);
+				Componentespedidos.add(C1);
+				Aplicacion.getInstance().getComponentes().remove(C1);
+				loadTable();
+				 
+			}
+		});
+		btnMover.setBounds(349, 150, 41, 23);
+		contentPanel.add(btnMover);
 		
-		
-		
-		
-		
-		
-		JButton btnTotal = new JButton("Total ");
-		btnTotal.setBounds(10, 450, 115, 29);
-		contentPanel.add(btnTotal);
-		
-		textField = new JTextField();
-		textField.setBounds(140, 450, 91, 26);
-		contentPanel.add(textField);
-		textField.setColumns(10);
+		 btnRemover = new JButton("<");
+		btnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int fila = table_1.getSelectedRow();
+				String codigo = (String) table_1.getValueAt(fila, 0);
+				
+				loadTable();
+				
+			
+			}
+		});
+		btnRemover.setBounds(338, 412, 41, 23);
+		contentPanel.add(btnRemover);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -216,12 +279,6 @@ public class RealizarCombo extends JDialog {
 	}
 
 
-
-	
-	
-	
-	
-	
 	private void loadClientes() {
 		comboBoxcliente.removeAllItems();
 		for(int i =0;i<Aplicacion.getInstance().getClientes().size();i++) {
@@ -234,19 +291,16 @@ public class RealizarCombo extends JDialog {
 		
 	}
 	
-	
-	
 	public static void loadTable() {
-		model1.setRowCount(0);
-		fila = new Object[model1.getColumnCount()];
-		for(int i=0;i<Aplicacion.getInstance().getCombos().size();i++) {
-			fila[0] = Aplicacion.getInstance().getCombos().get(i).getCodigoCombo();
-			fila[1] = Aplicacion.getInstance().getCombos().getClass().getSimpleName();
-			fila[2] = Aplicacion.getInstance().getCombos().get(i).getPrecioTotal();
-			model1.addRow(fila);
+		model.setRowCount(0);
+		fila = new Object[model.getColumnCount()];
+		for(int i=0;i<Aplicacion.getInstance().getComponentes().size();i++) {
+			fila[0] = Aplicacion.getInstance().getComponentes().get(i).getBarcode();
+			fila[1] = Aplicacion.getInstance().getComponentes().get(i).getClass().getSimpleName();
+			fila[2] = Aplicacion.getInstance().getComponentes().get(i).getPrecio();
+			model.addRow(fila);
 			
-           }
-	    }
+		}}
 	}
 	
 	

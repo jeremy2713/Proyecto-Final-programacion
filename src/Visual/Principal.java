@@ -46,7 +46,7 @@ public class Principal extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -59,16 +59,15 @@ public class Principal extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
 	public Principal() {
-		setTitle("Tienda de Componentes");
-
 		
-		addWindowListener(new WindowAdapter() {
+		setTitle("Tienda de Componentes");
+		/*addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				FileOutputStream tienda2;
@@ -104,7 +103,7 @@ public class Principal extends JFrame {
 	                e.printStackTrace();
 	            }
 			
-		}
+		}*/
 		addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent arg0) {
                 FileOutputStream f;
@@ -170,6 +169,13 @@ public class Principal extends JFrame {
 			}
 		});
 		mnComponentes.add(mntmRegistrarComponente);
+		if(!Aplicacion.getLoginUser().getTipo().equalsIgnoreCase("Cliente")) {
+			 mntmRegistrarComponente.setEnabled(true);
+		}else {
+			
+			 mntmRegistrarComponente.setEnabled(false);
+		}
+		
 		
 		JMenuItem mntmListarComponente = new JMenuItem("Listar Componente");
 		mntmListarComponente.addActionListener(new ActionListener() {
@@ -189,9 +195,15 @@ public class Principal extends JFrame {
 		
 		JMenu mnPedido = new JMenu("Pedido");
 		menuBar.add(mnPedido);
-		
+	
 		JMenu mnUsuario = new JMenu("Usuario");
 		menuBar.add(mnUsuario);
+		if(!Aplicacion.getLoginUser().getTipo().equalsIgnoreCase("Cliente")) {
+			mnUsuario.setEnabled(true);
+		}else {
+			
+			mnUsuario.setEnabled(false);
+		}
 		
 		JMenuItem mntmRegistrar = new JMenuItem("Registrar");
 		mntmRegistrar.addActionListener(new ActionListener() {

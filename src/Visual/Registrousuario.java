@@ -6,7 +6,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Logico.Aplicacion;
+import Logico.User;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -18,9 +23,9 @@ import javax.swing.JPasswordField;
 public class Registrousuario extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JPasswordField passwordField;
-	private JPasswordField passwordField_1;
+	private JTextField txtUsuario;
+	private JTextField txtContrasena;
+	private JTextField txtConfirmar;
 
 	public Registrousuario() {
 		setTitle("Registro usuario");
@@ -31,21 +36,21 @@ public class Registrousuario extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(25, 102, 146, 26);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txtUsuario = new JTextField();
+		txtUsuario.setBounds(25, 84, 146, 26);
+		contentPane.add(txtUsuario);
+		txtUsuario.setColumns(10);
 		
 		JLabel lblNewUsername = new JLabel("New Username");
-		lblNewUsername.setBounds(25, 48, 107, 20);
+		lblNewUsername.setBounds(47, 48, 107, 20);
 		contentPane.add(lblNewUsername);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(284, 48, 69, 20);
+		lblPassword.setBounds(285, 48, 69, 20);
 		contentPane.add(lblPassword);
 		
 		JLabel lblConfirmarPassword = new JLabel("Confirmar Password");
-		lblConfirmarPassword.setBounds(272, 145, 146, 20);
+		lblConfirmarPassword.setBounds(249, 145, 146, 20);
 		contentPane.add(lblConfirmarPassword);
 		
 		JLabel lblTipoDeUsuario = new JLabel("Tipo de usuario:");
@@ -61,13 +66,20 @@ public class Registrousuario extends JFrame {
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
+				if(!txtConfirmar.getText().equalsIgnoreCase("")&& !txtContrasena.getText().equalsIgnoreCase("")&& txtConfirmar.getText().equalsIgnoreCase(txtContrasena.getText()) && !txtUsuario.getText().equalsIgnoreCase("") && comboBox.getSelectedIndex()!=0 ) {
+				User u1=new User(comboBox.getSelectedItem().toString(), txtUsuario.getText(), txtContrasena.getText());
+				Aplicacion.getInstance().regUser(u1);
 				
-				
-				
-				
+				JOptionPane.showMessageDialog(null, "Registro Exitoso", "Registro exitoso",
+	                    JOptionPane.INFORMATION_MESSAGE);
+				dispose();
+				}else {
+					JOptionPane.showMessageDialog(null, "Revise la informacion", "Validacion",
+		                    JOptionPane.ERROR_MESSAGE);
+					
+				}
 			}
-		});
+			});
 		btnRegistrar.setBounds(173, 251, 115, 29);
 		contentPane.add(btnRegistrar);
 		
@@ -81,12 +93,14 @@ public class Registrousuario extends JFrame {
 		btnCancelar.setBounds(303, 251, 115, 29);
 		contentPane.add(btnCancelar);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(267, 102, 146, 26);
-		contentPane.add(passwordField);
+		txtContrasena = new JTextField();
+		txtContrasena.setBounds(249, 84, 146, 26);
+		contentPane.add(txtContrasena);
+		txtContrasena.setColumns(10);
 		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setBounds(272, 181, 145, 26);
-		contentPane.add(passwordField_1);
+		txtConfirmar = new JTextField();
+		txtConfirmar.setBounds(249, 181, 156, 26);
+		contentPane.add(txtConfirmar);
+		txtConfirmar.setColumns(10);
 	}
 }
