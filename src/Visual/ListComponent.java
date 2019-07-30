@@ -55,7 +55,7 @@ public class ListComponent extends JDialog {
 					}
 				});
 				model = new DefaultTableModel();
-				String[] columnNames = {"Codigo","Tipo De Componente", "Marca", "Modelo"};
+				String[] columnNames = {"Codigo","Tipo De Componente", "Marca", "Modelo", "Cantidad"};
 				model.setColumnIdentifiers(columnNames);
 				table.setModel(model);
 				scrollPane.setViewportView(table);
@@ -99,7 +99,7 @@ public class ListComponent extends JDialog {
 		for (Componente componente : misComponentes) {
 			fila[0] = componente.getBarcode();
 			fila[1] = componente.getClass().getSimpleName();
-		//	fila[2] = componente.getCantidad_disponible();
+			fila[4] = componente.getCantidad_disponible();
 			fila[2] = componente.getMarca();
 			fila[3] = componente.getModelo();
 					

@@ -131,7 +131,7 @@ public class Pedido extends JDialog {
 		panel_1.add(textField_credito);
 		textField_credito.setColumns(10);
 		
-		String[] header = {"Codigo","Nombre","Precio"};
+		String[] header = {"Codigo","Nombre","Precio", "Cantidad"};
 		model = new DefaultTableModel();
 		model.setColumnIdentifiers(header);
 		
@@ -198,14 +198,20 @@ public class Pedido extends JDialog {
 				String codigo= (String)table.getValueAt(fila, 0);
 				Componente C1 = Aplicacion.getInstance().buscarComponentePorCodigo(codigo);
 				Componentespedidos.add(C1);
+				if(C1.getCantidad_disponible()>0) {				
+				C1.setCantidad_disponible(C1.getCantidad_disponible()-1);
 				textField_total.setText(Float.toString(precioTotalComponentePedido()));
 				textField_devuelta.setText(Float.toString(devuelta()));
-				Aplicacion.getInstance().getComponentes().remove(C1);
+		//		Aplicacion.getInstance().getComponentes().remove(C1);
 				loadTable();
 				loadTablePedidosRemover();
-				 
+				}else {
+				JOptionPane.showMessageDialog(null, "no hay suficiente");
+				} 
+				btnMover.setEnabled(false);
 			}
 		});
+		btnMover.setEnabled(false);
 		btnMover.setBounds(349, 150, 41, 23);
 		panel.add(btnMover);
 		
@@ -215,15 +221,16 @@ public class Pedido extends JDialog {
 				int fila = table_1.getSelectedRow();
 				String codigo = (String) table_1.getValueAt(fila, 0);
 				Componente C1 = componentePedidosPorCodigo(codigo);
-				Aplicacion.getInstance().getComponentes().add(C1);
+				C1.setCantidad_disponible(C1.getCantidad_disponible()+1);
+				textField_total.setText(Float.toString(precioTotalComponentePedido()));
+				textField_devuelta.setText(Float.toString(devuelta()));
 				Componentespedidos.remove(C1);
 				loadTable();
 				loadTablePedidosRemover();
-				
-				textField_total.setText(Float.toString(precioTotalComponentePedido()));
-				textField_devuelta.setText(Float.toString(devuelta()));
+				btnRemover.setEnabled(false);
 			}
 		});
+		btnRemover.setEnabled(false);
 		btnRemover.setBounds(349, 257, 41, 23);
 		panel.add(btnRemover);
 		
@@ -312,13 +319,13 @@ public class Pedido extends JDialog {
 				btnComprarCombo.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
-						Combo miscombo = null;
+					/*	Combo miscombo = null;
                         String codigo="C"+(Aplicacion.getInstance().getCombos().size()+1);
 						//for (Componente componentepedidos :) {
 							
 							
 							
-						
+					*/	
 					}
 				});
 				buttonPane.add(btnComprarCombo);
@@ -349,6 +356,7 @@ public class Pedido extends JDialog {
 			fila[0] = Aplicacion.getInstance().getComponentes().get(i).getBarcode();
 			fila[1] = Aplicacion.getInstance().getComponentes().get(i).getClass().getSimpleName();
 			fila[2] = Aplicacion.getInstance().getComponentes().get(i).getPrecio();
+			fila[3] = Aplicacion.getInstance().getComponentes().get(i).getCantidad_disponible();
 			model.addRow(fila);
 			
 		}
@@ -362,6 +370,7 @@ public class Pedido extends JDialog {
 			fila_1[0] = Componentespedidos.get(i).getBarcode();
 			fila_1[1] = Componentespedidos.get(i).getClass().getSimpleName();
 			fila_1[2] = Componentespedidos.get(i).getPrecio();
+		//	fila_1[3] = Componentespedidos.get(i).getCantidad_disponible();
 			model_1.addRow(fila_1);
 		
 		}

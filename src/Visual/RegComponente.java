@@ -2,7 +2,7 @@ package Visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -23,6 +23,7 @@ import Logico.Tarjetamadre;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JSpinner;
 
 public class RegComponente extends JDialog {
 
@@ -56,12 +57,24 @@ public class RegComponente extends JDialog {
 	private JTextField textField_precio;
 	private JTextField textField_cantidad;
 	private JButton btnReinventar;
+	private JComboBox comboBox_cantidaddememoria;
+	private JComboBox comboBox_tipodememoria;
+	private JComboBox comboBox_velocidad;
+	private JComboBox comboBox_tipodeconexion;
+	private JComboBox comboBox_almacenamiento;
+	private JComboBox comboBox_tipodeconector;
+	private JComboBox comboBox_tipoderam;
+	private JComboBox comboBox_conectoralmicro;
+	private JComboBox comboBox_conectordiscoduro;
+	private JComboBox comboBox_marca;
+	private JSpinner spinner_cantidad;
+	private JSpinner spinner_precio;
 	
 
 	public RegComponente() {
 		setResizable(false);
 		setTitle("Registrar Componente");
-		setBounds(100, 100, 525, 404);
+		setBounds(100, 100, 904, 733);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -140,7 +153,7 @@ public class RegComponente extends JDialog {
 		
 		 panel_TarjetaMadre = new JPanel();
 		panel_TarjetaMadre.setBorder(new TitledBorder(null, "Tarjeta Madre", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_TarjetaMadre.setBounds(10, 250, 507, 94);
+		panel_TarjetaMadre.setBounds(10, 355, 507, 94);
 		contentPanel.add(panel_TarjetaMadre);
 		panel_TarjetaMadre.setLayout(null);
 		
@@ -171,9 +184,22 @@ public class RegComponente extends JDialog {
 		panel_TarjetaMadre.add(textField_conectordiscoduro);
 		textField_conectordiscoduro.setColumns(10);
 		
+		comboBox_tipoderam = new JComboBox();
+		comboBox_tipoderam.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "DDR", "DDR-2", "DDR-3", "DDR-4"}));
+		comboBox_tipoderam.setBounds(242, 55, 28, 20);
+		panel_TarjetaMadre.add(comboBox_tipoderam);
+		
+		comboBox_conectoralmicro = new JComboBox();
+		comboBox_conectoralmicro.setBounds(294, 55, 28, 20);
+		panel_TarjetaMadre.add(comboBox_conectoralmicro);
+		
+		comboBox_conectordiscoduro = new JComboBox();
+		comboBox_conectordiscoduro.setBounds(334, 55, 28, 20);
+		panel_TarjetaMadre.add(comboBox_conectordiscoduro);
+		
 		 panel_Micro = new JPanel();
 		panel_Micro.setBorder(new TitledBorder(null, "Microprocesador", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_Micro.setBounds(10, 250, 507, 94);
+		panel_Micro.setBounds(10, 449, 507, 94);
 		contentPanel.add(panel_Micro);
 		panel_Micro.setLayout(null);
 		
@@ -195,9 +221,17 @@ public class RegComponente extends JDialog {
 		panel_Micro.add(textField_tipodeconexion);
 		textField_tipodeconexion.setColumns(10);
 		
+		comboBox_velocidad = new JComboBox();
+		comboBox_velocidad.setBounds(253, 24, 92, 20);
+		panel_Micro.add(comboBox_velocidad);
+		
+		comboBox_tipodeconexion = new JComboBox();
+		comboBox_tipodeconexion.setBounds(253, 55, 92, 20);
+		panel_Micro.add(comboBox_tipodeconexion);
+		
 		 panel_Discoduro = new JPanel();
 		panel_Discoduro.setBorder(new TitledBorder(null, "Discoduro", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_Discoduro.setBounds(10, 250, 507, 94);
+		panel_Discoduro.setBounds(10, 554, 507, 94);
 		contentPanel.add(panel_Discoduro);
 		panel_Discoduro.setLayout(null);
 		
@@ -218,6 +252,14 @@ public class RegComponente extends JDialog {
 		textField_tipodeconector.setBounds(130, 55, 92, 20);
 		panel_Discoduro.add(textField_tipodeconector);
 		textField_tipodeconector.setColumns(10);
+		
+		comboBox_almacenamiento = new JComboBox();
+		comboBox_almacenamiento.setBounds(254, 24, 92, 20);
+		panel_Discoduro.add(comboBox_almacenamiento);
+		
+		comboBox_tipodeconector = new JComboBox();
+		comboBox_tipodeconector.setBounds(254, 55, 92, 20);
+		panel_Discoduro.add(comboBox_tipodeconector);
 		
 		 panel_MemoriaRam = new JPanel();
 		panel_MemoriaRam.setBorder(new TitledBorder(null, "MemoriaRam", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -242,6 +284,14 @@ public class RegComponente extends JDialog {
 		textField_tipodememoria.setBounds(130, 55, 92, 20);
 		panel_MemoriaRam.add(textField_tipodememoria);
 		textField_tipodememoria.setColumns(10);
+		
+		comboBox_cantidaddememoria = new JComboBox();
+		comboBox_cantidaddememoria.setBounds(260, 24, 82, 20);
+		panel_MemoriaRam.add(comboBox_cantidaddememoria);
+		
+		comboBox_tipodememoria = new JComboBox();
+		comboBox_tipodememoria.setBounds(260, 55, 82, 20);
+		panel_MemoriaRam.add(comboBox_tipodememoria);
 		
 		panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "Informacion General", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -295,6 +345,18 @@ public class RegComponente extends JDialog {
 		textField_cantidad.setBounds(335, 57, 86, 20);
 		panel_1.add(textField_cantidad);
 		textField_cantidad.setColumns(10);
+		
+		comboBox_marca = new JComboBox();
+		comboBox_marca.setBounds(184, 57, 28, 20);
+		panel_1.add(comboBox_marca);
+		
+		spinner_cantidad = new JSpinner();
+		spinner_cantidad.setBounds(431, 57, 29, 20);
+		panel_1.add(spinner_cantidad);
+		
+		spinner_precio = new JSpinner();
+		spinner_precio.setBounds(431, 25, 29, 20);
+		panel_1.add(spinner_precio);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -308,9 +370,7 @@ public class RegComponente extends JDialog {
 						int cantidad = Integer.parseInt(textField_cantidad.getText());
 						String modelo = textField_modelo.getText();
 						String marca = textField_marca.getText();
-						
-						for(int i=0;i<cantidad;i++) {
-							String barcode = "COM-"+(Aplicacion.getInstance().getComponentes().size()+1);	
+						String barcode = "COM-"+(Aplicacion.getInstance().getComponentes().size()+1);								
 							
 						if (rdbtnTarjetaMadre.isSelected()) {
 							String tipoderam = textField_tipoderam.getText();
@@ -338,7 +398,7 @@ public class RegComponente extends JDialog {
 							
 						}
 						Aplicacion.getInstance().agregarComponente(aux);
-						}
+						
 						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
 						clean();
 				
@@ -348,10 +408,19 @@ public class RegComponente extends JDialog {
 				
 				btnReinventar = new JButton("Re-inventar");
 				btnReinventar.addActionListener(new ActionListener() {
+					@SuppressWarnings("null")
 					public void actionPerformed(ActionEvent e) {
 						int cont=0;
 						Componente aux = null;
 						
+						for(int i=0;i<Aplicacion.getInstance().getComponentes().size();i++) {
+							if(Aplicacion.getInstance().getComponentes().get(i).getCantidad_disponible()<5) {
+								Aplicacion.getInstance().getComponentes().get(i).setCantidad_disponible(Aplicacion.getInstance().getComponentes().get(i).getCantidad_disponible()+10);
+							}			
+						}
+						
+						/*
+						 * aux.getCantidad_disponible()<5
 						while(cont==0 || cont==1) {
 							String barcode = "COM-"+(Aplicacion.getInstance().getComponentes().size()+1);
 							aux = new Tarjetamadre(1000, 1, barcode, "Dell", "Model33", "micro-usb", "DDR-3", "SATA-2");
@@ -379,7 +448,7 @@ public class RegComponente extends JDialog {
 							cont++;
 							
 						}
-							
+							*/
 						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
 						clean();
 					}
