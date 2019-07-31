@@ -66,7 +66,7 @@ public class RealizarCombo extends JDialog {
 		
 		JPanel panelInformacionGeneral = new JPanel();
 		panelInformacionGeneral.setBorder(new TitledBorder(null, "Informacion General", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelInformacionGeneral.setBounds(10, 65, 701, 142);
+		panelInformacionGeneral.setBounds(10, 100, 701, 142);
 		contentPanel.add(panelInformacionGeneral);
 		panelInformacionGeneral.setLayout(null);
 		
@@ -236,7 +236,7 @@ public class RealizarCombo extends JDialog {
 				 
 			}
 		});
-		btnMover.setBounds(349, 150, 41, 23);
+		btnMover.setBounds(338, 279, 41, 23);
 		contentPanel.add(btnMover);
 		
 		 btnRemover = new JButton("<");
