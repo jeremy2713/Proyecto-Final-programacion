@@ -28,7 +28,6 @@ public class ListaCliente extends JDialog {
 	private static Object[] fila;
 	public String selecte;
 	private JButton btnModificar = new JButton("Modificar");
-	private JButton btnVerFacturas = new JButton("Ver Facturas");
 
 	public ListaCliente() {
 		setTitle("Listar Clientes");
@@ -49,7 +48,6 @@ public class ListaCliente extends JDialog {
 					public void mouseClicked(MouseEvent e) {
 						int index = table.getSelectedRow();
 						if(index >= 0) {
-							btnVerFacturas.setEnabled(true);
 							btnModificar.setEnabled(true);
 							selecte = table.getValueAt(index, 0).toString();
 						}
@@ -67,14 +65,6 @@ public class ListaCliente extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				btnVerFacturas.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						Cliente client = Aplicacion.getInstance().buscarClientePorCodigo(selecte);
-						ListaFactura listFact = new ListaFactura(client);
-						listFact.setModal(true);
-						listFact.setVisible(true);
-					}
-				});
 				{
 					btnModificar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -88,11 +78,6 @@ public class ListaCliente extends JDialog {
 					btnModificar.setEnabled(false);
 					buttonPane.add(btnModificar);
 				}
-				
-				btnVerFacturas.setEnabled(false);
-				btnVerFacturas.setActionCommand("OK");
-				buttonPane.add(btnVerFacturas);
-				getRootPane().setDefaultButton(btnVerFacturas);
 			}
 			{
 				JButton btnCerrar = new JButton("Cerrar");

@@ -136,6 +136,17 @@ public class Principal extends JFrame {
 		});
 		mnClientes.add(mntmListaDeCliente);
 		
+		JMenuItem mntmListaFactura = new JMenuItem("Lista Factura");
+		mntmListaFactura.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			    ListarFactura Lf = new ListarFactura();
+				Lf.setModal(true);
+				Lf.setLocationRelativeTo(null);
+				Lf.setVisible(true);
+			}
+		});
+		mnClientes.add(mntmListaFactura);
+		
 		JMenu mnComponentes = new JMenu("Componentes");
 		menuBar.add(mnComponentes);
 		
