@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.sun.org.apache.xalan.internal.xsltc.util.IntegerArray;
 import com.sun.org.apache.xml.internal.security.encryption.AgreementMethod;
 
 import Logico.Aplicacion;
@@ -285,6 +286,14 @@ else {
 				Componentespedidos.add(C1);
 				if(C1.getCantidad_disponible()>0) {				
 					C1.setCantidad_disponible(C1.getCantidad_disponible()-1);
+				}
+					
+					else {
+						JOptionPane.showMessageDialog(null, "\n"
+				                + "Este componente no esta disponible", "",
+				                JOptionPane.INFORMATION_MESSAGE);
+						
+					}
 					//txttotal.setText(Float.toString(precioTotalComponentePedido()));
 					 if(Componentespedidos.size()>3)
 		                {
@@ -302,7 +311,6 @@ else {
 				loadTablePedidosRemover();
 				}
 				 
-			}
 		});
 		btnMover.setBounds(348, 311, 41, 23);
 		contentPanel.add(btnMover);
@@ -358,6 +366,14 @@ if(comboBoxcliente.equals("<seleccione>"))
 
 						     	
 						}
+						if(Float.parseFloat(txtcredito.getText())<0)
+						{
+							
+
+						}
+						
+						else
+						{
 							Factura aux = null;
 							int pos = comboBoxcliente.getSelectedIndex();
 							String codigoFactura;
@@ -365,7 +381,7 @@ if(comboBoxcliente.equals("<seleccione>"))
 							String codigo = (String) comboBoxcliente.getItemAt(pos);
 							Cliente elCliente = Aplicacion.getInstance().buscarClientePorCodigo(codigo);
 							ArrayList<Combo>miscombos = new ArrayList<>();
-						//	miscombos.addAll(Componentespedidos);
+						//miscombos.addAll(Componentespedidos);
 							Componentespedidos.removeAll(Componentespedidos);
 							float total = Float.parseFloat(txttotal.getText());
 							float devuelta = Float.parseFloat(txtdevuelta.getText());
@@ -374,12 +390,14 @@ if(comboBoxcliente.equals("<seleccione>"))
 									Aplicacion.getInstance().getClientes().get(i).setCredito(devuelta);
 							
 							}
-							aux = new Factura(codigo, precioTotalCombo(), Componentespedidos, elCliente);
+							aux = new Factura(codigoFactura, precioTotalCombo(), null, elCliente);
 							elCliente.agregarFactura(aux);
 							Aplicacion.getInstance().agregarFactura(aux);
 							JOptionPane.showMessageDialog(null, "Operaci�n exitosa", "Informaci�n", JOptionPane.INFORMATION_MESSAGE);
 							dispose();
 							 }
+						
+					}
 							
 					});
 					
