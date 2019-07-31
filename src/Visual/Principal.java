@@ -67,26 +67,7 @@ public class Principal extends JFrame {
 	public Principal() {
 		
 		setTitle("Tienda de Componentes");
-		/*addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				FileOutputStream tienda2;
-				ObjectOutputStream tiendaEscritura;
-				try {
-					tienda2 = new  FileOutputStream("tienda.dat");
-					tiendaEscritura = new ObjectOutputStream(tienda2);
-					tiendaEscritura.writeObject(Aplicacion.getInstance());
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-			}
-		});
-
+		
 		File datos = new File("Electronica.dat");
 		if(datos.exists()) {
 			FileInputStream entradaFichero;
@@ -103,7 +84,7 @@ public class Principal extends JFrame {
 	                e.printStackTrace();
 	            }
 			
-		}*/
+		}
 		addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent arg0) {
                 FileOutputStream f;
@@ -122,7 +103,6 @@ public class Principal extends JFrame {
         });
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
 		setBounds(100, 100, 450, 300);
 		dim = super.getToolkit().getScreenSize();
 		super.setSize(dim.width,(dim.height - 50));
@@ -186,12 +166,6 @@ public class Principal extends JFrame {
 			}
 		});
 		mnComponentes.add(mntmListarComponente);
-		
-		JMenu mnFacturas = new JMenu("Facturas");
-		menuBar.add(mnFacturas);
-		
-		JMenuItem mntmRealizarFacturas = new JMenuItem("Realizar Facturas");
-		mnFacturas.add(mntmRealizarFacturas);
 		
 		JMenu mnPedido = new JMenu("Pedido");
 		menuBar.add(mnPedido);
