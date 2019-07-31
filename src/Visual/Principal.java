@@ -203,7 +203,7 @@ public class Principal extends JFrame {
 		});
 		mnPedido.add(mntmHacerPedido);
 		
-		JMenuItem mntmComprarCombo = new JMenuItem("Comprar Combo");
+		JMenuItem mntmComprarCombo = new JMenuItem("Crear Combo");
 		mntmComprarCombo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

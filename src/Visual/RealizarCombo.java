@@ -17,6 +17,7 @@ import Logico.Cliente;
 import Logico.Combo;
 import Logico.Componente;
 import Logico.Discoduro;
+import Logico.Factura;
 import Logico.Memoriaram;
 
 import javax.swing.JLabel;
@@ -42,7 +43,7 @@ public class RealizarCombo extends JDialog {
 	private JTextField txtCredito;
 	private JTextField txtDireccion;
 	private JComboBox comboBoxcliente;
-	private JTextField textField;
+	private JTextField txttotal;
 	private JTable table;
 	private JTable table_1;
 	public static Object[] fila;
@@ -50,15 +51,18 @@ public class RealizarCombo extends JDialog {
 	private static DefaultTableModel model;
 	private static DefaultTableModel model_1;
 	private static ArrayList<Componente> Componentespedidos = new ArrayList<>();
+	private static ArrayList<Combo>miscombos= new ArrayList<>();
 	private JButton btnMover;
 	private JButton btnRemover;
+	private JTextField txtdescuento;
+	private JTextField txtdevuelta;
 
 
 
 	public RealizarCombo() {
-		setTitle("Comprar Combo");
+		setTitle("Crear Combo");
 		setLocationRelativeTo(null);
-		setBounds(100, 100, 762, 692);
+		setBounds(100, 100, 747, 679);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -66,7 +70,7 @@ public class RealizarCombo extends JDialog {
 		
 		JPanel panelInformacionGeneral = new JPanel();
 		panelInformacionGeneral.setBorder(new TitledBorder(null, "Informacion General", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelInformacionGeneral.setBounds(10, 100, 701, 142);
+		panelInformacionGeneral.setBounds(6, 69, 706, 149);
 		contentPanel.add(panelInformacionGeneral);
 		panelInformacionGeneral.setLayout(null);
 		
@@ -79,7 +83,7 @@ public class RealizarCombo extends JDialog {
 		panelInformacionGeneral.add(lblCedula);
 		
 		JLabel txtcredito = new JLabel("Credito:");
-		txtcredito.setBounds(305, 65, 78, 14);
+		txtcredito.setBounds(305, 31, 78, 14);
 		panelInformacionGeneral.add(txtcredito);
 		
 		JLabel lblDireccion = new JLabel("Direccion: ");
@@ -100,7 +104,7 @@ public class RealizarCombo extends JDialog {
 		
 		txtCredito = new JTextField();
 		txtCredito.setEditable(false);
-		txtCredito.setBounds(363, 61, 86, 20);
+		txtCredito.setBounds(368, 28, 86, 20);
 		panelInformacionGeneral.add(txtCredito);
 		txtCredito.setColumns(10);
 		
@@ -110,15 +114,63 @@ public class RealizarCombo extends JDialog {
 		panelInformacionGeneral.add(txtDireccion);
 		txtDireccion.setColumns(10);
 		
-		textField = new JTextField();
-		textField.setBounds(524, 58, 91, 26);
-		panelInformacionGeneral.add(textField);
-		textField.setColumns(10);
+		txttotal = new JTextField();
+		txttotal.setBounds(595, 58, 91, 26);
+		panelInformacionGeneral.add(txttotal);
+		txttotal.setColumns(10);
 		
 		
 		JButton btnTotal = new JButton("Total ");
-		btnTotal.setBounds(485, 91, 115, 29);
+		btnTotal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				txttotal.setText(Float.toString(precioTotalComponentePedido()));
+			
+				
+			}
+		});
+		btnTotal.setBounds(465, 57, 115, 29);
 		panelInformacionGeneral.add(btnTotal);
+		
+		txtdescuento = new JTextField();
+		txtdescuento.setBounds(595, 100, 88, 26);
+		panelInformacionGeneral.add(txtdescuento);
+		txtdescuento.setColumns(10);
+		
+		JButton btnNewButton = new JButton("total con descuento");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+                       if(Componentespedidos.size()>3)
+{
+				txtdescuento.setText(Float.toString(precioTotalCombo()));
+				txtdevuelta.setText(Float.toString(devuelta()));
+}
+
+else {
+	
+	JOptionPane.showMessageDialog(null, "Se necesita mas de 3 componentes para crear el combo", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+
+	
+}	
+				}
+			
+		});
+		
+		btnNewButton.setBounds(411, 99, 169, 29);
+		panelInformacionGeneral.add(btnNewButton);
+		
+		JLabel lblDevuelta = new JLabel("Devuelta");
+		lblDevuelta.setBounds(298, 66, 69, 20);
+		panelInformacionGeneral.add(lblDevuelta);
+		
+		txtdevuelta = new JTextField();
+		txtdevuelta.setEditable(false);
+		txtdevuelta.setBounds(368, 58, 86, 26);
+		panelInformacionGeneral.add(txtdevuelta);
+		txtdevuelta.setColumns(10);
 		{
 			JPanel panelBuscar = new JPanel();
 			panelBuscar.setBounds(10, 11, 514, 42);
@@ -164,7 +216,7 @@ public class RealizarCombo extends JDialog {
 		}
 		
 
-		String[] header = {"Codigo","Nombre","Precio"};
+		String[] header = {"Codigo","Nombre","Precio", "Cantidad"};
 		model = new DefaultTableModel();
 		model.setColumnIdentifiers(header);
 		
@@ -173,7 +225,7 @@ public class RealizarCombo extends JDialog {
 		model_1.setColumnIdentifiers(header1);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(6, 223, 317, 350);
+		panel_2.setBounds(16, 234, 317, 350);
 		contentPanel.add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -198,7 +250,7 @@ public class RealizarCombo extends JDialog {
 		scrollPane.setViewportView(table);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(394, 223, 317, 350);
+		panel_3.setBounds(395, 234, 317, 350);
 		contentPanel.add(panel_3);
 		panel_3.setLayout(null);
 		
@@ -231,12 +283,28 @@ public class RealizarCombo extends JDialog {
 				String codigo= (String)table.getValueAt(fila, 0);
 				Componente C1 = Aplicacion.getInstance().buscarComponentePorCodigo(codigo);
 				Componentespedidos.add(C1);
-				Aplicacion.getInstance().getComponentes().remove(C1);
+				if(C1.getCantidad_disponible()>0) {				
+					C1.setCantidad_disponible(C1.getCantidad_disponible()-1);
+					//txttotal.setText(Float.toString(precioTotalComponentePedido()));
+					 if(Componentespedidos.size()>3)
+		                {
+						//txtdescuento.setText(Float.toString(0));
+						//txtdevuelta.setText(Float.toString(0));
+						//txttotal.setText(Float.toString(0));
+						txttotal.setText(Float.toString(precioTotalComponentePedido()));
+						txtdevuelta.setText(Float.toString(devuelta()));
+						txttotal.setText(Float.toString(precioTotalComponentePedido()));
+	
+		                }
+			//	Aplicacion.getInstance().getComponentes().remove(C1);
+				
 				loadTable();
+				loadTablePedidosRemover();
+				}
 				 
 			}
 		});
-		btnMover.setBounds(338, 279, 41, 23);
+		btnMover.setBounds(348, 311, 41, 23);
 		contentPanel.add(btnMover);
 		
 		 btnRemover = new JButton("<");
@@ -244,20 +312,79 @@ public class RealizarCombo extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				int fila = table_1.getSelectedRow();
 				String codigo = (String) table_1.getValueAt(fila, 0);
-				
+				Componente C1 = componentePedidosPorCodigo(codigo);
+				C1.setCantidad_disponible(C1.getCantidad_disponible()+1);
+				Componentespedidos.remove(C1);
+				 if(Componentespedidos.size()<4)
+	                {
+					txtdescuento.setText(Float.toString(0));
+					txtdevuelta.setText(Float.toString(0));
+					txttotal.setText(Float.toString(0));
+	                }                
 				loadTable();
+				loadTablePedidosRemover();
+				
+if(comboBoxcliente.equals("<seleccione>"))
+						
+						{
+	txtdescuento.setText(Float.toString(0));
+	txtdevuelta.setText(Float.toString(0));
+	txttotal.setText(Float.toString(0));
+					
+						}
+				
+
 				
 			
 			}
 		});
-		btnRemover.setBounds(338, 412, 41, 23);
+		btnRemover.setBounds(348, 411, 41, 23);
 		contentPanel.add(btnRemover);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Comprar combo\r\n");
+				JButton okButton = new JButton("Comprar combo");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+
+						if(devuelta()<0)
+						{
+							
+							JOptionPane.showMessageDialog(null, "No se ha podido realizar su compra\n"
+					                + "no posee credito suficiente para la compra", "",
+					                JOptionPane.ERROR_MESSAGE);
+
+						     	
+						}
+							Factura aux = null;
+							int pos = comboBoxcliente.getSelectedIndex();
+							String codigoFactura;
+							codigoFactura= "F"+Integer.toString(Aplicacion.getInstance().getFacturas().size()+1);
+							String codigo = (String) comboBoxcliente.getItemAt(pos);
+							Cliente elCliente = Aplicacion.getInstance().buscarClientePorCodigo(codigo);
+							ArrayList<Combo>miscombos = new ArrayList<>();
+						//	miscombos.addAll(Componentespedidos);
+							Componentespedidos.removeAll(Componentespedidos);
+							float total = Float.parseFloat(txttotal.getText());
+							float devuelta = Float.parseFloat(txtdevuelta.getText());
+							for(int i =0;i<Aplicacion.getInstance().getClientes().size();i++) {
+								if(Aplicacion.getInstance().getClientes().get(i)==elCliente) 
+									Aplicacion.getInstance().getClientes().get(i).setCredito(devuelta);
+							
+							}
+							aux = new Factura(codigo, precioTotalCombo(), Componentespedidos, elCliente);
+							elCliente.agregarFactura(aux);
+							Aplicacion.getInstance().agregarFactura(aux);
+							JOptionPane.showMessageDialog(null, "Operaci�n exitosa", "Informaci�n", JOptionPane.INFORMATION_MESSAGE);
+							dispose();
+							 }
+							
+					});
+					
+					
+	
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -266,9 +393,13 @@ public class RealizarCombo extends JDialog {
 				JButton btnCancelar = new JButton("Cancelar");
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						
+						//Aplicacion.getInstance().getComponentes().addAll(Componentespedidos);
+						//Componentespedidos.removeAll(Componentespedidos);
 						dispose();
 					}
 				});
+			
 				btnCancelar.setActionCommand("Cancel");
 				buttonPane.add(btnCancelar);
 			}
@@ -298,10 +429,63 @@ public class RealizarCombo extends JDialog {
 			fila[0] = Aplicacion.getInstance().getComponentes().get(i).getBarcode();
 			fila[1] = Aplicacion.getInstance().getComponentes().get(i).getClass().getSimpleName();
 			fila[2] = Aplicacion.getInstance().getComponentes().get(i).getPrecio();
+			fila[3] = Aplicacion.getInstance().getComponentes().get(i).getCantidad_disponible();
 			model.addRow(fila);
 			
 		}}
+	
+	
+
+	public static void loadTablePedidosRemover() {
+		model_1.setRowCount(0);
+		fila_1 = new Object[model_1.getColumnCount()];
+		for(int i=0;i<10;i++) {
+			fila_1[0] = Componentespedidos.get(i).getBarcode();
+			fila_1[1] = Componentespedidos.get(i).getClass().getSimpleName();
+			fila_1[2] = Componentespedidos.get(i).getPrecio();
+			model_1.addRow(fila_1);
+	
+		}
 	}
+	
+	
+	
+	public float precioTotalCombo() {
+		
+		float totalcondescuento=0;		
+		totalcondescuento=(float) (precioTotalComponentePedido()-precioTotalComponentePedido()*0.30);
+		return totalcondescuento;
+	}
+	
+	
+	public Componente componentePedidosPorCodigo(String codigo) {
+		Componente aux = null;
+		for(int i=0;i<Componentespedidos.size();i++) {
+			if(Componentespedidos.get(i).getBarcode().equalsIgnoreCase(codigo)) {
+				aux = Componentespedidos.get(i);
+			}
+			
+		}
+
+		return aux;
+
+	}
+	
+	public float precioTotalComponentePedido() {
+		float total=0;
+		for(int i =0;i<Componentespedidos.size();i++) {
+			total+= Componentespedidos.get(i).getPrecio();
+		}
+		return total;
+}
+	
+	public float devuelta() {
+		float devuelta=0;
+		devuelta =Float.parseFloat(txtCredito.getText())-precioTotalCombo();
+		return devuelta;
+}
+}
+
 	
 	
 	
