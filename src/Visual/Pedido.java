@@ -308,6 +308,7 @@ public class Pedido extends JDialog {
 						
 						}
 						aux = new Factura(codigoFactura, total, losComponentes, elCliente);
+						elCliente.agregarFactura(aux);
 						Aplicacion.getInstance().agregarFactura(aux);
 						JOptionPane.showMessageDialog(null, "Operaci�n exitosa", "Informaci�n", JOptionPane.INFORMATION_MESSAGE);
 						dispose();

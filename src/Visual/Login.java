@@ -75,9 +75,7 @@ public class Login extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				
-				
+
 				try {
 					Login frame = new Login();
 					frame.setVisible(true);
