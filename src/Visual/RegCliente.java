@@ -111,6 +111,11 @@ public class RegCliente extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						Cliente i = null;
+						if(cliente!=null) {
+							cliente.setCredito(Float.parseFloat(spnCredito.getValue().toString()));
+							JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+							ListaCliente.loadClientes();
+						}else {
 						String nombre = txtNombre.getText();
 						String direccion = txtDireccion.getText();
 						String cedula = txtCedula.getText();
@@ -118,8 +123,10 @@ public class RegCliente extends JDialog {
 						float credito = Float.parseFloat(spnCredito.getValue().toString());
 						i = new Cliente(codigo, nombre, cedula, credito, direccion);
 						Aplicacion.getInstance().agregarCliente(i);
-						JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Informaci�n", JOptionPane.INFORMATION_MESSAGE);
-						Clean();
+						JOptionPane.showMessageDialog(null, "Operacion Satisfactoria", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+						Clean();	
+						}
+						
 					}
 				});
 				okButton.setActionCommand("OK");

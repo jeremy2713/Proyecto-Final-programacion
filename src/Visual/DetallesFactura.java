@@ -50,7 +50,7 @@ public class DetallesFactura extends JDialog {
 			
 			JTextPane textPane = new JTextPane();
 			textPane.setEditable(false);
-			textPane.setText("\"El mundo del componente\"\r\n\r\nCodigo de Factura: "+aux.getCodigo()+"\r\nNombre del Cliente: "+aux.getElcliente().getNombre()+"\r\nCantidad de Componentes: "+aux.getMiscomponentes().size()+"\r\nTotal de la Orden: "+aux.getPreciototal());
+			textPane.setText("\"El mundo del componente\"\r\n\r\nCodigo de Factura: "+aux.getCodigo()+"\r\nNombre del Cliente: "+aux.getElcliente().getNombre()+"\r\nCedula del cliente: "+aux.getElcliente().getCedula()+"\r\nCantidad de Componentes: "+aux.getMiscomponentes().size()+"\r\nTotal de la Orden: "+aux.getPreciototal());
 			textPane.setBounds(10, 11, 394, 184);
 			panel.add(textPane);
 		}
@@ -58,12 +58,6 @@ public class DetallesFactura extends JDialog {
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
 			{
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {

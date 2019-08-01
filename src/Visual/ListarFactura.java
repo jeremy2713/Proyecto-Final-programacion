@@ -17,6 +17,7 @@ import Logico.Factura;
 import Logico.Cliente;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.JComboBox;
@@ -36,7 +37,7 @@ public class ListarFactura extends JDialog {
 	private JTable table;
 	private JButton btnBuscar;
 	private JComboBox comboBox_cliente;
-	private JTextField textField_codigocliente;
+	private JTextField txtcedula;
 
 	/**
 	 * Launch the application.
@@ -76,10 +77,13 @@ public class ListarFactura extends JDialog {
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				facturacliente.removeAll(facturacliente);
-				String codigo = (String) textField_codigocliente.getText();
-				textField_nombre.setText(Aplicacion.getInstance().buscarClientePorCodigo(codigo).getNombre());
-				loadTable(codigo);
-				
+				String cedula = (String) txtcedula.getText();
+				if(Aplicacion.getInstance().buscarClientePorCedula(cedula)==null) {
+					JOptionPane.showMessageDialog(null, "No se encontro el cliente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+				}else {
+				textField_nombre.setText(Aplicacion.getInstance().buscarClientePorCedula(cedula).getNombre());
+				loadTable(cedula);
+				}
 			}
 		});
 		btnBuscar.setBounds(211, 20, 89, 23);
@@ -95,10 +99,11 @@ public class ListarFactura extends JDialog {
 		panel.add(textField_nombre);
 		textField_nombre.setColumns(10);
 		
-		textField_codigocliente = new JTextField();
-		textField_codigocliente.setBounds(83, 21, 101, 20);
-		panel.add(textField_codigocliente);
-		textField_codigocliente.setColumns(10);
+		txtcedula = new JTextField();
+		txtcedula.setText("(Cedula)");
+		txtcedula.setBounds(83, 21, 101, 20);
+		panel.add(txtcedula);
+		txtcedula.setColumns(10);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "Facturas", TitledBorder.LEADING, TitledBorder.TOP, null, null));

@@ -89,6 +89,19 @@ public class Aplicacion implements Serializable {
 		return client;
 			
 	}
+	public Cliente buscarClientePorCedula(String cedula) {
+		Cliente client = null;
+		int i = 0;
+		while(i < clientes.size()) {
+			if(clientes.get(i).getCedula().equalsIgnoreCase(cedula)) {
+				client = clientes.get(i);
+				break;
+			}
+			i++;
+		}
+		return client;
+			
+	}
 	public Factura buscarFacturaPorCodigo(String codigo) {
 		Factura factura = null;
 		int i = 0;
@@ -103,10 +116,10 @@ public class Aplicacion implements Serializable {
 			
 	}
 	
-	public ArrayList<Factura> buscarFacturasByCliente(String codigo) {
+	public ArrayList<Factura> buscarFacturasByCliente(String cedula) {
     	ArrayList<Factura> facturas= null;
     	for(Cliente aux : clientes) {
-    		if(aux.getCodigo().equalsIgnoreCase(codigo)) {
+    		if(aux.getCedula().equalsIgnoreCase(cedula)) {
     			facturas = aux.getFacturas();
     			break;
     		}

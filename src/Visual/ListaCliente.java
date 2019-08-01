@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Logico.Aplicacion;
 import Logico.Cliente;
+import Logico.Componente;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -28,6 +29,7 @@ public class ListaCliente extends JDialog {
 	private static Object[] fila;
 	public String selecte;
 	private JButton btnModificar = new JButton("Modificar");
+	private JButton btnEliminar;
 
 	public ListaCliente() {
 		setTitle("Listar Clientes");
@@ -49,6 +51,7 @@ public class ListaCliente extends JDialog {
 						int index = table.getSelectedRow();
 						if(index >= 0) {
 							btnModificar.setEnabled(true);
+							btnEliminar.setEnabled(true);
 							selecte = table.getValueAt(index, 0).toString();
 						}
 					}
@@ -74,6 +77,21 @@ public class ListaCliente extends JDialog {
 							regcliente.setVisible(true);
 						}
 					});
+					{
+						 btnEliminar = new JButton("Eliminar");
+						btnEliminar.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								int fila = table.getSelectedRow();
+								String codigo= (String)table.getValueAt(fila, 0);
+								Cliente C1 = Aplicacion.getInstance().buscarClientePorCodigo(codigo);
+								Aplicacion.getInstance().getClientes().remove(C1);
+								loadClientes();
+								btnEliminar.setEnabled(false);
+							}
+						});
+						btnEliminar.setEnabled(false);
+						buttonPane.add(btnEliminar);
+					}
 					
 					btnModificar.setEnabled(false);
 					buttonPane.add(btnModificar);
