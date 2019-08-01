@@ -34,6 +34,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
+
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
 
 public class Principal extends JFrame {
@@ -65,6 +67,8 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		setIconImage(new ImageIcon(getClass().getResource("/img/carritocompra.png")).getImage());
+
 		
 		setTitle("Tienda de Componentes");
 		

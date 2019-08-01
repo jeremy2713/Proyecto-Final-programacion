@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -29,6 +30,8 @@ public class Registrousuario extends JFrame {
 
 	public Registrousuario() {
 		setTitle("Registro usuario");
+		setIconImage(new ImageIcon(getClass().getResource("/img/carritocompra.png")).getImage());
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 348);
 		contentPane = new JPanel();
