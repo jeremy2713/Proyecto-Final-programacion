@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.SystemColor;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -31,6 +32,8 @@ public class ListComponent extends JDialog {
 	private JButton btnEliminar;
 
 	public ListComponent(ArrayList<Componente> componentes) {
+		setIconImage(new ImageIcon(getClass().getResource("/img/carritocompra.png")).getImage());
+
 		setTitle("Lista de Componentes");
 		misComponentes = componentes;
 		setBounds(100, 100, 575, 313);

@@ -6,6 +6,7 @@ import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -32,6 +33,8 @@ public class ListaCliente extends JDialog {
 	private JButton btnEliminar;
 
 	public ListaCliente() {
+		setIconImage(new ImageIcon(getClass().getResource("/img/carritocompra.png")).getImage());
+
 		setTitle("Listar Clientes");
 		setBounds(100, 100, 547, 301);
 		setLocationRelativeTo(null);

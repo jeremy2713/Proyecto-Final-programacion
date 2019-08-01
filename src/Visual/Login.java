@@ -20,6 +20,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.security.auth.callback.ConfirmationCallback;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -31,6 +33,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import javax.swing.UIManager;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class Login extends JFrame {
 
@@ -89,7 +92,12 @@ public class Login extends JFrame {
 
 
 	public Login() {
+		
+		setIconImage(new ImageIcon(getClass().getResource("/img/carritocompra.png")).getImage());
+
+
 		setTitle("Login");
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 370, 282);
 		border = new JPanel();

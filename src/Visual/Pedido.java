@@ -120,7 +120,7 @@ public class Pedido extends JDialog {
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-		//		facturacliente.removeAll(facturacliente);
+	/////		facturacliente.removeAll(facturacliente);
 				String cedula = (String) txtcedula.getText();
 				if(Aplicacion.getInstance().buscarClientePorCedula(cedula)==null) {
 					JOptionPane.showMessageDialog(null, "No se encontro el cliente", "Informacion", JOptionPane.INFORMATION_MESSAGE);

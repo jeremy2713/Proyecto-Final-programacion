@@ -62,6 +62,8 @@ public class RealizarCombo extends JDialog {
 
 	public RealizarCombo() {
 		setTitle("Crear Combo");
+		setIconImage(new ImageIcon(getClass().getResource("/img/carritocompra.png")).getImage());
+
 		setLocationRelativeTo(null);
 		setBounds(100, 100, 747, 679);
 		getContentPane().setLayout(new BorderLayout());
