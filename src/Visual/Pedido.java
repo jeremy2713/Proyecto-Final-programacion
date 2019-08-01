@@ -48,7 +48,7 @@ public class Pedido extends JDialog {
 	private static ArrayList<Componente> Componentespedidos = new ArrayList<>();
 	private JButton btnMover;
 	private JButton btnRemover;
-	private JComboBox comboBox_clientecodigo;
+	private JTextField txtcedula;
 
 
 	/**
@@ -91,26 +91,6 @@ public class Pedido extends JDialog {
 		lblCliente.setBounds(10, 29, 67, 21);
 		panel_1.add(lblCliente);
 		
-		 comboBox_clientecodigo = new JComboBox();
-		comboBox_clientecodigo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				for(int i =0;i<Aplicacion.getInstance().getClientes().size();i++) {
-					if(Aplicacion.getInstance().getClientes().get(i).getCodigo().equals(comboBox_clientecodigo.getSelectedItem())) {
-					textField_credito.setText(Float.toString(Aplicacion.getInstance().getClientes().get(i).getCredito()));
-					textField_nombre.setText(Aplicacion.getInstance().getClientes().get(i).getNombre());
-					}
-					
-					else {
-						textField_credito.setText("");
-						textField_nombre.setText("");
-					}
-				}
-			}
-			
-		});
-		comboBox_clientecodigo.setBounds(101, 29, 138, 20);
-		panel_1.add(comboBox_clientecodigo);
-		
 		JLabel lblNombre = new JLabel("Nombre");
 		lblNombre.setBounds(10, 61, 67, 25);
 		panel_1.add(lblNombre);
@@ -122,14 +102,38 @@ public class Pedido extends JDialog {
 		textField_nombre.setColumns(10);
 		
 		JLabel lblCredito = new JLabel("Credito");
-		lblCredito.setBounds(274, 32, 82, 18);
+		lblCredito.setBounds(273, 61, 82, 18);
 		panel_1.add(lblCredito);
 		
 		textField_credito = new JTextField();
 		textField_credito.setEditable(false);
-		textField_credito.setBounds(383, 29, 86, 20);
+		textField_credito.setBounds(383, 61, 86, 20);
 		panel_1.add(textField_credito);
 		textField_credito.setColumns(10);
+		
+		txtcedula = new JTextField();
+		txtcedula.setText("(Cedula)");
+		txtcedula.setBounds(101, 29, 86, 20);
+		panel_1.add(txtcedula);
+		txtcedula.setColumns(10);
+		
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+		//		facturacliente.removeAll(facturacliente);
+				String cedula = (String) txtcedula.getText();
+				if(Aplicacion.getInstance().buscarClientePorCedula(cedula)==null) {
+					JOptionPane.showMessageDialog(null, "No se encontro el cliente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+				}else {
+				textField_nombre.setText(Aplicacion.getInstance().buscarClientePorCedula(cedula).getNombre());
+				float credito = Aplicacion.getInstance().buscarClientePorCedula(cedula).getCredito();
+				textField_credito.setText(Float.toString(credito));
+				
+				}
+			}
+		});
+		btnBuscar.setBounds(266, 28, 89, 23);
+		panel_1.add(btnBuscar);
 		
 		String[] header = {"Codigo","Nombre","Precio", "Cantidad"};
 		model = new DefaultTableModel();
@@ -292,11 +296,10 @@ public class Pedido extends JDialog {
 						
 						else {
 						Factura aux = null;
-						int pos = comboBox_clientecodigo.getSelectedIndex();
 						String codigoFactura;
 						codigoFactura= "F"+Integer.toString(Aplicacion.getInstance().getFacturas().size()+1);
-						String codigo = (String) comboBox_clientecodigo.getItemAt(pos);
-						Cliente elCliente = Aplicacion.getInstance().buscarClientePorCodigo(codigo);
+						String cedula = txtcedula.getText();
+						Cliente elCliente = Aplicacion.getInstance().buscarClientePorCedula(cedula);
 						ArrayList<Componente> losComponentes = new ArrayList<>();
 						losComponentes.addAll(Componentespedidos);
 						Componentespedidos.removeAll(Componentespedidos);
@@ -310,7 +313,7 @@ public class Pedido extends JDialog {
 						aux = new Factura(codigoFactura, total, losComponentes, elCliente);
 						elCliente.agregarFactura(aux);
 						Aplicacion.getInstance().agregarFactura(aux);
-						JOptionPane.showMessageDialog(null, "Operaci�n exitosa", "Informaci�n", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Operacion exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 						dispose();
 						}
 					}
@@ -332,7 +335,7 @@ public class Pedido extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		loadClientes();
+	//	loadClientes();
 		loadTable();
 	}
 	public static void loadTable() {
@@ -386,12 +389,9 @@ public class Pedido extends JDialog {
 		devuelta =Float.parseFloat(textField_credito.getText())-precioTotalComponentePedido();
 		return devuelta;
 	}
-	private void loadClientes() {
-		comboBox_clientecodigo.removeAllItems();
+	/*private void loadClientes() {
 		for(int i =0;i<Aplicacion.getInstance().getClientes().size();i++) {
 			comboBox_clientecodigo.addItem(new String(Aplicacion.getInstance().getClientes().get(i).getCodigo()));
 		}
-		comboBox_clientecodigo.insertItemAt(new String("<Seleccione>"), 0);
-		comboBox_clientecodigo.setSelectedIndex(0);
-	}
+	}*/
 }

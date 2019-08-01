@@ -264,7 +264,7 @@ public class RegComponente extends JDialog {
 		txtKlk.setColumns(10);
 		
 		comboBox_marca = new JComboBox();
-		comboBox_marca.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Dell"}));
+		comboBox_marca.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Dell", "ASUS", "acer", "lenovo", "SAMSUNG", "hp", "TOSHIBA", "Gateway", "COMPAQ"}));
 		comboBox_marca.setBounds(83, 57, 108, 20);
 		panel_1.add(comboBox_marca);
 		
@@ -385,17 +385,8 @@ public class RegComponente extends JDialog {
 	private void clean() {
 		txtgb.setText("");
 		textField_barcode.setText("COM-"+(Aplicacion.getInstance().getComponentes().size()+1));
-	//	textField_cantidad.setText("");
 		txtgb_1.setText("");
-	//	textField_conectoralmicro.setText("");
-	//	textField_conectordiscoduro.setText("");
-	//	textField_marca.setText("");
 		txtKlk.setText("");
-	//	textField_precio.setText("");
-	//	textField_tipodeconector.setText("");
-	//	textField_tipodeconexion.setText("");
-	//	textField_tipodememoria.setText("");
-	//	textField_tipoderam.setText("");
 		txtmhz.setText("");	
 		comboBox_conectoralmicro.setSelectedIndex(0);
 		comboBox_conectordiscoduro.setSelectedIndex(0);

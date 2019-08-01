@@ -38,6 +38,7 @@ public class ListarFactura extends JDialog {
 	private JButton btnBuscar;
 	private JComboBox comboBox_cliente;
 	private JTextField txtcedula;
+	private JButton btnDetalles;
 
 	/**
 	 * Launch the application.
@@ -124,10 +125,8 @@ public class ListarFactura extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent e) {
                 if(table.getSelectedRow()>=0){
-					
-				//	btnMirarFactura.setEnabled(true);
-					
-	
+                	
+					btnDetalles.setEnabled(true);
 				}
 			}
 		});
@@ -139,8 +138,8 @@ public class ListarFactura extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Detalles");
-				okButton.addActionListener(new ActionListener() {
+				 btnDetalles = new JButton("Detalles");
+				btnDetalles.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						int fila = table.getSelectedRow();
 						String codigo = (String)table.getValueAt(fila, 0);
@@ -150,11 +149,13 @@ public class ListarFactura extends JDialog {
 						DF.setModal(true);
 						DF.setLocationRelativeTo(null);
 						DF.setVisible(true);
+						btnDetalles.setEnabled(false);
 					}
 				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btnDetalles.setEnabled(false);
+				btnDetalles.setActionCommand("OK");
+				buttonPane.add(btnDetalles);
+				getRootPane().setDefaultButton(btnDetalles);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");

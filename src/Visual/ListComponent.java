@@ -34,6 +34,7 @@ public class ListComponent extends JDialog {
 		setTitle("Lista de Componentes");
 		misComponentes = componentes;
 		setBounds(100, 100, 575, 313);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
