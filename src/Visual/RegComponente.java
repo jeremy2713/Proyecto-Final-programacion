@@ -61,6 +61,15 @@ public class RegComponente extends JDialog {
 	
 
 	public RegComponente() {
+		if(Aplicacion.getInstance().getAcessmensaje()==1) {
+			JOptionPane.showMessageDialog(null, "Se ha solicitado aumentar la cantidad del producto: " + Aplicacion.getInstance().getCodigocommensaje() , "Informacion", JOptionPane.INFORMATION_MESSAGE);
+			ManejoInventario MI = new ManejoInventario();
+			MI.setModal(true);
+			MI.setLocationRelativeTo(null);
+			MI.setVisible(true);
+			Aplicacion.getInstance().setAcessmensaje(0);
+		}
+
 		setResizable(false);
 		setTitle("Registrar Componente");
 		setBounds(100, 100, 528, 412);

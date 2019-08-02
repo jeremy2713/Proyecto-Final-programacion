@@ -49,12 +49,16 @@ public class Pedido extends JDialog {
 	private JButton btnMover;
 	private JButton btnRemover;
 	private JTextField txtcedula;
+	private JScrollPane scrollPane;
+	private JScrollPane scrollPane_1;
+	private int tableselected;
+	private JButton btnSolicitarMas;
 
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
 			Pedido dialog = new Pedido();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -128,6 +132,11 @@ public class Pedido extends JDialog {
 				textField_nombre.setText(Aplicacion.getInstance().buscarClientePorCedula(cedula).getNombre());
 				float credito = Aplicacion.getInstance().buscarClientePorCedula(cedula).getCredito();
 				textField_credito.setText(Float.toString(credito));
+				scrollPane.setVisible(true);
+				scrollPane_1.setVisible(true);
+			//	btnMover.setEnabled(true);
+			//	btnRemover.setEnabled(true);
+				tableselected=1;
 				
 				}
 			}
@@ -148,7 +157,8 @@ public class Pedido extends JDialog {
 		panel.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		 scrollPane = new JScrollPane();
+	//	 scrollPane.setVisible(false);
 		scrollPane.setBounds(10, 11, 297, 328);
 		panel_2.add(scrollPane);
 		
@@ -157,8 +167,12 @@ public class Pedido extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(table.getSelectedRow()>=0){
+					if(tableselected==1) {
+						btnSolicitarMas.setEnabled(true);
+						btnMover.setEnabled(true);
+						tableselected=0;
+					}
 					
-					btnMover.setEnabled(true);
 					
 	
 				}
@@ -173,8 +187,9 @@ public class Pedido extends JDialog {
 		panel.add(panel_3);
 		panel_3.setLayout(null);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
+		 scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(10, 11, 297, 328);
+	//	scrollPane_1.setVisible(false);
 		panel_3.add(scrollPane_1);
 		
 		table_1 = new JTable();
@@ -199,6 +214,10 @@ public class Pedido extends JDialog {
 		btnMover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int fila = table.getSelectedRow();
+				if(fila<0) {
+					JOptionPane.showMessageDialog(null, "Selecione un componente para agregar", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+				}else{
+					btnSolicitarMas.setEnabled(true);
 				String codigo= (String)table.getValueAt(fila, 0);
 				Componente C1 = Aplicacion.getInstance().buscarComponentePorCodigo(codigo);
 				Componentespedidos.add(C1);
@@ -206,13 +225,13 @@ public class Pedido extends JDialog {
 				C1.setCantidad_disponible(C1.getCantidad_disponible()-1);
 				textField_total.setText(Float.toString(precioTotalComponentePedido()));
 				textField_devuelta.setText(Float.toString(devuelta()));
-		//		Aplicacion.getInstance().getComponentes().remove(C1);
 				loadTable();
 				loadTablePedidosRemover();
 				}else {
-				JOptionPane.showMessageDialog(null, "no hay suficiente");
-				} 
+					JOptionPane.showMessageDialog(null, "Este componente no esta disponible", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+			}	
 				btnMover.setEnabled(false);
+				}
 			}
 		});
 		btnMover.setEnabled(false);
@@ -223,6 +242,9 @@ public class Pedido extends JDialog {
 		btnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int fila = table_1.getSelectedRow();
+				if(fila<0) {
+					JOptionPane.showMessageDialog(null, "Selecione un componente para remover", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+				}else{
 				String codigo = (String) table_1.getValueAt(fila, 0);
 				Componente C1 = componentePedidosPorCodigo(codigo);
 				C1.setCantidad_disponible(C1.getCantidad_disponible()+1);
@@ -232,6 +254,7 @@ public class Pedido extends JDialog {
 				loadTable();
 				loadTablePedidosRemover();
 				btnRemover.setEnabled(false);
+				}
 			}
 		});
 		btnRemover.setEnabled(false);
@@ -318,6 +341,21 @@ public class Pedido extends JDialog {
 						}
 					}
 				});
+				
+				 btnSolicitarMas = new JButton("Solicitar mas");
+				 btnSolicitarMas.addActionListener(new ActionListener() {
+				 	public void actionPerformed(ActionEvent e) {
+				 		int fila = table.getSelectedRow();
+				 		String codigo= (String)table.getValueAt(fila, 0);
+				 		int yesORno = JOptionPane.showConfirmDialog(null, "Desea enviar una solicitud de re-inventar al administrador? ", "Solicitud", JOptionPane.YES_NO_OPTION);
+						if(yesORno == 0) {
+							Aplicacion.getInstance().setAcessmensaje(1);
+							Aplicacion.getInstance().setCodigocommensaje(codigo);
+						}
+				 	}
+				 });
+				btnSolicitarMas.setEnabled(false);
+				buttonPane.add(btnSolicitarMas);
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -326,7 +364,12 @@ public class Pedido extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Aplicacion.getInstance().getComponentes().addAll(Componentespedidos);
+						for(int j=0;j<Aplicacion.getInstance().getComponentes().size();j++) {
+						for(int i =0;i<Componentespedidos.size();i++) {
+							Componentespedidos.get(i).getBarcode().equalsIgnoreCase(Aplicacion.getInstance().getComponentes().get(j).getBarcode());
+							Aplicacion.getInstance().getComponentes().get(j).setCantidad_disponible(Aplicacion.getInstance().getComponentes().get(j).getCantidad_disponible()+1);
+						}
+						}
 						Componentespedidos.removeAll(Componentespedidos);
 						dispose();
 					}
@@ -335,7 +378,6 @@ public class Pedido extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-	//	loadClientes();
 		loadTable();
 	}
 	public static void loadTable() {
@@ -359,7 +401,6 @@ public class Pedido extends JDialog {
 			fila_1[0] = Componentespedidos.get(i).getBarcode();
 			fila_1[1] = Componentespedidos.get(i).getClass().getSimpleName();
 			fila_1[2] = Componentespedidos.get(i).getPrecio();
-		//	fila_1[3] = Componentespedidos.get(i).getCantidad_disponible();
 			model_1.addRow(fila_1);
 		
 		}
@@ -389,9 +430,4 @@ public class Pedido extends JDialog {
 		devuelta =Float.parseFloat(textField_credito.getText())-precioTotalComponentePedido();
 		return devuelta;
 	}
-	/*private void loadClientes() {
-		for(int i =0;i<Aplicacion.getInstance().getClientes().size();i++) {
-			comboBox_clientecodigo.addItem(new String(Aplicacion.getInstance().getClientes().get(i).getCodigo()));
-		}
-	}*/
 }
