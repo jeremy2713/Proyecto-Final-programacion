@@ -8,9 +8,6 @@ import javax.swing.JFrame;
 
 public class Fondologin extends JFrame {
 
-	/**
-	 * 
-	 */
 	ImageIcon imagen;
 	String nombre;
 	

@@ -95,12 +95,13 @@ public class Login extends JFrame {
 
 
 	public Login() {
+		
+		Fondologin L = new Fondologin("/img/imagenlogin.jpg");
 		setIconImage(new ImageIcon(getClass().getResource("/img/carritocompra.png")).getImage());
 
 		
 		
 		setTitle("Login");
-		Fondologin L = new Fondologin("/img/imagenlogin.jpg");
 
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
