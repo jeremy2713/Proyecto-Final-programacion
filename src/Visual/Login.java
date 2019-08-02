@@ -2,6 +2,7 @@ package Visual;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import Logico.Aplicacion;
 import Logico.Cliente;
 import Logico.User;
+import img.Fondologin;
 import img.ImagenFondoPrincipal;
 import sun.security.jca.GetInstance;
 
@@ -40,6 +42,7 @@ public class Login extends JFrame {
 	private JPanel border;
 	private JTextField txtusuario;
 	private JPasswordField txtpass;
+	private Image fondo;
 	/**
 	 * Launch the application.
 	 */
@@ -92,14 +95,16 @@ public class Login extends JFrame {
 
 
 	public Login() {
-		
 		setIconImage(new ImageIcon(getClass().getResource("/img/carritocompra.png")).getImage());
 
-
+		
+		
 		setTitle("Login");
+		Fondologin L = new Fondologin("/img/imagenlogin.jpg");
+
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 370, 282);
+		setBounds(100, 100, 389, 489);
 		border = new JPanel();
 		border.setForeground(new Color(255, 255, 255));
 		border.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -108,20 +113,20 @@ public class Login extends JFrame {
 		setLocationRelativeTo(null);
 		
 		JLabel lblUsuario = new JLabel("Username");
-		lblUsuario.setBounds(27, 57, 74, 20);
+		lblUsuario.setBounds(27, 166, 74, 20);
 		border.add(lblUsuario);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(27, 112, 69, 20);
+		lblPassword.setBounds(32, 248, 69, 20);
 		border.add(lblPassword);
 		
 		txtusuario = new JTextField();
-		txtusuario.setBounds(111, 54, 199, 26);
+		txtusuario.setBounds(111, 163, 199, 26);
 		border.add(txtusuario);
 		txtusuario.setColumns(10);
 		
 		txtpass = new JPasswordField();
-		txtpass.setBounds(111, 109, 199, 26);
+		txtpass.setBounds(111, 245, 199, 26);
 		border.add(txtpass);
 		txtpass.setColumns(10);
 		
@@ -152,7 +157,7 @@ public class Login extends JFrame {
 				}
 			});
 		
-		btnAcceder.setBounds(38, 180, 115, 29);
+		btnAcceder.setBounds(34, 350, 115, 29);
 		border.add(btnAcceder);
 		
 		JButton btnSalir = new JButton("Salir");
@@ -163,7 +168,7 @@ public class Login extends JFrame {
 				
 			}
 		});
-		btnSalir.setBounds(192, 180, 115, 29);
+		btnSalir.setBounds(194, 350, 115, 29);
 		border.add(btnSalir);
 		
 		

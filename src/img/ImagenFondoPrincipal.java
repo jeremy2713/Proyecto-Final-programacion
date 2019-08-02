@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 public class ImagenFondoPrincipal extends JPanel {
 
-	ImageIcon imagen;
+	ImageIcon imagenlogin;
 	String nombre;
 	
 	public ImagenFondoPrincipal(String nombre) {
@@ -16,8 +16,8 @@ public class ImagenFondoPrincipal extends JPanel {
 	}
 	public void paint(Graphics g) {
 		Dimension tamanio = getSize();
-		imagen = new ImageIcon(getClass().getResource(nombre));
-		g.drawImage(imagen.getImage(), 0, 0, tamanio.width, tamanio.height,null);
+		imagenlogin = new ImageIcon(getClass().getResource(nombre));
+		g.drawImage(imagenlogin.getImage(), 0, 0, tamanio.width, tamanio.height,null);
 		setOpaque(false);
 		super.paint(g);
 	}
