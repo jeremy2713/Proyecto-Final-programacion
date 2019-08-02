@@ -179,10 +179,10 @@ public class Aplicacion implements Serializable {
 	}
 
 	
-	public boolean confirmLogin(String text, String text2) {
+	public boolean confirmLogin(String text, String pass) {
 		boolean login = false;
 		for (User user : misUsers) {
-			if(user.getUserName().equals(text)&& (user.getPass().equals(text2))){
+			if(user.getUserName().equals(text) && (user.getPass().equals(pass))){
 				loginUser = user;
 				login = true;
 				

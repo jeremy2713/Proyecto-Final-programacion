@@ -72,7 +72,7 @@ public class Principal extends JFrame {
 		
 		setTitle("Tienda de Componentes");
 		
-		File datos = new File("Electronica.dat");
+		File datos = new File("electronica.dat");
 		if(datos.exists()) {
 			FileInputStream entradaFichero;
 			 try {

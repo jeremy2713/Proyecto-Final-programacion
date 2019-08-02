@@ -27,7 +27,7 @@ public class Servidor extends Thread{
 			System.exit(-1);
 		}
 
-		while(true) {
+		
 
 			try {
 				cliente = servidor.accept();
@@ -40,7 +40,7 @@ public class Servidor extends Thread{
 				System.out.println("Se a producido un error:" + e);
 				e.printStackTrace();
 			}
-		}
+		
 
 	}
 
@@ -61,7 +61,7 @@ public class Servidor extends Thread{
 				FileOutputStream userBin = new FileOutputStream(archivo);
 				ObjectOutputStream user = new ObjectOutputStream(userBin);
 				System.out.println("Creando archivos y usuario por defecto...");
-				User usuario = new User("administrador", "admin", "admin");
+				User usuario = new User("administrador", "Admin", "Admin");
 				Aplicacion.getInstance().regUser(usuario);
 				user.writeObject(Aplicacion.getInstance()); 
 				user.close();

@@ -29,7 +29,7 @@ public class Flujo extends Thread{
 	
 	public void run() {
 		
-		while (true) {
+	
 			try {
 				String username = entradadatos.readUTF();
 				String password = entradadatos.readUTF();
@@ -41,12 +41,12 @@ public class Flujo extends Thread{
 				salidadatos.flush();	
 			} catch (EOFException e) {
 				System.out.println("Informacion procesada y enviada correctamente");
-				break;
+				
 			} catch (IOException ioe) {
 				System.out.println("Error(Run): " + ioe );
-				break;
+				
 			}
-		}
+		
 		try {
 			entradadatos.close();
 			salidadatos.close();

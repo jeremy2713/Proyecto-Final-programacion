@@ -13,8 +13,10 @@ import Logico.Cliente;
 import Logico.User;
 import img.Fondologin;
 import img.ImagenFondoPrincipal;
+
 import sun.security.jca.GetInstance;
 import sun.tools.jar.Main;
+
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -32,6 +34,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -49,6 +52,7 @@ public class Login extends JFrame {
 	private JPasswordField txtpass;
 	private Image fondo;
 	private Socket conexion;
+	private boolean respuesta=true;
 	/**
 	 * Launch the application.
 	 */
@@ -58,20 +62,24 @@ public class Login extends JFrame {
 			public void run() {
 				FileInputStream tienda;
 				FileOutputStream tienda2;
-				ObjectInputStream tiendaLectura;
-				ObjectOutputStream tiendaEscritura;
+				ObjectInputStream tiendalectura;
+				ObjectOutputStream tiendaescritura;
 				try {
-					tienda= new FileInputStream ("Electronica.dat");
-					tiendaLectura = new ObjectInputStream(tienda);
-					Aplicacion temp = (Aplicacion)tiendaLectura.readObject();
+					tienda = new FileInputStream ("electronica.dat");
+					tiendalectura = new ObjectInputStream(tienda);
+					Aplicacion temp = (Aplicacion)tiendalectura.readObject();
 					Aplicacion.setInstance(temp);
 					tienda.close();
-					
+					tiendalectura.close();
 				} catch (FileNotFoundException e) {
 					try {
-						tienda2 = new  FileOutputStream("Electronica.dat");
+						tienda2 = new  FileOutputStream("electronica.dat");
+						tiendaescritura = new ObjectOutputStream(tienda2);
+						User aux = new User("Administrador", "Admin", "Admin");
+					      Aplicacion.getInstance().regUser(aux);
+						tiendaescritura.writeObject(Aplicacion.getInstance());
 						tienda2.close();
-						System.out.println("FUnciona");
+						tiendaescritura.close();
 					} catch (FileNotFoundException e1) {
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -83,9 +91,9 @@ public class Login extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
+				
 				try {
-					Login frame = new Login();
+						Login frame = new Login();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -94,13 +102,14 @@ public class Login extends JFrame {
 		});
 	}
 
+
 	
 
 
 	public Login() {
 		setAlwaysOnTop(true);
 		
-		Fondologin fondologin = new Fondologin("/img/imagenlogin.jpg");
+		Fondologin fondologin = new Fondologin("/img/imagen.jpg");
 		setIconImage(new ImageIcon(getClass().getResource("/img/carritocompra.png")).getImage());
         
 		
@@ -141,28 +150,6 @@ public class Login extends JFrame {
 		btnAcceder.addActionListener(new ActionListener() {
 				@SuppressWarnings("deprecation")
 				public void actionPerformed(ActionEvent e) {
-					boolean respuesta = false;
-
-					
-					if(Aplicacion.getInstance().confirmLogin(txtusuario.getText(),txtpass.getText())){
-						ImagenFondoPrincipal p = new ImagenFondoPrincipal("/img/Fondo.jpeg");// Ruta de la imagen de fondo
-						
-						Principal frame = new Principal();
-						dispose();
-						frame.setVisible(true);
-						frame.getContentPane().add(p);
-					
-					}
-					
-					/*else {
-						
-						JOptionPane.showMessageDialog(null, "Acceso denegado:\n"
-			                    + "Por favor ingrese un usuario y/o contraseña correctos", "Acceso denegado",
-			                    JOptionPane.ERROR_MESSAGE);
-						
-						
-					}
-				}*/
 					
 
 					try {
@@ -197,15 +184,47 @@ public class Login extends JFrame {
 						//Main.error.setGraphic(Main.imagenServidorError);
 						//Main.error.showAndWait();
 					}
+					
+					
+						if(respuesta==true) {
+							if(Aplicacion.getInstance().confirmLogin(txtusuario.getText(),txtpass.getText())){
 
-					if (respuesta) {
-						txtpass.setText("");
-					     txtusuario.setText("");
+						ImagenFondoPrincipal p = new ImagenFondoPrincipal("/img/Fondo.jpeg");// Ruta de la imagen de fondo
+						
+						Principal frame = new Principal();
+						dispose();
+						frame.setVisible(true);
+						frame.getContentPane().add(p);
+						}
+					}
+			
+				//	else {
+						
+						//JOptionPane.showMessageDialog(null, "Acceso denegado:\n"
+			                 //   + "Por favor ingrese un usuario y/o contraseña correctos", "Acceso denegado",
+			                  //  JOptionPane.ERROR_MESSAGE);
+						
+						
+					//}
+			
+
+					
+				}
+		});	
+
+		btnAcceder.setBounds(34, 350, 115, 29);
+		border.add(btnAcceder);
+
+				
+
+				//	if (respuesta) {
+					//	txtpass.setText("");
+					  //   txtusuario.setText("");
 						//Main.loginStage.hide();
 						//Main.principalStage.show(); 
 					     
 					  
-					}
+					//}
 					
 					//Principal frame = new Principal();
 					//dispose();
@@ -214,35 +233,19 @@ public class Login extends JFrame {
 
 					     
 					     
-					else {
+					//else {
 						
-						 System.out.println("No se ha podido iniciar sesion");
+						// System.out.println("No se ha podido iniciar sesion");
 
 						//Main.error.setTitle("Error");
 						//Main.error.setHeaderText("Error al intentar Iniciar sesion");
 						//Main.error.setContentText("La Contrase\u00f1a o el usuario son incorrectos");
 						//Main.error.setGraphic(Main.imagenListaBusqueda);
 						//Main.error.showAndWait();
-						 
-						 
 
-					}
-				}
+					//}
+			
 					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-			});
-		
-		btnAcceder.setBounds(34, 350, 115, 29);
-		border.add(btnAcceder);
 		
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
