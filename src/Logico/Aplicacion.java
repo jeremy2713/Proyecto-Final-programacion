@@ -16,6 +16,8 @@ public class Aplicacion implements Serializable {
 	private ArrayList<Componente> componentes;
 	private ArrayList<Combo> combos;
 	private static Aplicacion miAplicacion;
+	private int acessmensaje;
+	private String codigocommensaje;
 
 	
 	
@@ -193,6 +195,18 @@ public class Aplicacion implements Serializable {
 	public void setCombos(ArrayList<Combo> combos) {
 		this.combos = combos;
 	
+	}
+	public int getAcessmensaje() {
+		return acessmensaje;
+	}
+	public void setAcessmensaje(int acessmensaje) {
+		this.acessmensaje = acessmensaje;
+	}
+	public String getCodigocommensaje() {
+		return codigocommensaje;
+	}
+	public void setCodigocommensaje(String codigocommensaje) {
+		this.codigocommensaje = codigocommensaje;
 	}
 		
 

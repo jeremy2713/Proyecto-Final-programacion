@@ -23,5 +23,6 @@ public class Fondologin extends JFrame {
 		g.drawImage(imagen.getImage(), 0, 0, tamanio.width, tamanio.height,null);
 		super.paint(g);
 	}
+	
 
 }
