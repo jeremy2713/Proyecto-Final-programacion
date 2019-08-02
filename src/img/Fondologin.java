@@ -21,5 +21,5 @@ public class Fondologin extends JFrame {
 		super.paint(g);
 	}
 	
-
 }
+

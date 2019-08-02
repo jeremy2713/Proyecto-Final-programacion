@@ -30,6 +30,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
@@ -357,6 +358,7 @@ if(comboBoxcliente.equals("<seleccione>"))
 			{
 				JButton okButton = new JButton("Comprar combo");
 				okButton.addActionListener(new ActionListener() {
+					@SuppressWarnings("unchecked")
 					public void actionPerformed(ActionEvent e) {
 
 						if(devuelta()<0)
@@ -366,16 +368,9 @@ if(comboBoxcliente.equals("<seleccione>"))
 					                + "no posee credito suficiente para la compra", "",
 					                JOptionPane.ERROR_MESSAGE);
 
-						     	
-						}
-						if(Float.parseFloat(txtcredito.getText())<0)
-						{
-							
-
 						}
 						
-						else
-						{
+						else {
 							Factura aux = null;
 							int pos = comboBoxcliente.getSelectedIndex();
 							String codigoFactura;
@@ -383,14 +378,14 @@ if(comboBoxcliente.equals("<seleccione>"))
 							String codigo = (String) comboBoxcliente.getItemAt(pos);
 							Cliente elCliente = Aplicacion.getInstance().buscarClientePorCodigo(codigo);
 							ArrayList<Combo>miscombos = new ArrayList<>();
-						//miscombos.addAll(Componentespedidos);
+						miscombos.addAll((Collection<? extends Combo>) componentePedidosPorCodigo(codigo));
 							Componentespedidos.removeAll(Componentespedidos);
 							float total = Float.parseFloat(txttotal.getText());
 							float devuelta = Float.parseFloat(txtdevuelta.getText());
 							for(int i =0;i<Aplicacion.getInstance().getClientes().size();i++) {
 								if(Aplicacion.getInstance().getClientes().get(i)==elCliente) 
 									Aplicacion.getInstance().getClientes().get(i).setCredito(devuelta);
-							
+							System.out.println(miscombos);
 							}
 							aux = new Factura(codigoFactura, precioTotalCombo(), null, elCliente);
 							elCliente.agregarFactura(aux);
@@ -413,7 +408,7 @@ if(comboBoxcliente.equals("<seleccione>"))
 				JButton btnCancelar = new JButton("Cancelar");
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+
 						//Aplicacion.getInstance().getComponentes().addAll(Componentespedidos);
 						//Componentespedidos.removeAll(Componentespedidos);
 						dispose();

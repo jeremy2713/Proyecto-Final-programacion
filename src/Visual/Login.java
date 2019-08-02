@@ -14,6 +14,7 @@ import Logico.User;
 import img.Fondologin;
 import img.ImagenFondoPrincipal;
 import sun.security.jca.GetInstance;
+import sun.tools.jar.Main;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,12 +26,16 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 
 import java.awt.event.ActionListener;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import javax.swing.UIManager;
@@ -43,6 +48,7 @@ public class Login extends JFrame {
 	private JTextField txtusuario;
 	private JPasswordField txtpass;
 	private Image fondo;
+	private Socket conexion;
 	/**
 	 * Launch the application.
 	 */
@@ -64,10 +70,6 @@ public class Login extends JFrame {
 				} catch (FileNotFoundException e) {
 					try {
 						tienda2 = new  FileOutputStream("Electronica.dat");
-						tiendaEscritura = new ObjectOutputStream(tienda2);
-						User aux = new User("Administrador", "admin", "admin");
-						Aplicacion.getInstance().regUser(aux);
-						tiendaEscritura.writeObject(Aplicacion.getInstance());
 						tienda2.close();
 						System.out.println("FUnciona");
 					} catch (FileNotFoundException e1) {
@@ -91,14 +93,16 @@ public class Login extends JFrame {
 			}
 		});
 	}
+
 	
 
 
 	public Login() {
+		setAlwaysOnTop(true);
 		
-		Fondologin L = new Fondologin("/img/imagenlogin.jpg");
+		Fondologin fondologin = new Fondologin("/img/imagenlogin.jpg");
 		setIconImage(new ImageIcon(getClass().getResource("/img/carritocompra.png")).getImage());
-
+        
 		
 		
 		setTitle("Login");
@@ -137,17 +141,20 @@ public class Login extends JFrame {
 		btnAcceder.addActionListener(new ActionListener() {
 				@SuppressWarnings("deprecation")
 				public void actionPerformed(ActionEvent e) {
-					
+					boolean respuesta = false;
+
 					
 					if(Aplicacion.getInstance().confirmLogin(txtusuario.getText(),txtpass.getText())){
 						ImagenFondoPrincipal p = new ImagenFondoPrincipal("/img/Fondo.jpeg");// Ruta de la imagen de fondo
+						
 						Principal frame = new Principal();
 						dispose();
 						frame.setVisible(true);
 						frame.getContentPane().add(p);
+					
 					}
 					
-					else {
+					/*else {
 						
 						JOptionPane.showMessageDialog(null, "Acceso denegado:\n"
 			                    + "Por favor ingrese un usuario y/o contraseña correctos", "Acceso denegado",
@@ -155,7 +162,83 @@ public class Login extends JFrame {
 						
 						
 					}
+				}*/
+					
+
+					try {
+						conexion = new Socket("127.0.0.1", 7000);
+
+						DataInputStream entradadatos = new DataInputStream(conexion.getInputStream());
+						DataOutputStream salidadatos = new DataOutputStream(conexion.getOutputStream());
+
+						
+						salidadatos.writeUTF(txtusuario.getText());
+						salidadatos.writeUTF(txtpass.getText());
+						respuesta = entradadatos.readBoolean();
+						salidadatos.close();
+						entradadatos.close();
+						conexion.close();
+
+					} catch (UnknownHostException e1) {
+						
+						 System.out.println("No se puede acceder al servidor.");
+					      System.exit(1);
+						//Main.error.setTitle("Error");
+						//Main.error.setHeaderText("Error al intentar conectarse con el servidor");
+						//Main.error.setContentText("No es posible comprobar sus credenciales en estos momentos, intentelo mas tarde");
+						//Main.error.setGraphic(Main.imagenServidorError);
+						//Main.error.showAndWait();
+					} catch (IOException e1) {
+						//Main.error.setTitle("Error");
+						 System.out.println("Error en la comunicacion con el servidor   ");
+
+						//Main.error.setHeaderText("Error al intentar conectarse con el servidor");
+						//Main.error.setContentText("No es posible comprobar sus credenciales en estos momentos, intentelo mas tarde");
+						//Main.error.setGraphic(Main.imagenServidorError);
+						//Main.error.showAndWait();
+					}
+
+					if (respuesta) {
+						txtpass.setText("");
+					     txtusuario.setText("");
+						//Main.loginStage.hide();
+						//Main.principalStage.show(); 
+					     
+					  
+					}
+					
+					//Principal frame = new Principal();
+					//dispose();
+					//frame.setVisible(true);
+					//frame.getContentPane().add(p);
+
+					     
+					     
+					else {
+						
+						 System.out.println("No se ha podido iniciar sesion");
+
+						//Main.error.setTitle("Error");
+						//Main.error.setHeaderText("Error al intentar Iniciar sesion");
+						//Main.error.setContentText("La Contrase\u00f1a o el usuario son incorrectos");
+						//Main.error.setGraphic(Main.imagenListaBusqueda);
+						//Main.error.showAndWait();
+						 
+						 
+
+					}
 				}
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 			});
 		
 		btnAcceder.setBounds(34, 350, 115, 29);
