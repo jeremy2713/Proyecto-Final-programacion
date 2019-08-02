@@ -17,7 +17,7 @@ public class Servidor extends Thread{
 	private static Flujo flujo;
 	private static Thread hilo;
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws ClassNotFoundException{
 		loadArchivo();
 		
 		try {
@@ -44,15 +44,24 @@ public class Servidor extends Thread{
 
 	}
 
-	private static void loadArchivo() {
+	private static void loadArchivo() throws ClassNotFoundException {
 		System.out.println("Iniciando sistema...");
 
 		try {	//se intenta leer el archivo usuarios.dat
 			File archivo = new File("electronica.dat");
-			FileInputStream userBin = new FileInputStream(archivo);
-			ObjectInputStream user = new ObjectInputStream(userBin);
-			System.out.println("Cargando informacion de usuario...");
+			System.out.println("Entrando");
+			//FileInputStream userBin = new FileInputStream(archivo);
+			//ObjectInputStream user = new ObjectInputStream(userBin);
+		//	Aplicacion temp = (Aplicacion)user.readObject();
+			//Aplicacion.setInstance(temp);
+			//System.out.println("Cargando informacion de usuario...");
 			
+			FileInputStream userBin = new FileInputStream ("electronica.dat");
+			ObjectInputStream user = new ObjectInputStream(userBin);
+			Aplicacion temp = (Aplicacion)user.readObject();
+			Aplicacion.setInstance(temp);
+			System.out.println("Cargando informacion de usuario...");
+
 			user.close();
 			userBin.close();
 		} catch (FileNotFoundException e2) {
@@ -61,7 +70,7 @@ public class Servidor extends Thread{
 				FileOutputStream userBin = new FileOutputStream(archivo);
 				ObjectOutputStream user = new ObjectOutputStream(userBin);
 				System.out.println("Creando archivos y usuario por defecto...");
-				User usuario = new User("administrador", "Admin", "Admin");
+				User usuario = new User("Administrador", "Admin", "Admin");
 				Aplicacion.getInstance().regUser(usuario);
 				user.writeObject(Aplicacion.getInstance()); 
 				user.close();

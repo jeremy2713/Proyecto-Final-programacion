@@ -52,7 +52,7 @@ public class Login extends JFrame {
 	private JPasswordField txtpass;
 	private Image fondo;
 	private Socket conexion;
-	private boolean respuesta=true;
+	private boolean respuesta=false;
 	/**
 	 * Launch the application.
 	 */
@@ -60,7 +60,7 @@ public class Login extends JFrame {
 		
 	EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				FileInputStream tienda;
+				/*FileInputStream tienda;
 				FileOutputStream tienda2;
 				ObjectInputStream tiendalectura;
 				ObjectOutputStream tiendaescritura;
@@ -91,7 +91,7 @@ public class Login extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+				*/
 				try {
 						Login frame = new Login();
 					frame.setVisible(true);
@@ -165,7 +165,6 @@ public class Login extends JFrame {
 						salidadatos.close();
 						entradadatos.close();
 						conexion.close();
-
 					} catch (UnknownHostException e1) {
 						
 						 System.out.println("No se puede acceder al servidor.");
@@ -187,15 +186,23 @@ public class Login extends JFrame {
 					
 					
 						if(respuesta==true) {
-							if(Aplicacion.getInstance().confirmLogin(txtusuario.getText(),txtpass.getText())){
-
+							//if(Aplicacion.getInstance().confirmLogin(txtusuario.getText(),txtpass.getText())){
+						Aplicacion.getInstance().confirmLogin(txtusuario.getText(),txtpass.getText());
 						ImagenFondoPrincipal p = new ImagenFondoPrincipal("/img/Fondo.jpeg");// Ruta de la imagen de fondo
+						System.out.println("Entrro");
+						for (User user : Aplicacion.getInstance().getMisUsers()) {
+							if(user.getUserName().equals(txtusuario.getText()) && (user.getPass().equals(txtpass.getText()))){
+								Aplicacion.setLoginUser(user);
+								
+							
+							}}
 						
 						Principal frame = new Principal();
 						dispose();
 						frame.setVisible(true);
 						frame.getContentPane().add(p);
-						}
+
+						//}
 					}
 			
 				//	else {

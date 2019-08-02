@@ -93,7 +93,7 @@ public class Principal extends JFrame {
             public void windowClosing(WindowEvent arg0) {
                 FileOutputStream f;
                 try {
-                    f = new FileOutputStream("Electronica.dat");
+                    f = new FileOutputStream("electronica.dat");
                     ObjectOutputStream guardar = new ObjectOutputStream(f);
                     guardar.writeObject(Aplicacion.getInstance());
                     f.close();
@@ -164,13 +164,13 @@ public class Principal extends JFrame {
 			}
 		});
 		mnComponentes.add(mntmRegistrarComponente);
-		if(!Aplicacion.getLoginUser().getTipo().equalsIgnoreCase("Cliente")) {
-			 mntmRegistrarComponente.setEnabled(true);
-		}else {
+		//if(!Aplicacion.getLoginUser().getTipo().equalsIgnoreCase("Cliente")) {
+			// mntmRegistrarComponente.setEnabled(true);
+		//}//else {
 			
-			 mntmRegistrarComponente.setEnabled(false);
-		}
-		
+			// mntmRegistrarComponente.setEnabled(false);
+		//}
+		 mntmRegistrarComponente.setEnabled(true);
 		
 		JMenuItem mntmListarComponente = new JMenuItem("Listar Componente");
 		mntmListarComponente.addActionListener(new ActionListener() {
@@ -187,12 +187,13 @@ public class Principal extends JFrame {
 	
 		JMenu mnUsuario = new JMenu("Usuario");
 		menuBar.add(mnUsuario);
-		if(!Aplicacion.getLoginUser().getTipo().equalsIgnoreCase("Cliente")) {
-			mnUsuario.setEnabled(true);
-		}else {
+		mnUsuario.setEnabled(true);
+		//if(!Aplicacion.getLoginUser().getTipo().equalsIgnoreCase("Cliente")) {
+			//mnUsuario.setEnabled(true);
+		//}else {
 			
-			mnUsuario.setEnabled(false);
-		}
+			//mnUsuario.setEnabled(false);
+		//}
 		
 		JMenuItem mntmRegistrar = new JMenuItem("Registrar");
 		mntmRegistrar.addActionListener(new ActionListener() {
