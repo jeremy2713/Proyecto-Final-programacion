@@ -190,12 +190,7 @@ public class Login extends JFrame {
 						Aplicacion.getInstance().confirmLogin(txtusuario.getText(),txtpass.getText());
 						ImagenFondoPrincipal p = new ImagenFondoPrincipal("/img/Fondo.jpeg");// Ruta de la imagen de fondo
 						System.out.println("Entrro");
-						for (User user : Aplicacion.getInstance().getMisUsers()) {
-							if(user.getUserName().equals(txtusuario.getText()) && (user.getPass().equals(txtpass.getText()))){
-								Aplicacion.setLoginUser(user);
-								
-							
-							}}
+						
 						
 						Principal frame = new Principal();
 						dispose();
